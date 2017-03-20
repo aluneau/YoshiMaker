@@ -1,0 +1,8 @@
+build
+nbproject
+.idea
+.idea/*
+YoshiMaker.iml
+out
+/build/
+
