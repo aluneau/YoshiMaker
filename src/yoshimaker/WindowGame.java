@@ -6,7 +6,7 @@ public class WindowGame extends BasicGame {
     private GameContainer container;
 
     public WindowGame() {
-        super("Lesson 1 :: WindowGame");
+        super("Yoshi Game");
     }
 
     @Override
