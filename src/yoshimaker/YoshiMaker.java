@@ -5,17 +5,23 @@
  */
 package yoshimaker;
 
+import org.newdawn.slick.AppGameContainer;
+import org.newdawn.slick.SlickException;
+
 /**
  *
  * @author adrien
  */
+
+
+
 public class YoshiMaker {
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
-        // TODO code application logic here
+    public static void main (String[] args) throws SlickException {
+        new AppGameContainer(new WindowGame(), 640, 480, false).start();
     }
-    
+
 }
