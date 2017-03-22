@@ -2,13 +2,16 @@ package yoshimaker;
 
 import yoshimaker.views.TitleScreen;
 import org.newdawn.slick.*;
+import yoshimaker.global.Physics;
 
 public class WindowGame extends BasicGame {
     private GameContainer container;
     private TitleScreen view;
+    private Physics physics;
     
     public WindowGame() {
         super("Yoshi Game");
+       
     }
 
     @Override
@@ -16,6 +19,8 @@ public class WindowGame extends BasicGame {
         this.container = container;
         view = new TitleScreen();
         view.init(container);
+        
+        physics = new Physics();
     }
 
     @Override
@@ -26,6 +31,7 @@ public class WindowGame extends BasicGame {
     @Override
     public void update(GameContainer container, int delta) throws SlickException {
         view.update(container, delta);
+        physics.update();
     }
 
     @Override
