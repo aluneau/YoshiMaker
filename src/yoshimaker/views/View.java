@@ -5,6 +5,8 @@
  */
 package yoshimaker.views;
 
+import org.newdawn.slick.SlickException;
+
 /**
  *
  * @author punpun
@@ -14,7 +16,7 @@ public abstract class View {
     /**
      * Crée les resources nécessaires à l'affichage de la vue
      */
-    public abstract void init();
+    public abstract void init() throws SlickException;
 
     /**
      * Redessine la vue

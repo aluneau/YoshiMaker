@@ -1,5 +1,6 @@
 package yoshimaker;
 
+import yoshimaker.views.TitleScreen;
 import org.newdawn.slick.*;
 
 public class WindowGame extends BasicGame {
