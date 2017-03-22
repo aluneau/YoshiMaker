@@ -12,6 +12,9 @@ import org.newdawn.slick.SlickException;
 public class Entity {
     private int x;
     private int y;
+    private int width;
+    private int height;
+
     private Animation sprite;
 
     public Entity(int x, int y, String... files) throws SlickException {
@@ -54,6 +57,22 @@ public class Entity {
     }
 
     public void draw(){
-        sprite.draw(x, y);
+        if(width == 0 || height == 0) {
+            sprite.draw(x, y);
+        }else{
+            sprite.draw(x, y, width, height);
+        }
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
     }
 }

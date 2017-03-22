@@ -43,6 +43,8 @@ public class TitleScreen extends View {
         clouds[4] = new Image("./resources/cloud_yoshi.png");
 
         testEntity = new Entity(50, 70, "./assets/image1.png");
+        testEntity.setWidth(70);
+        testEntity.setHeight(70);
     }
     
     @Override
