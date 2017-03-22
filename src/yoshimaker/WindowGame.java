@@ -15,17 +15,17 @@ public class WindowGame extends BasicGame {
     public void init(GameContainer container) throws SlickException {
         this.container = container;
         view = new TitleScreen();
-        view.init();
+        view.init(container);
     }
 
     @Override
     public void render(GameContainer container, Graphics g) throws SlickException {
-        view.render();
+        view.render(container, g);
     }
 
     @Override
     public void update(GameContainer container, int delta) throws SlickException {
-        view.update(delta);
+        view.update(container, delta);
     }
 
     @Override

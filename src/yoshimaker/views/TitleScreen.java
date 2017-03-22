@@ -5,6 +5,8 @@
  */
 package yoshimaker.views;
 
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
@@ -29,7 +31,7 @@ public class TitleScreen extends View {
     }
     
     @Override
-    public void init() throws SlickException {
+    public void init(GameContainer container) throws SlickException {
         background = new Image("./resources/background_yoshi.png");
         logo = new Image("./resources/logo_yoshi.png");
         clouds[0] = new Image("./resources/cloud_yoshi.png");
@@ -40,7 +42,7 @@ public class TitleScreen extends View {
     }
     
     @Override
-    public void render() {
+    public void render(GameContainer container, Graphics g) {
         background.draw(0, 00, 1.1f);
         for (int i = 0; i < clouds.length; i++) {
             clouds[i].draw((int)clouds_x[i], (int)clouds_y[i], 1.4f);
@@ -50,7 +52,7 @@ public class TitleScreen extends View {
     }
     
     @Override
-    public void update(int delta) {
+    public void update(GameContainer container, int delta) {
         for (int i = 0; i < clouds.length; i++) {
             clouds_x[i] += delta*0.05;
             if (clouds_x[i] > 850) { clouds_x[i] = -150; }
