@@ -4,4 +4,6 @@ build
 YoshiMaker.iml
 out
 /build/
-
+nbproject
+manifest.mf
+/dist/

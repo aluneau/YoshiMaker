@@ -9,6 +9,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
+import yoshimaker.global.Entity;
 
 /**
  *
@@ -18,6 +19,7 @@ public class TitleScreen extends View {
     private Image logo, background;
     private Image[] clouds;
     private double[] clouds_x, clouds_y;
+    private Entity testEntity;
 
     public TitleScreen() {
         clouds = new Image[5];
@@ -39,6 +41,10 @@ public class TitleScreen extends View {
         clouds[2] = new Image("./resources/cloud_yoshi.png");
         clouds[3] = new Image("./resources/cloud_yoshi.png");
         clouds[4] = new Image("./resources/cloud_yoshi.png");
+
+        testEntity = new Entity(50, 70, "./assets/image1.png");
+        testEntity.setWidth(70);
+        testEntity.setHeight(70);
     }
     
     @Override
@@ -49,6 +55,7 @@ public class TitleScreen extends View {
         }
         
         logo.draw(30, 50, 0.35f);
+        testEntity.draw();
     }
     
     @Override
