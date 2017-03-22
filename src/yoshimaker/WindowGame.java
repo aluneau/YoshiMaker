@@ -7,7 +7,7 @@ public class WindowGame extends BasicGame {
     private TitleScreen view;
     
     public WindowGame() {
-        super("Lesson 1 :: WindowGame");
+        super("Yoshi Game");
     }
 
     @Override
