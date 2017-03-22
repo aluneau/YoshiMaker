@@ -36,24 +36,27 @@ public class Entity {
         return y;
     }
 
-    public void setY(int y) {
+    public Entity setY(int y) {
         this.y = y;
+        return this;
     }
 
     public int getX() {
         return x;
     }
 
-    public void setX(int x) {
+    public Entity setX(int x) {
         this.x = x;
+        return this;
     }
 
     public Animation getSprite() {
         return sprite;
     }
 
-    public void setSprite(Animation sprite) {
+    public Entity setSprite(Animation sprite) {
         this.sprite = sprite;
+        return this;
     }
 
     public void draw(){
@@ -68,11 +71,13 @@ public class Entity {
         return width;
     }
 
-    public void setWidth(int width) {
+    public Entity setWidth(int width) {
         this.width = width;
+        return this;
     }
 
-    public void setHeight(int height) {
+    public Entity setHeight(int height) {
         this.height = height;
+        return this;
     }
 }
