@@ -22,10 +22,10 @@ public class YoshiMaker {
      * @param args the command line arguments
      */
     public static void main (String[] args) throws SlickException {
-        //new AppGameContainer(new WindowGame(), 640, 480, false).start();
-        Map map = new Map(10,15);
-        map.createMap();
-        map.printToDelete();
+        new AppGameContainer(new WindowGame(), 640, 480, false).start();
+        //Map map = new Map(10,15);
+        //map.createMap();
+        //map.printToDelete();
     }
 
 }
