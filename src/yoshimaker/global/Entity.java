@@ -43,7 +43,7 @@ public class Entity {
         this.sprite = sprite;
     }
 
-    public void draw(int x, int y){
+    public void draw(){
         sprite.draw(x, y);
     }
 }
