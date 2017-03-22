@@ -2,6 +2,7 @@ package yoshimaker.global;
 
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Image;
+import org.newdawn.slick.SlickException;
 
 /**
  * Class entity.
@@ -13,6 +14,15 @@ public class Entity {
     private int y;
     private Animation sprite;
 
+    public Entity(int x, int y, String... files) throws SlickException {
+        Image[] images = new Image[files.length];
+        this.x = x;
+        this.y = y;
+        for(int i = 0; i < files.length; i++){
+            images[i] = new Image(files[i]);
+        }
+        sprite = new Animation(images, 1, true);
+    }
     public Entity(Animation sprite, int x, int y){
         this.sprite = sprite;
         this.x = x;
