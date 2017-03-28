@@ -31,9 +31,17 @@ public class Physics {
      * Celles-ci sont à initaliser manuellement
      * Exemple de code :
      * 
+     * //Création du monde (requis avant toute instanciation !)
+     * Physics.world(0, -10); //Vecteur de gravité
+     * 
      * //Initialisation
      * Physics p = new Physics();
-     * p.define(BodyType.STATIC).at(0, 0).hitbox(1, 1).fixtures(0.5f, 0.3.f, 0.5f).create();
+     * p
+     *      .define(BodyType.STATIC) //Type d'objet : STATIC/DYNAMIC/KINEMATIC
+     *      .at(0, 0) //Position initiale
+     *      .hitbox(1, 1) //Demi-dimensions de l'objet
+     *      .fixtures(0.5f, 0.3.f, 0.5f) //Raccourcis pour les méthodes ci-dessous
+     *      .create(); //Crée l'objet
      * 
      * //Mis à jour du monde
      * Physics.render(delta);
@@ -43,8 +51,10 @@ public class Physics {
      * entity.y = p.y();
      * entity.angle = p.angle();
      * 
+     * //Appliquer des forces à l'entité
+     * p.impulse(+0.1f, 0); //Impulsion
      */
-    Physics() {
+    public Physics() {
         //Initialisation
         created = false ;
         defined = false ;
@@ -91,6 +101,28 @@ public class Physics {
      * @return 
      */
     public Vec2 at() {
+        return definition().position ;
+    }
+      
+    /**
+     * Met à jour la position du corps de l'objet
+     * @param x
+     * @param y
+     * @return 
+     */
+    public Physics at(float x, float y) {
+        if (defined) {
+            definition().position.set(x, y);
+        }
+        return this;
+    }
+
+    
+    /**
+     * Position du corps de l'objet
+     * @return 
+     */
+    public Vec2 position() {
         return body.getPosition();
     }
     
@@ -100,8 +132,10 @@ public class Physics {
      * @param y
      * @return 
      */
-    public Physics at(float x, float y) {
-        body.getPosition().set(x, y);
+    public Physics position(float x, float y) {
+        if (created) {
+            body.getPosition().set(x, y);
+        }
         return this;
     }
     
@@ -172,23 +206,25 @@ public class Physics {
     } 
     
     /**
-     * En cours :D
-     *//*
-    public Physics() {
-        Vec2 impulse = new Vec2(0, 50f);
+     * Applique une force d'impulsion sur l'objet
+     * @param x
+     * @param y
+     * @return 
+     */
+    public Physics impulse(float x, float y) {
+        Vec2 impulse = new Vec2(x, y);
         Vec2 point = body.getWorldPoint(body.getWorldCenter());
         body.applyLinearImpulse(impulse, point);
-        body.
         return this;
     }
-    */
+    
     
     /**
      * Angle
      * @return 
      */
     public float angle() {
-        return body.getAngle();
+        return created ? body.getAngle() : 0;
     }
     
     /**
@@ -196,7 +232,7 @@ public class Physics {
      * @return 
      */
     public float x() {
-        return body.getPosition().x;
+        return created ? body.getPosition().x : 0;
     }
     
     /**
@@ -204,7 +240,7 @@ public class Physics {
      * @return 
      */
     public float y() {
-        return body.getPosition().y;
+        return created ? body.getPosition().y : 0;
     }
     
     /**
