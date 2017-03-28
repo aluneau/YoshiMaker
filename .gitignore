@@ -7,3 +7,5 @@ out
 nbproject
 manifest.mf
 /dist/
+/lib/slf4j-1.7.25/
+lib/*
