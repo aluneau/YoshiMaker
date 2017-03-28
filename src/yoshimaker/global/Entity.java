@@ -3,6 +3,7 @@ package yoshimaker.global;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
+import yoshimaker.physics.Physics;
 
 /**
  * Class entity.
@@ -14,6 +15,7 @@ public class Entity {
     private int y;
     private int width;
     private int height;
+    public Physics physics;
 
     private Animation sprite;
 
@@ -59,10 +61,24 @@ public class Entity {
         return this;
     }
 
+    public Entity update(){
+        try{
+            System.out.println("Update physics");
+        }catch(NullPointerException ignore){
+            System.err.println("No physics avaiable for entity: " + this.toString());
+        }
+        return this;
+    }
+
     public void draw(){
-        if(width == 0 || height == 0) {
+        try{
+            x = (int) physics.x();
+            y = (int) physics.y();
+        }catch(NullPointerException ignore) {
+        }
+        if (width == 0 || height == 0) {
             sprite.draw(x, y);
-        }else{
+        } else {
             sprite.draw(x, y, width, height);
         }
     }
