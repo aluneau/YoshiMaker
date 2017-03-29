@@ -10,7 +10,7 @@ public class WindowGame extends BasicGame {
     private TitleScreen view;
     private Physics test, test2;
     private int test3 = 0;
-    
+    public Input input;
     public WindowGame() {
         super("Yoshi Game");
        
@@ -24,6 +24,8 @@ public class WindowGame extends BasicGame {
 
         view = new TitleScreen();
         view.init(container);
+
+        input = container.getInput();
     }
 
     @Override
@@ -33,17 +35,21 @@ public class WindowGame extends BasicGame {
 
     @Override
     public void update(GameContainer container, int delta) throws SlickException {
+        view.controller(input) ;
         view.update(container, delta);
         Physics.update();
     }
 
+    @Override
+    public void keyPressed(int key, char c) {
+        view.controller(key, c);
+    }
 
     @Override
     public void keyReleased(int key, char c) {
+        view.controller(key, c) ;
         if (Input.KEY_ESCAPE == key) {
             container.exit();
         }
-        view.keyReleased(key, c);
-
     }
 }

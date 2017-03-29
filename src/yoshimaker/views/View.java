@@ -35,4 +35,11 @@ public abstract class View  {
      * @param delta
      */
     public abstract void update(GameContainer container, int delta);
+
+    /**
+     * Controller
+     * @param key
+     * @param c
+     */
+    public abstract void controller(int key, char c);
 }

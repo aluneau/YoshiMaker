@@ -213,8 +213,24 @@ public class Physics {
      */
     public Physics impulse(float x, float y) {
         Vec2 impulse = new Vec2(x, y);
-        Vec2 point = body.getWorldPoint(body.getWorldCenter());
+        Vec2 point = body.getWorldCenter();
         body.applyLinearImpulse(impulse, point);
+        //body.applyForce(impulse, point);
+        return this;
+    }
+
+    /**
+     * Applique une force de translare
+     * @param dvx
+     * @param dvy
+     * @return
+     */
+    public Physics translate(float dvx, float dvy) {
+        Vec2 v = body.getLinearVelocity();
+        dvx = (dvx == 0) ? 0 : body.getMass() * (dvx - v.x);
+        dvy = (dvy == 0) ? 0 : body.getMass() * (dvy - v.y);
+        Vec2 iv = new Vec2(dvx, dvy);
+        impulse(iv.x, iv.y);
         return this;
     }
     

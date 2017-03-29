@@ -19,6 +19,8 @@ public class TitleScreen extends View {
     private Image[] clouds;
     private double[] clouds_x, clouds_y;
     private Entity testEntity;
+    private int test = 0;
+    private float test2 = 0, test3 = 0, test4 = 0;
 
     public TitleScreen() {
         clouds = new Image[5];
@@ -44,15 +46,15 @@ public class TitleScreen extends View {
         testEntity = new Entity(50, 70, "./assets/image1.png");
         testEntity.setWidth(70);
         testEntity.setHeight(70);
-        Physics.world(0, 10);
+        Physics.world(0, 9.8f);
 
 
         Physics test2;
         test2 = new Physics();
-        test2.define(BodyType.STATIC).at(0f, 300f).hitbox(500f, 10f).fixtures(0f, 0.7f, 0f).create();
+        test2.define(BodyType.STATIC).at(0f, 300f).hitbox(500f, 10f).fixtures(0.5f, 0.1f, 0f).create();
 
         testEntity.physics = new Physics();
-        testEntity.physics.define(BodyType.DYNAMIC).at(0f, -40f).hitbox(1f, 1f).fixtures(10f, 0.7f, 1f).create();
+        testEntity.physics.define(BodyType.DYNAMIC).at(0f, 300f).hitbox(0.25f, 0.85f).fixtures(0.5f, 1f, 0f).create();
     }
     
     @Override
@@ -68,7 +70,6 @@ public class TitleScreen extends View {
     
     @Override
     public void update(GameContainer container, int delta) {
-        //
 
         for (int i = 0; i < clouds.length; i++) {
             clouds_x[i] += delta*0.05;
@@ -76,9 +77,34 @@ public class TitleScreen extends View {
         }
     }
 
-    public void keyReleased(int key, char c) {
-        if (Input.KEY_D == key) {
-            testEntity.physics.impulse(+5f, 0);
+    public void controller(Input input) {
+        try {
+            if (input.isKeyDown(Input.KEY_D)) { controller(Input.KEY_D, 'd'); }
+            if (input.isKeyDown(Input.KEY_A)) { controller(Input.KEY_A, 'a'); }
+            if (input.isKeyDown(Input.KEY_SPACE)) { controller(Input.KEY_SPACE, ' '); }
+        } catch (Exception ignore) {}
+    }
+
+    public void controller(int key, char c) {
+        switch (key) {
+            case Input.KEY_D:
+                testEntity.physics.translate(+25f, 0);
+                break;
+            case Input.KEY_A:
+                testEntity.physics.translate(-25f, 0);
+                break;
+            case Input.KEY_SPACE:
+                if (test < 10) {
+                    testEntity.physics.impulse(0f, -2f);
+                    System.out.print(test);
+                    test++;
+                }
+                if (Float.compare(test2, testEntity.physics.y()) == 0) { test = 0; }
+                test2 = testEntity.physics.y();
+
+
+                break;
         }
     }
 }
+
