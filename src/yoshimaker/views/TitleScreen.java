@@ -51,7 +51,7 @@ public class TitleScreen extends View {
 
         Physics test2;
         test2 = new Physics();
-        test2.define(BodyType.STATIC).at(0f, 300f).hitbox(500f, 10f).fixtures(0.5f, 0.1f, 0f).create();
+        test2.define(BodyType.STATIC).at(0f, 300f).hitbox(500f, 10f).fixtures(0.5f, 0.9f, 0f).create();
 
         testEntity.physics = new Physics();
         testEntity.physics.define(BodyType.DYNAMIC).at(0f, 300f).hitbox(0.25f, 0.85f).fixtures(0.5f, 1f, 0f).create();
