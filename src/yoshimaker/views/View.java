@@ -5,6 +5,7 @@
  */
 package yoshimaker.views;
 
+import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
@@ -13,8 +14,7 @@ import org.newdawn.slick.SlickException;
  *
  * @author punpun
  */
-public abstract class View {
-
+public abstract class View  {
     /**
      * Crée les resources nécessaires à l'affichage de la vue
      * @param container

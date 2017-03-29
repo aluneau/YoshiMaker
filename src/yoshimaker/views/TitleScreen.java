@@ -6,10 +6,7 @@
 package yoshimaker.views;
 
 import org.jbox2d.dynamics.BodyType;
-import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
-import org.newdawn.slick.SlickException;
+import org.newdawn.slick.*;
 import yoshimaker.global.Entity;
 import yoshimaker.physics.Physics;
 
@@ -47,18 +44,15 @@ public class TitleScreen extends View {
         testEntity = new Entity(50, 70, "./assets/image1.png");
         testEntity.setWidth(70);
         testEntity.setHeight(70);
+        Physics.world(0, 10);
 
-
-
-        Physics.world(0, -10);
 
         Physics test2;
         test2 = new Physics();
-        test2.define(BodyType.STATIC).at(0f, -10f).hitbox(500f, 10f).fixtures(0f, 0.7f, 0f).create();
+        test2.define(BodyType.STATIC).at(0f, 300f).hitbox(500f, 10f).fixtures(0f, 0.7f, 0f).create();
 
         testEntity.physics = new Physics();
-        testEntity.physics.define(BodyType.DYNAMIC).at(0f, 4f).hitbox(1f, 1f).fixtures(10f, 0.7f, 0f).create();
-        testEntity.physics.impulse(+10f, 0);
+        testEntity.physics.define(BodyType.DYNAMIC).at(0f, -40f).hitbox(1f, 1f).fixtures(10f, 0.7f, 1f).create();
     }
     
     @Override
@@ -74,14 +68,17 @@ public class TitleScreen extends View {
     
     @Override
     public void update(GameContainer container, int delta) {
-        testEntity.physics.impulse(+5f, 0);
-        Physics.update();
-
-        //System.out.printf("{x:%4.2f, y:%4.2f, r:%4.2f}\n", testEntity.physics.x(), testEntity.physics.y(), testEntity.physics.angle());
+        //
 
         for (int i = 0; i < clouds.length; i++) {
             clouds_x[i] += delta*0.05;
             if (clouds_x[i] > 850) { clouds_x[i] = -150; }
+        }
+    }
+
+    public void keyReleased(int key, char c) {
+        if (Input.KEY_D == key) {
+            testEntity.physics.impulse(+5f, 0);
         }
     }
 }
