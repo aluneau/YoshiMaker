@@ -46,7 +46,7 @@ public class TitleScreen extends View {
         testEntity = new Entity(50, 70, "./assets/image1.png");
         testEntity.setWidth(70);
         testEntity.setHeight(70);
-        Physics.world(0, 9.8f);
+        Physics.world(0, 40f);
 
 
         Physics test2;
@@ -95,7 +95,7 @@ public class TitleScreen extends View {
                 break;
             case Input.KEY_SPACE:
                 if (test < 10) {
-                    testEntity.physics.impulse(0f, -2.5f);
+                    testEntity.physics.impulse(0f, -5f);
                     System.out.print(test);
                     test++;
                 }
