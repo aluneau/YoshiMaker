@@ -54,7 +54,7 @@ public class TitleScreen extends View {
         test2.define(BodyType.STATIC).at(0f, 300f).hitbox(500f, 10f).fixtures(0.5f, 0.9f, 0f).create();
 
         testEntity.physics = new Physics();
-        testEntity.physics.define(BodyType.DYNAMIC).at(0f, 300f).hitbox(0.25f, 0.85f).fixtures(0.5f, 1f, 0f).create();
+        testEntity.physics.define(BodyType.DYNAMIC).at(0f, 300f).hitbox(0.25f, 0.85f).fixtures(1f, 1f, 0f).create();
     }
     
     @Override
@@ -88,14 +88,14 @@ public class TitleScreen extends View {
     public void controller(int key, char c) {
         switch (key) {
             case Input.KEY_D:
-                testEntity.physics.translate(+25f, 0);
+                testEntity.physics.translate(+35f, 0);
                 break;
             case Input.KEY_A:
-                testEntity.physics.translate(-25f, 0);
+                testEntity.physics.translate(-35f, 0);
                 break;
             case Input.KEY_SPACE:
                 if (test < 10) {
-                    testEntity.physics.impulse(0f, -2f);
+                    testEntity.physics.impulse(0f, -2.5f);
                     System.out.print(test);
                     test++;
                 }
