@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package map;
+package yoshimaker.map;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;

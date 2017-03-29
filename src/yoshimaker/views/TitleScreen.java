@@ -5,7 +5,7 @@
  */
 package yoshimaker.views;
 
-import map.Map;
+import yoshimaker.map.Map;
 import org.jbox2d.dynamics.BodyType;
 import org.newdawn.slick.*;
 import yoshimaker.global.Entity;

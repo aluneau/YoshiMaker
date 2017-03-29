@@ -5,7 +5,7 @@
  */
 package yoshimaker;
 
-import map.Map;
+import yoshimaker.map.Map;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.SlickException;
 
