@@ -27,6 +27,7 @@ public class Entity {
             images[i] = new Image(files[i]);
         }
         sprite = new Animation(images, 1, true);
+        physics = new Physics();
     }
     public Entity(Animation sprite, int x, int y){
         this.sprite = sprite;

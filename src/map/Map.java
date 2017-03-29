@@ -5,6 +5,9 @@
  */
 package map;
 
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
+
 /**
  *
  * @author gaetane
@@ -31,7 +34,7 @@ public class Map {
         Case[][] grid = new Case[getY()][getX()];
         for (int i = 0; i < getX(); i++) {
             for (int j = 0; j < getY(); j++) {
-                if (i == getX()-1) {
+                if (j == getY()-1) {
                     grid[j][i] = new Case(i, j, Block.BRICK);
                 }else {
                     grid[j][i] = new Case(i, j);
@@ -47,6 +50,14 @@ public class Map {
                 System.out.print( map[j][i].getBlock() + "  ");
             }
             System.out.println( " ");
+        }
+    }
+    
+    public void draw(GameContainer container, Graphics g) {
+        for (int i = 0; i < getX(); i++) {
+            for (int j = 0; j < getY(); j++) {
+               map[j][i].draw(container, g);
+            }
         }
     }
 }

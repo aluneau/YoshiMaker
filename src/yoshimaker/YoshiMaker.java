@@ -5,6 +5,7 @@
  */
 package yoshimaker;
 
+import map.Map;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.SlickException;
 
@@ -22,9 +23,6 @@ public class YoshiMaker {
      */
     public static void main (String[] args) throws SlickException {
         new AppGameContainer(new WindowGame(), 640, 480, false).start();
-        //Map map = new Map(10,15);
-        //map.createMap();
-        //map.printToDelete();
     }
 
 }

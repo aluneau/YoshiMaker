@@ -5,6 +5,15 @@
  */
 package map;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.jbox2d.dynamics.BodyType;
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
+import org.newdawn.slick.SlickException;
+import yoshimaker.physics.Physics;
+
 /**
  *
  * @author gaetane
@@ -12,17 +21,29 @@ package map;
 public class Case {
     private final int x,y;
     private Block block;
+    private Physics physics;
+    private Image test;
     
     public Case(int x, int y){
         this.x = x;
         this.y = y;
         block = Block.NOTHING;
+        physics = new Physics();
+        
+        
     }
     
     public Case(int x, int y, Block block){
-        this.x = x;
-        this.y = y;
-        this.block = block;        
+        this(x, y);
+        this.block = block; 
+        
+        try {
+            if (block == Block.BRICK) { test = new Image("./resources/cloud_yoshi.png"); }
+            physics.define(BodyType.STATIC).at(x*64, y*64).hitbox(32, 32).fixtures(1f, 1f, 0f).create();
+        
+        } catch (SlickException ex) {
+            Logger.getLogger(Case.class.getName()).log(Level.SEVERE, null, ex);
+        }
     } 
 
     public Block getBlock() {
@@ -34,5 +55,10 @@ public class Case {
     }
     
     
+     public void draw(GameContainer container, Graphics g){
+        try{
+            g.drawImage(test, physics.x(), physics.y());
+        }catch(NullPointerException ignore) {}
+    }
     
 }

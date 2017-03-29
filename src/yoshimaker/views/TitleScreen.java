@@ -5,6 +5,7 @@
  */
 package yoshimaker.views;
 
+import map.Map;
 import org.jbox2d.dynamics.BodyType;
 import org.newdawn.slick.*;
 import yoshimaker.global.Entity;
@@ -21,6 +22,7 @@ public class TitleScreen extends View {
     private Entity testEntity;
     private int test = 0;
     private float test2 = 0, test3 = 0, test4 = 0;
+    private Map map ;
 
     public TitleScreen() {
         clouds = new Image[5];
@@ -42,19 +44,20 @@ public class TitleScreen extends View {
         clouds[2] = new Image("./resources/cloud_yoshi.png");
         clouds[3] = new Image("./resources/cloud_yoshi.png");
         clouds[4] = new Image("./resources/cloud_yoshi.png");
-
+        
+        Physics.world(0, 40f);
         testEntity = new Entity(50, 70, "./assets/image1.png");
         testEntity.setWidth(70);
         testEntity.setHeight(70);
-        Physics.world(0, 40f);
+        
 
+        //Physics test2 = new Physics();
+        //test2.define(BodyType.STATIC).at(0f, 300f).hitbox(500f, 10f).fixtures(0.5f, 0.9f, 0f).create();
 
-        Physics test2;
-        test2 = new Physics();
-        test2.define(BodyType.STATIC).at(0f, 300f).hitbox(500f, 10f).fixtures(0.5f, 0.9f, 0f).create();
-
-        testEntity.physics = new Physics();
-        testEntity.physics.define(BodyType.DYNAMIC).at(0f, 300f).hitbox(0.25f, 0.85f).fixtures(1f, 1f, 0f).create();
+        testEntity.physics.define(BodyType.DYNAMIC).at(0f, 100f).hitbox(0.25f, 0.85f).fixtures(1f, 1f, 0f).create();
+    
+        map = new Map(10,6);
+        map.createMap();
     }
     
     @Override
@@ -65,6 +68,7 @@ public class TitleScreen extends View {
         }
         
         logo.draw(30, 50, 0.35f);
+        map.draw(container, g);
         testEntity.draw();
     }
     
@@ -106,5 +110,7 @@ public class TitleScreen extends View {
                 break;
         }
     }
+    
+    
 }
 
