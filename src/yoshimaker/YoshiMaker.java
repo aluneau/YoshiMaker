@@ -8,6 +8,7 @@ package yoshimaker;
 import yoshimaker.map.Map;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.SlickException;
+import yoshimaker.physics.Physics;
 
 /**
  *
