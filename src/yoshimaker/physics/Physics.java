@@ -310,9 +310,11 @@ public class Physics extends Thread{
         try {
             while(true) {
                 update();
-
-                    sleep(2);
-
+                if(FPS>0) {
+                    double millis = (1.0 / (double)FPS) * 1000;
+                    long sleepTime = Math.round(millis);
+                    sleep(sleepTime);
+                }
             }
         }
         catch(Exception ignore){
