@@ -18,23 +18,24 @@ import org.newdawn.slick.geom.Rectangle;
  *
  * @author punpun
  */
-public class Physics {
+public class Physics extends Thread{
     private static World _world ;
+    public static int FPS;
     private Body body;
     private final BodyDef _definition;
     private final PolygonShape _hitbox;
     private final FixtureDef _fixtures;
     private boolean created, defined, fixtured, hitboxed;
-    
+
     /**
      * Contructeur
      * Note le constructeur ne fait qu'initaliser les données
      * Celles-ci sont à initaliser manuellement
      * Exemple de code :
-     * 
+     *
      * //Création du monde (requis avant toute instanciation !)
      * Physics.world(0, -10); //Vecteur de gravité
-     * 
+     *
      * //Initialisation
      * Physics p = new Physics();
      * p
@@ -43,15 +44,15 @@ public class Physics {
      *      .hitbox(1, 1) //Demi-dimensions de l'objet
      *      .fixtures(0.5f, 0.3.f, 0.5f) //Raccourcis pour les méthodes ci-dessous
      *      .create(); //Crée l'objet
-     * 
+     *
      * //Mis à jour du monde
      * Physics.render(delta);
-     * 
+     *
      * //Mise à jour de l'entité liée
      * entity.x = p.x();
      * entity.y = p.y();
      * entity.angle = p.angle();
-     * 
+     *
      * //Appliquer des forces à l'entité
      * p.impulse(+0.1f, 0); //Impulsion
      */
@@ -64,21 +65,21 @@ public class Physics {
         //JBox 2D initialisation
         _definition = new BodyDef();
         _hitbox = new PolygonShape();
-        _fixtures = new FixtureDef(); 
+        _fixtures = new FixtureDef();
     }
-    
+
     /**
      * Définition de l'objet
-     * @return 
+     * @return
      */
     public BodyDef definition() {
         return _definition;
     }
-    
+
     /**
      * Définition du type d'objet
      * @param type
-     * @return 
+     * @return
      */
     public Physics definition(BodyType type) {
         if (!created) {
@@ -87,29 +88,29 @@ public class Physics {
         }
         return this;
     }
-    
+
     /**
      * Raccourci de la méthode définition
      * @param type
-     * @return 
+     * @return
      */
     public Physics define(BodyType type) {
         return definition(type);
     }
-    
+
     /**
      * Position du corps de l'objet
-     * @return 
+     * @return
      */
     public Vec2 at() {
         return definition().position ;
     }
-      
+
     /**
      * Met à jour la position du corps de l'objet
      * @param x
      * @param y
-     * @return 
+     * @return
      */
     public Physics at(float x, float y) {
         if (defined) {
@@ -118,20 +119,20 @@ public class Physics {
         return this;
     }
 
-    
+
     /**
      * Position du corps de l'objet
-     * @return 
+     * @return
      */
     public Vec2 position() {
         return body.getPosition();
     }
-    
+
     /**
      * Met à jour la position du corps de l'objet
      * @param x
      * @param y
-     * @return 
+     * @return
      */
     public Physics position(float x, float y) {
         if (created) {
@@ -139,22 +140,22 @@ public class Physics {
         }
         return this;
     }
-    
+
     /**
      * Hitbox de l'objet
-     * @return 
+     * @return
      */
     public PolygonShape hitbox() {
         return _hitbox;
     }
-    
+
     /**
      * Définit la hitbox de l'objet
      * hx et hy représente le centre de gravité de l'objet
      * ie : la moitié des dimensions si c'est un rectangle
      * @param hx
      * @param hy
-     * @return 
+     * @return
      */
     public Physics hitbox(float hx, float hy) {
         if (!created) {
@@ -163,21 +164,21 @@ public class Physics {
         }
         return this;
     }
-    
+
     /**
      * Propriétés de l'objet
-     * @return 
+     * @return
      */
     public FixtureDef fixtures() {
         return _fixtures;
     }
-    
+
     /**
      * Définit les propriétés de l'objet
      * @param density - Densité en kg/m²
      * @param friction - Friction (0 à 1). O indique un corps glissant
      * @param restitution - Restitution (0 à 1). 1 indique un corps rebondissant
-     * @return 
+     * @return
      */
     public Physics fixtures(float density, float friction, float restitution) {
         if ((!created)&&(hitboxed)) {
@@ -190,12 +191,12 @@ public class Physics {
         return this;
     }
 
-    
+
     /**
      * Crée la physique de l'objet
      * Ne peut être appelée qu'une seule fois
      * Tout autre appel n'aura aucun effet
-     * @return 
+     * @return
      */
     public Physics create() {
         if ((!created)&&(defined)&&(fixtured)) {
@@ -204,13 +205,13 @@ public class Physics {
             created = true ;
         }
         return this;
-    } 
-    
+    }
+
     /**
      * Applique une force d'impulsion sur l'objet
      * @param x
      * @param y
-     * @return 
+     * @return
      */
     public Physics impulse(float x, float y) {
         Vec2 impulse = new Vec2(x, y);
@@ -234,52 +235,52 @@ public class Physics {
         impulse(iv.x, iv.y);
         return this;
     }
-    
-    
+
+
     /**
      * Angle
-     * @return 
+     * @return
      */
     public float angle() {
         return created ? body.getAngle() : 0;
     }
-    
+
     /**
      * X
-     * @return 
+     * @return
      */
     public float x() {
         return created ? body.getPosition().x : 0;
     }
-    
+
     /**
      * Y
-     * @return 
+     * @return
      */
     public float y() {
         return created ? body.getPosition().y : 0;
     }
-    
+
     /**
      * Initialiseur du monde
      * A utiliser à chaque fois qu'un nouveau monde est à créer
      * Vecteur gravité en paramètre
      * @param gx
-     * @param gy 
+     * @param gy
      */
     public static void world(float gx, float gy) {
         Vec2 gravity = new Vec2(gx, gy);
         _world = new World(gravity, true);
     }
-    
+
     /**
      * Physique du monde
-     * @return 
+     * @return
      */
     public static World world() {
         return _world ;
     }
-    
+
     /**
      * Met à jour le monde
      * @param step - delta seconde
@@ -289,19 +290,36 @@ public class Physics {
     public static void update(float step, int vi, int pi) {
         world().step(step, vi, pi);
     }
-    
+
     /**
      * Raccourci de la méthode update
      */
     public static void update() {
         update(1.0f/60.0f, 6, 2);
     }
-    
+
     /**
      * Raccourci de la méthode update
      * @param step
      */
     public static void update(float step) {
         update(step, 6, 2);
+    }
+
+    @Override
+    public void run(){
+        try {
+            while(true) {
+                update();
+                if(FPS>0) {
+                    double millis = (1.0 / (double)FPS) * 1000;
+                    long sleepTime = Math.round(millis);
+                    sleep(sleepTime);
+                }
+            }
+        }
+        catch(Exception ignore){
+
+        }
     }
 }
