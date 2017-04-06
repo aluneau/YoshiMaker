@@ -62,14 +62,18 @@ public class TitleScreen extends View {
         //Physics test2 = new Physics();
         //test2.define(BodyType.STATIC).at(0f, 300f).hitbox(500f, 10f).fixtures(0.5f, 0.9f, 0f).create();
         
-        map = new Map(12,6);
+        map = new Map(12,9);
         
         map.createMap();
-        map.setCase(2, 5, Type.ICE);
-        map.setCase(3, 5, Type.ICE);
-        map.setCase(11, 5, Type.SPRING);
-        map.setCase(10, 5, Type.EMPTY);
-        map.setCase(9, 5, Type.EMPTY);
+        map.setCase(2, 8, Type.ICE);
+        map.setCase(3, 8, Type.ICE);
+        map.setCase(11, 8, Type.SPRING);
+        map.setCase(8, 4, Type.BRICK);
+        map.setCase(8, 5, Type.BRICK);
+        map.setCase(8, 6, Type.BRICK);
+        map.setCase(8, 7, Type.BRICK);
+        map.setCase(10, 8, Type.EMPTY);
+        map.setCase(9, 8, Type.EMPTY);
     }
     
     @Override

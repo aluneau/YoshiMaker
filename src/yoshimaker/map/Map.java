@@ -61,6 +61,7 @@ public class Map {
             map[y][x].destroy();
             
             switch (type) {
+                case BRICK: map[y][x] = new Brick(x, y);break;
                 case ICE: map[y][x] = new Ice(x, y);break;
                 case SPRING: map[y][x] = new Spring(x, y);break;
             }

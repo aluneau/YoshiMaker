@@ -14,12 +14,15 @@ import org.newdawn.slick.SlickException;
  */
 public class Box extends Item {
     protected static int 
-        WIDTH = 50, 
-        HEIGHT = 50;
+        WIDTH = 64, 
+        HEIGHT = 64;
     protected static float 
-        DENSITY = 1f, 
-        FRICTION = 0.2f, 
-        RESTITUTION = 0.4f;
+        DENSITY = 3f, 
+        FRICTION = 1f, 
+        RESTITUTION = 0f;
+    protected static int
+        TILE_X = 2,
+        TILE_Y = 0;
     
     /**
      * Boite
@@ -29,7 +32,7 @@ public class Box extends Item {
      */
     public Box(int x, int y) throws SlickException {
         //Initialisation
-        super("./resources/box.png");
+        super(SPRITESHEET.getSprite(TILE_X, TILE_Y));
         //Coordonnées
         setX(x).setY(y).setWidth(WIDTH).setHeight(HEIGHT);
         //Défintion de la physique
