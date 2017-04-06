@@ -45,7 +45,7 @@ public class Case {
 
                 test = spritesheet.getSprite(5,0);
             }
-            physics.define(BodyType.STATIC).at(x*64, y*64).hitbox(32, 32).fixtures(1f, 1f, 0f).create();
+            physics.define(BodyType.STATIC).at(x*64, y*64).hitbox(64, 64).fixtures(1f, 1f, 0f).create();
         
     }
 
