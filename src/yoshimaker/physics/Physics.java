@@ -293,7 +293,7 @@ public class Physics {
      * Raccourci de la méthode update
      */
     public static void update() {
-        update(1.0f/60.0f, 6, 2);
+        update(1.0f/60.0f, 3, 2);
     }
     
     /**
@@ -301,6 +301,6 @@ public class Physics {
      * @param step
      */
     public static void update(float step) {
-        update(step, 6, 2);
+        update(step, 3, 2);
     }
 }

@@ -27,7 +27,7 @@ public class Box extends Item {
      * @param y
      * @throws SlickException 
      */
-    Box(int x, int y) throws SlickException {
+    public Box(int x, int y) throws SlickException {
         //Initialisation
         super("./resources/box.png");
         //Coordonnées
@@ -35,7 +35,7 @@ public class Box extends Item {
         //Défintion de la physique
         physics
             .at(x, y)
-            .hitbox(width/2f, height/2f)
+            .hitbox(width, height)
             .fixtures(DENSITY, FRICTION, RESTITUTION)
             .create();
     }

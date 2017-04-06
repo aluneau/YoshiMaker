@@ -11,6 +11,7 @@ import org.newdawn.slick.*;
 import yoshimaker.global.Entity;
 import yoshimaker.global.characters.players.Player;
 import yoshimaker.global.characters.players.Yoshi;
+import yoshimaker.global.items.Box;
 import yoshimaker.physics.Physics;
 import yoshimaker.global.items.Item;
 
@@ -40,16 +41,17 @@ public class TitleScreen extends View {
     
     @Override
     public void init(GameContainer container) throws SlickException {
-        background = new Image("./resources/background_yoshi.png");
+        /*background = new Image("./resources/background_yoshi.png");
         logo = new Image("./resources/logo_yoshi.png");
         clouds[0] = new Image("./resources/cloud_yoshi.png");
         clouds[1] = new Image("./resources/cloud_yoshi.png");
         clouds[2] = new Image("./resources/cloud_yoshi.png");
         clouds[3] = new Image("./resources/cloud_yoshi.png");
         clouds[4] = new Image("./resources/cloud_yoshi.png");
-        
+        */
         Physics.world(0, 40f);
-        testEntity = new Yoshi(50, 70);
+        testEntity = new Yoshi(50, 170);
+        Box b = new Box(100, 200);
         
         
         
@@ -64,14 +66,17 @@ public class TitleScreen extends View {
     
     @Override
     public void render(GameContainer container, Graphics g) {
-        background.draw(0, 00, 1.1f);
+        /*background.draw(0, 00, 1.1f);
         for (int i = 0; i < clouds.length; i++) {
             clouds[i].draw((int)clouds_x[i], (int)clouds_y[i], 1.4f);
         }
         
         logo.draw(30, 50, 0.35f);
-        map.draw(container, g);
+        
         //testEntity.draw();
+        
+        */
+        map.draw(container, g);
         Entity.drawAll();
     }
     
@@ -80,11 +85,11 @@ public class TitleScreen extends View {
         Entity.updateAll();
         
         
-        
+        /*
         for (int i = 0; i < clouds.length; i++) {
             clouds_x[i] += delta*0.05;
             if (clouds_x[i] > 850) { clouds_x[i] = -150; }
-        }
+        }*/
     }
 
     @Override

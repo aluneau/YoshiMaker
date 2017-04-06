@@ -13,7 +13,7 @@ import org.newdawn.slick.SlickException;
  */
 public class Yoshi extends Player {
     protected static int 
-        WIDTH = 70, 
+        WIDTH = 52, 
         HEIGHT = 70;
     protected static float 
         DENSITY = 1f, 
@@ -34,7 +34,7 @@ public class Yoshi extends Player {
         //Défintion de la physique
         physics
             .at(x, y)
-            .hitbox(width/2f, height/2f)
+            .hitbox(width, height)
             .fixtures(DENSITY, FRICTION, RESTITUTION)
             .create();
     }
@@ -60,6 +60,6 @@ public class Yoshi extends Player {
      */
     @Override
     public void key_space() {
-        physics.impulse(0f, -5f);
+        physics.impulse(0f, -50f);
     }
 }
