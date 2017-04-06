@@ -3,16 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package yoshimaker.map;
+package yoshimaker.global.cases;
 
 /**
  *
  * @author gaetane
  */
-public enum Block {
+public enum Type {
     ICE,
     LAVA,
     BRICK,
     PICK,
-    NOTHING;
+    EMPTY,
+    SPRING;
 }

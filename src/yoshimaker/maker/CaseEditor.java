@@ -7,35 +7,35 @@ package yoshimaker.maker;
 
 import org.newdawn.slick.Input;
 import org.newdawn.slick.MouseListener;
-import yoshimaker.map.Block;
-import yoshimaker.map.Case;
+import yoshimaker.global.cases.Type;
+import yoshimaker.map.CaseOld;
 
 /**
  *
  * @author gaetane
  */
-public class CaseEditor extends Case implements MouseListener {
+public class CaseEditor extends CaseOld implements MouseListener {
     /* chaque case aura l'information que la souris à relacher un objet au dessus 
     * d'une case précise.
     */
-    private Case editCase;
-    private Block blockSelect = null;
+    private CaseOld editCase;
+    private Type blockSelect = null;
 
-    public CaseEditor(Case c) {
+    public CaseEditor(CaseOld c) {
         super(c);
     }
 
     public void checkCase(int x, int y){ // vérifier si la case n'a pas déjà un attribut sinon il doit remove
         if( editCase.block != blockSelect){
-            editCase = new Case(x,y,blockSelect);
+            editCase = new CaseOld(x,y,blockSelect);
         }
     } 
 
-    public Block getBlockSelect() {
+    public Type getBlockSelect() {
         return blockSelect;
     }
 
-    public void setBlockSelect(Block blockSelect) {
+    public void setBlockSelect(Type blockSelect) {
         this.blockSelect = blockSelect;
     }
 

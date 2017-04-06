@@ -5,6 +5,7 @@
  */
 package yoshimaker.map;
 
+import yoshimaker.global.cases.Type;
 import com.sun.xml.internal.ws.developer.Serialization;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -20,22 +21,22 @@ import yoshimaker.physics.Physics;
  *
  * @author gaetane
  */
-public class Case implements Serialization{
+public class CaseOld implements Serialization{
 
     private int x, y;
     private boolean beCase; // je suis une case du jeu :p si je suis marqué false
     // ca veut dire que je sert dans le maker et donc que je ne suis pas une vrai case ou
     // Yoshi peut sauter.
-    public Block block;
+    public Type block;
     private Physics physics;
     private Image test;
     private static SpriteSheet spritesheet;
 
-    public Case(int x, int y) {
+    public CaseOld(int x, int y) {
         this.x = x;
         this.y = y;
         this.beCase = true;
-        block = Block.NOTHING;
+        block = Type.EMPTY;
         physics = new Physics();
 
         try {
@@ -45,16 +46,16 @@ public class Case implements Serialization{
         }
     }
     
-    public Case( Case c){
+    public CaseOld( CaseOld c){
         this(c.getPositionX(),c.getPositionY(),c.block);
     }
 
-    public Case(int x, int y, Block block) {
+    public CaseOld(int x, int y, Type block) {
         this(x, y);
         this.block = block;
         this.beCase = true;
 
-        if (block == Block.BRICK) {
+        if (block == Type.BRICK) {
 
             test = spritesheet.getSprite(5, 0);
         }
@@ -62,7 +63,7 @@ public class Case implements Serialization{
 
     }
     
-    public void constructorMaker(int x, int y, Block block){
+    public void constructorMaker(int x, int y, Type block){
         this.x = x;
         this.y = y;
         this.block = block;
@@ -92,7 +93,7 @@ public class Case implements Serialization{
         // Lecture en esperant que c'est le bon ordre 
         this.x = ois.readInt();
         this.y = ois.readInt();
-        this.block = (Block) ois.readObject();
+        this.block = (Type) ois.readObject();
         this.beCase = ois.readBoolean();
     }
 

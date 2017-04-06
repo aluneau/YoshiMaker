@@ -13,7 +13,6 @@ import java.util.logging.Logger;
 import org.jbox2d.dynamics.BodyType;
 import org.newdawn.slick.*;
 import yoshimaker.global.Entity;
-import yoshimaker.map.Block;
 import yoshimaker.physics.Physics;
 
 /**
@@ -21,7 +20,7 @@ import yoshimaker.physics.Physics;
  * @author gaetane
  */
 public abstract class Case extends Entity {
-    public Block block;
+    public Type block;
     private Image test;
     protected static SpriteSheet SPRITESHEET;
     protected static int WIDTH = 64, HEIGHT = 64;
@@ -33,7 +32,7 @@ public abstract class Case extends Entity {
         //Corps statique
         physics.define(BodyType.STATIC);
         //Type de block
-        block = Block.NOTHING;
+        block = Type.EMPTY;
     }
     
     static {
@@ -47,7 +46,7 @@ public abstract class Case extends Entity {
         // Lecture en esperant que c'est le bon ordre 
         this.x = ois.readInt();
         this.y = ois.readInt();
-        this.block = (Block) ois.readObject();
+        this.block = (Type) ois.readObject();
         this.beCase = ois.readBoolean();
     }
 
@@ -60,11 +59,11 @@ public abstract class Case extends Entity {
 /*
     
     
-    public Case(int x, int y, Block block){
+    public Case(int x, int y, Type block){
         this(x, y);
         this.block = block; 
         
-            if (block == Block.BRICK) {
+            if (block == Type.BRICK) {
 
                 test = ;
             }

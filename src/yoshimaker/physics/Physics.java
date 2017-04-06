@@ -313,4 +313,9 @@ public class Physics {
     public static int toPixels(float meters) {
         return round(meters * 50.0f);
     }
+    
+    public void destroy() {
+        System.out.println(created);
+        if (created) { world().destroyBody(body); }
+    }
 }

@@ -30,6 +30,8 @@ public abstract class Entity {
     protected Physics physics;
     protected Animation sprite;
     
+    protected boolean destroyed = false;
+    
     /**
      * Entité
      * @param files
@@ -112,11 +114,13 @@ public abstract class Entity {
     }
     
     public Entity update(){
+        if (destroyed) { return this ; }
         setX((int) physics.x()).setY((int) physics.y());
         return this;
     }
 
     public void draw(GameContainer container, Graphics g){
+        if (destroyed) { return ; }
         sprite.draw(x-half_width, y-half_height, width, height);
         
         Vec2[] vertices = physics.hitbox().getVertices();
@@ -143,5 +147,11 @@ public abstract class Entity {
     public static void drawAll(GameContainer container, Graphics g) {
         //Dessine toutes les entités
         for (Entity entity : ENTITIES) { entity.draw(container, g); }
+    }
+    
+    public void destroy() {
+        physics.destroy();
+        destroyed = true ;
+        ENTITIES.remove(this);
     }
 }

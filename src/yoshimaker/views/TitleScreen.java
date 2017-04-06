@@ -10,6 +10,7 @@ import org.jbox2d.dynamics.BodyType;
 import org.newdawn.slick.*;
 import yoshimaker.global.Entity;
 import yoshimaker.global.cases.Brick;
+import yoshimaker.global.cases.Type;
 import yoshimaker.global.characters.players.Player;
 import yoshimaker.global.characters.players.Yoshi;
 import yoshimaker.global.items.Box;
@@ -61,8 +62,14 @@ public class TitleScreen extends View {
         //Physics test2 = new Physics();
         //test2.define(BodyType.STATIC).at(0f, 300f).hitbox(500f, 10f).fixtures(0.5f, 0.9f, 0f).create();
         
-        map = new Map(10,6);
+        map = new Map(12,6);
+        
         map.createMap();
+        map.setCase(2, 5, Type.ICE);
+        map.setCase(3, 5, Type.ICE);
+        map.setCase(11, 5, Type.SPRING);
+        map.setCase(10, 5, Type.EMPTY);
+        map.setCase(9, 5, Type.EMPTY);
     }
     
     @Override
