@@ -12,6 +12,7 @@ import org.jbox2d.dynamics.BodyDef;
 import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.dynamics.FixtureDef;
 import org.jbox2d.dynamics.World;
+import org.newdawn.slick.geom.Rectangle;
 
 /**
  *
@@ -293,7 +294,7 @@ public class Physics {
      * Raccourci de la méthode update
      */
     public static void update() {
-        update(1.0f/60.0f, 3, 2);
+        update(1.0f/60.0f, 6, 2);
     }
     
     /**
@@ -301,6 +302,6 @@ public class Physics {
      * @param step
      */
     public static void update(float step) {
-        update(step, 3, 2);
+        update(step, 6, 2);
     }
 }

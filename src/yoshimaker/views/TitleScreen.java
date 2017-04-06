@@ -77,7 +77,7 @@ public class TitleScreen extends View {
         
         */
         map.draw(container, g);
-        Entity.drawAll();
+        Entity.drawAll(container, g);
     }
     
     @Override

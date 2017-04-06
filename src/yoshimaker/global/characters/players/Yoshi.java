@@ -34,7 +34,7 @@ public class Yoshi extends Player {
         //Défintion de la physique
         physics
             .at(x, y)
-            .hitbox(width, height)
+            .hitbox(width/2, height/2)
             .fixtures(DENSITY, FRICTION, RESTITUTION)
             .create();
     }
@@ -60,6 +60,7 @@ public class Yoshi extends Player {
      */
     @Override
     public void key_space() {
-        physics.impulse(0f, -50f);
+        System.out.println("space");
+        physics.impulse(0f, -500000f);
     }
 }

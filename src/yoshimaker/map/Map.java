@@ -5,8 +5,11 @@
  */
 package yoshimaker.map;
 
+import yoshimaker.global.cases.Case;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import yoshimaker.global.cases.Brick;
+import yoshimaker.global.cases.Empty;
 
 /**
  *
@@ -36,11 +39,13 @@ public class Map {
         Case[][] grid = new Case[getY()][getX()];
         for (int i = 0; i < getX(); i++) {
             for (int j = 0; j < getY(); j++) {
-                if (j == getY()-1) {
-                    grid[j][i] = new Case(i, j, Block.BRICK);
-                }else {
-                    grid[j][i] = new Case(i, j);
-                }
+                try {
+                    if (j == getY()-1) {
+                        grid[j][i] = new Brick(i, j);
+                    }else {
+                        grid[j][i] = new Empty(i, j);
+                    }
+                } catch (Exception e) {}
             }
         }
         map = grid;
@@ -49,7 +54,7 @@ public class Map {
     public void printToDelete() {
         for (int i = 0; i < getX(); i++) {
             for (int j = 0; j < getY(); j++) {
-                System.out.print( map[j][i].getBlock() + "  ");
+                System.out.print( map[j][i].block + "  ");
             }
             System.out.println( " ");
         }
