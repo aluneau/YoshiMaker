@@ -5,10 +5,23 @@
  */
 package yoshimaker.maker;
 
+import yoshimaker.map.Map;
+
 /**
  *
  * @author gaetane
  */
 public class Constructor {
+    public Map mapConstructor;
+    
+    public Constructor(){
+        mapConstructor = new Map(50,50);
+    }
+    
+    public void placeBlock(){
+        
+    }
+    
+    
     
 }

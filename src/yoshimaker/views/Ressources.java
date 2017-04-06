@@ -14,7 +14,7 @@ public class Ressources {
     public Image sprite;
 
     public Ressources(Map map, int x, int y) throws SlickException{
-        Block block = map.getCase(x, y).getBlock();
+        Block block = map.getCase(x, y).block;
         switch(block){//on load le theme par rapport au theme du block
             case BRICK:
                 theme = new Image("assets/images/maps/Castle.png");
