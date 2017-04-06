@@ -8,6 +8,7 @@ package yoshimaker.views;
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
 /**
@@ -38,8 +39,14 @@ public abstract class View  {
 
     /**
      * Controller
-     * @param key
-     * @param c
+     * @param input
      */
-    public abstract void controller(int key, char c);
+    public abstract void controller(Input input);
+    
+    /**
+     * Controller
+     * @param key
+     * @param c 
+     */
+    public abstract void controller(int key, char c, boolean type);
 }

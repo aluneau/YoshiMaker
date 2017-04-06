@@ -42,12 +42,12 @@ public class WindowGame extends BasicGame {
 
     @Override
     public void keyPressed(int key, char c) {
-        view.controller(key, c);
+        view.controller(key, c, true);
     }
 
     @Override
     public void keyReleased(int key, char c) {
-        view.controller(key, c) ;
+        view.controller(key, c, false) ;
         if (Input.KEY_ESCAPE == key) {
             container.exit();
         }

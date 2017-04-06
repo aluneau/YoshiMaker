@@ -9,7 +9,10 @@ import yoshimaker.map.Map;
 import org.jbox2d.dynamics.BodyType;
 import org.newdawn.slick.*;
 import yoshimaker.global.Entity;
+import yoshimaker.global.characters.players.Player;
+import yoshimaker.global.characters.players.Yoshi;
 import yoshimaker.physics.Physics;
+import yoshimaker.global.items.Item;
 
 /**
  *
@@ -19,7 +22,7 @@ public class TitleScreen extends View {
     private Image logo, background;
     private Image[] clouds;
     private double[] clouds_x, clouds_y;
-    private Entity testEntity;
+    private Yoshi testEntity;
     private int test = 0;
     private float test2 = 0, test3 = 0, test4 = 0;
     private Map map ;
@@ -46,16 +49,15 @@ public class TitleScreen extends View {
         clouds[4] = new Image("./resources/cloud_yoshi.png");
         
         Physics.world(0, 40f);
-        testEntity = new Entity(50, 70, "./assets/image1.png");
-        testEntity.setWidth(70);
-        testEntity.setHeight(70);
+        testEntity = new Yoshi(50, 70);
         
+        
+        
+       //Item testItem = new Item("./resources/cloud_yoshi.png");
 
         //Physics test2 = new Physics();
         //test2.define(BodyType.STATIC).at(0f, 300f).hitbox(500f, 10f).fixtures(0.5f, 0.9f, 0f).create();
-
-        testEntity.physics.define(BodyType.DYNAMIC).at(0f, 100f).hitbox(0.25f, 0.85f).fixtures(1f, 1f, 0f).create();
-    
+        
         map = new Map(10,6);
         map.createMap();
     }
@@ -69,48 +71,30 @@ public class TitleScreen extends View {
         
         logo.draw(30, 50, 0.35f);
         map.draw(container, g);
-        testEntity.draw();
+        //testEntity.draw();
+        Entity.drawAll();
     }
     
     @Override
     public void update(GameContainer container, int delta) {
-
+        Entity.updateAll();
+        
+        
+        
         for (int i = 0; i < clouds.length; i++) {
             clouds_x[i] += delta*0.05;
             if (clouds_x[i] > 850) { clouds_x[i] = -150; }
         }
     }
 
+    @Override
     public void controller(Input input) {
-        try {
-            if (input.isKeyDown(Input.KEY_D)) { controller(Input.KEY_D, 'd'); }
-            if (input.isKeyDown(Input.KEY_A)) { controller(Input.KEY_A, 'a'); }
-            if (input.isKeyDown(Input.KEY_SPACE)) { controller(Input.KEY_SPACE, ' '); }
-        } catch (Exception ignore) {}
+        Player.controller(input);
     }
 
-    public void controller(int key, char c) {
-        switch (key) {
-            case Input.KEY_D:
-                testEntity.physics.translate(+35f, 0);
-                break;
-            case Input.KEY_A:
-                testEntity.physics.translate(-35f, 0);
-                break;
-            case Input.KEY_SPACE:
-                if (test < 10) {
-                    testEntity.physics.impulse(0f, -5f);
-                    System.out.print(test);
-                    test++;
-                }
-                if (Float.compare(test2, testEntity.physics.y()) == 0) { test = 0; }
-                test2 = testEntity.physics.y();
-
-
-                break;
-        }
+    @Override
+    public void controller(int key, char c, boolean type) {
+        Player.controller(key, c, type);
     }
-    
-    
 }
 

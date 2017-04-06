@@ -1,5 +1,6 @@
 package yoshimaker.global;
 
+import java.util.HashSet;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
@@ -10,31 +11,46 @@ import yoshimaker.physics.Physics;
  * Contain X, Y and an image
  * Created by adrien on 22/03/2017.
  */
-public class Entity {
-    private int x;
-    private int y;
-    private int width;
-    private int height;
-    public Physics physics;
-
-    private Animation sprite;
-
-    public Entity(int x, int y, String... files) throws SlickException {
+public abstract class Entity {
+    /**
+     * Liste des entités
+     */
+    protected final static HashSet<Entity> ENTITIES = new HashSet();
+     
+    protected int 
+        x = 0, 
+        y = 0, 
+        width = 0, 
+        height = 0;
+    
+    protected Physics physics;
+    protected Animation sprite;
+    
+    /**
+     * Entité
+     * @param files
+     * @throws SlickException 
+     */
+    public Entity(String... files) throws SlickException {
+        //Référencement
+        ENTITIES.add(this);
+        //Sprites
         Image[] images = new Image[files.length];
-        this.x = x;
-        this.y = y;
-        for(int i = 0; i < files.length; i++){
-            images[i] = new Image(files[i]);
-        }
-        sprite = new Animation(images, 1, true);
+        for(int i = 0; i < files.length; i++){ images[i] = new Image(files[i]); }
+        this.sprite = new Animation(images, 1, true);
+        //Physique
         physics = new Physics();
     }
-    public Entity(Animation sprite, int x, int y){
+    
+    public Entity(Animation sprite){
+        //Référencement
+        ENTITIES.add(this);
+        //Sprite
         this.sprite = sprite;
-        this.x = x;
-        this.y = y;
+        //Physique
+        physics = new Physics();
     }
-
+    
     public int getY() {
         return y;
     }
@@ -62,28 +78,6 @@ public class Entity {
         return this;
     }
 
-    public Entity update(){
-        try{
-            System.out.println("Update physics");
-        }catch(NullPointerException ignore){
-            System.err.println("No physics avaiable for entity: " + this.toString());
-        }
-        return this;
-    }
-
-    public void draw(){
-        try{
-            x = (int) physics.x();
-            y = (int) physics.y();
-        }catch(NullPointerException ignore) {
-        }
-        if (width == 0 || height == 0) {
-            sprite.draw(x, y);
-        } else {
-            sprite.draw(x, y, width, height);
-        }
-    }
-
     public int getWidth() {
         return width;
     }
@@ -92,9 +86,41 @@ public class Entity {
         this.width = width;
         return this;
     }
+    
+    public int getHeight() {
+        return height;
+    }
 
     public Entity setHeight(int height) {
         this.height = height;
         return this;
+    }
+    
+    public Entity update(){
+        try{
+            x = (int) physics.x();
+            y = (int) physics.y();
+        } catch(Exception ignore) {  }
+        return this;
+    }
+
+    public void draw(){
+        sprite.draw(x, y, width, height);
+    }
+    
+    /**
+     * Met à jour toutes les entités crées
+     */
+    public static void updateAll() {
+        //Met à jour toutes les entités crées
+        for (Entity entity : ENTITIES) { entity.update(); }
+    }
+    
+    /**
+     * Dessine toutes les entités crées
+     */
+    public static void drawAll() {
+        //Dessine toutes les entités
+        for (Entity entity : ENTITIES) { entity.draw(); }
     }
 }
