@@ -19,6 +19,7 @@ import org.jbox2d.dynamics.World;
  */
 public class Physics extends Thread{
     private static World _world ;
+    public static int FPS;
     private Body body;
     private final BodyDef _definition;
     private final PolygonShape _hitbox;
@@ -309,6 +310,11 @@ public class Physics extends Thread{
         try {
             while(true) {
                 update();
+                if(FPS>0) {
+                    double millis = (1.0 / (double)FPS) * 1000;
+                    long sleepTime = Math.round(millis);
+                    sleep(sleepTime);
+                }
             }
         }
         catch(Exception ignore){
