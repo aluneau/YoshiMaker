@@ -9,6 +9,9 @@ public class WindowGame extends BasicGame {
     private GameContainer container;
     private TitleScreen view;
     private Physics test, test2;
+
+    private Thread physicThread;
+
     private int test3 = 0;
     public Input input;
     public WindowGame() {
@@ -26,6 +29,10 @@ public class WindowGame extends BasicGame {
         view.init(container);
 
         input = container.getInput();
+
+        physicThread = new Thread(new Physics());
+        physicThread.start();
+
     }
 
     @Override
@@ -37,7 +44,7 @@ public class WindowGame extends BasicGame {
     public void update(GameContainer container, int delta) throws SlickException {
         view.controller(input) ;
         view.update(container, delta);
-        Physics.update();
+        //Physics.update();
     }
 
     @Override

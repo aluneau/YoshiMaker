@@ -18,7 +18,7 @@ import org.newdawn.slick.SlickException;
 /**
  *
  * @author punpun et ba bravo Simon :o je suis outrée !! :o 
- 
+
 public class GameViewDeluxe extends View {
     //Map map = new Map(10,15);
     Image theme_ground;
