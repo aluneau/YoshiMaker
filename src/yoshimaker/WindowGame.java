@@ -4,6 +4,7 @@ import org.jbox2d.dynamics.BodyType;
 import yoshimaker.views.TitleScreen;
 import org.newdawn.slick.*;
 import yoshimaker.physics.Physics;
+import yoshimaker.physics.PhysicsThread;
 
 public class WindowGame extends BasicGame {
     private GameContainer container;
@@ -30,8 +31,8 @@ public class WindowGame extends BasicGame {
 
         input = container.getInput();
 
-        physicThread = new Thread(new Physics());
-        physicThread.start();
+        //physicThread = new Thread(new PhysicsThread());
+        //physicThread.start();
 
     }
 
@@ -44,8 +45,8 @@ public class WindowGame extends BasicGame {
     public void update(GameContainer container, int delta) throws SlickException {
         view.controller(input) ;
         view.update(container, delta);
-        Physics.FPS = container.getFPS();
-        //Physics.update();
+        Physics.update();
+        //PhysicsThread.FPS = container.getFPS();
     }
 
     @Override

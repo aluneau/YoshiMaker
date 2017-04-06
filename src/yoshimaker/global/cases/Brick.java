@@ -15,7 +15,7 @@ import org.newdawn.slick.SlickException;
 public class Brick extends Case {
     protected static float 
         DENSITY = 1f, 
-        FRICTION = 1f, 
+        FRICTION = 0.7f, 
         RESTITUTION = 0f;
     protected static int
         TILE_X = 5,
@@ -38,5 +38,6 @@ public class Brick extends Case {
             .hitbox(width/2, height/2)
             .fixtures(DENSITY, FRICTION, RESTITUTION)
             .create();
+        update();
     }
 }

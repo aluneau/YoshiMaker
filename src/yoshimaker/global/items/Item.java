@@ -22,6 +22,8 @@ public abstract class Item extends Entity {
     public Item(String... files) throws SlickException {
         //Initialiastion
         super(files);
+        //Référencement
+        ENTITIES.add(this);
         //Corps dynamique
         physics.define(BodyType.DYNAMIC);
     }

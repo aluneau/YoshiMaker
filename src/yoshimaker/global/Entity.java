@@ -36,8 +36,6 @@ public abstract class Entity {
      * @throws SlickException 
      */
     public Entity(String... files) throws SlickException {
-        //Référencement
-        ENTITIES.add(this);
         //Sprites
         Image[] images = new Image[files.length];
         for(int i = 0; i < files.length; i++){ images[i] = new Image(files[i]); }
@@ -47,8 +45,6 @@ public abstract class Entity {
     }
     
     public Entity(Image... images) throws SlickException {
-        //Référencement
-        ENTITIES.add(this);
         //Sprites
         this.sprite = new Animation(images, 1, true);
         //Physique
@@ -56,8 +52,6 @@ public abstract class Entity {
     }
     
     public Entity(Animation sprite){
-        //Référencement
-        ENTITIES.add(this);
         //Sprite
         this.sprite = sprite;
         //Physique
@@ -123,7 +117,6 @@ public abstract class Entity {
         sprite.draw(x-half_width, y-half_height, width, height);
         
         Vec2[] vertices = physics.hitbox().getVertices();
-        System.out.println(vertices.length);
         
         int dx = (int)physics.x(), dy = (int)physics.y();
         for (int i = 0; i < vertices.length; i++) { 

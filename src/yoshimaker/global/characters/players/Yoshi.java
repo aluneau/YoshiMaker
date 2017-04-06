@@ -17,7 +17,7 @@ public class Yoshi extends Player {
         HEIGHT = 70;
     protected static float 
         DENSITY = 1f, 
-        FRICTION = 1f, 
+        FRICTION = 0.8f, 
         RESTITUTION = 0f;
     
     /**
@@ -44,7 +44,7 @@ public class Yoshi extends Player {
      */
     @Override
     public void key_q() {
-        physics.translate(-35f, 0);
+        physics.translate(-100f, 0);
     }
     
     /**
@@ -52,7 +52,7 @@ public class Yoshi extends Player {
      */
     @Override
     public void key_d() {
-        physics.translate(+35f, 0);
+        physics.translate(+100f, 0);
     }
     
     /**
@@ -60,7 +60,6 @@ public class Yoshi extends Player {
      */
     @Override
     public void key_space() {
-        System.out.println("space");
         physics.impulse(0f, -500000f);
     }
 }

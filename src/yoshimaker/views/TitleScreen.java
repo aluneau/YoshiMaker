@@ -49,7 +49,7 @@ public class TitleScreen extends View {
         clouds[3] = new Image("./resources/cloud_yoshi.png");
         clouds[4] = new Image("./resources/cloud_yoshi.png");
         */
-        Physics.world(0, 40f);
+        Physics.world(0, 900f);
         testEntity = new Yoshi(50, 170);
         Box b = new Box(100, 200);
         

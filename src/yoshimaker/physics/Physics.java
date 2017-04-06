@@ -18,9 +18,8 @@ import org.newdawn.slick.geom.Rectangle;
  *
  * @author punpun
  */
-public class Physics extends Thread{
+public class Physics {
     private static World _world ;
-    public static int FPS;
     private Body body;
     private final BodyDef _definition;
     private final PolygonShape _hitbox;
@@ -295,7 +294,7 @@ public class Physics extends Thread{
      * Raccourci de la méthode update
      */
     public static void update() {
-        update(1.0f/60.0f, 6, 2);
+        update(1.0f/60.0f, 1, 1);
     }
 
     /**
@@ -304,22 +303,5 @@ public class Physics extends Thread{
      */
     public static void update(float step) {
         update(step, 6, 2);
-    }
-
-    @Override
-    public void run(){
-        try {
-            while(true) {
-                update();
-                if(FPS>0) {
-                    double millis = (1.0 / (double)FPS) * 1000;
-                    long sleepTime = Math.round(millis);
-                    sleep(sleepTime);
-                }
-            }
-        }
-        catch(Exception ignore){
-
-        }
     }
 }

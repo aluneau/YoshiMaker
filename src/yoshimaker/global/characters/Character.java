@@ -22,6 +22,8 @@ public abstract class Character extends Entity {
     public Character(String... files) throws SlickException {
         //Initialiastion
         super(files);
+        //Référencement
+        ENTITIES.add(this);
         //Corps dynamique
         physics.define(BodyType.DYNAMIC);
     }
