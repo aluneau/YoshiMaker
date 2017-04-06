@@ -18,7 +18,7 @@ public class Box extends Item {
         HEIGHT = 50;
     protected static float 
         DENSITY = 1f, 
-        FRICTION = 0.9f, 
+        FRICTION = 0.2f, 
         RESTITUTION = 0.4f;
     
     /**

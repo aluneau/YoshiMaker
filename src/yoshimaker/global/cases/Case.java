@@ -5,6 +5,9 @@
  */
 package yoshimaker.global.cases;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.jbox2d.dynamics.BodyType;
@@ -22,6 +25,7 @@ public abstract class Case extends Entity {
     private Image test;
     protected static SpriteSheet SPRITESHEET;
     protected static int WIDTH = 64, HEIGHT = 64;
+    private boolean beCase;
    
     public Case(Image... files) throws SlickException {
         //Initialiastion
@@ -38,7 +42,21 @@ public abstract class Case extends Entity {
             SPRITESHEET = new SpriteSheet("./assets/tileset1.png", 64, 64, 1);
         } catch (Exception ignore) { }
     }
+    
+    public void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException {
+        // Lecture en esperant que c'est le bon ordre 
+        this.x = ois.readInt();
+        this.y = ois.readInt();
+        this.block = (Block) ois.readObject();
+        this.beCase = ois.readBoolean();
+    }
 
+    public void writeObject(ObjectOutputStream oos) throws IOException {
+        oos.writeInt(x);
+        oos.writeInt(y);
+        oos.writeObject(block);
+        oos.writeBoolean(beCase);
+    }
 /*
     
     

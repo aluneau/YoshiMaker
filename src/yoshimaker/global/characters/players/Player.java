@@ -62,7 +62,6 @@ public abstract class Player extends yoshimaker.global.characters.Character {
         try { for (Player player : PLAYERS) {
             if (input.isKeyDown(Input.KEY_D)) { player.key_d(); }
             if (input.isKeyDown(Input.KEY_Q)) { player.key_q(); }
-            if (input.isKeyDown(Input.KEY_SPACE)) { player.key_space(); }
         } } catch (Exception ignore) {}
     }
     
@@ -78,7 +77,11 @@ public abstract class Player extends yoshimaker.global.characters.Character {
      * @param key
      * @param c 
      */
-    public static void keydown(int key, char c) {}
+    public static void keydown(int key, char c) {
+        for (Player player : PLAYERS) {
+            if (key == Input.KEY_SPACE) { player.key_space(); }
+        }
+    }
     
     /**
      * Callback à la touche Q

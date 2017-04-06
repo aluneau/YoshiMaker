@@ -34,7 +34,7 @@ public class Brick extends Case {
         setX(x).setY(y).setWidth(WIDTH).setHeight(HEIGHT);
         //Définition de la physique
         physics
-            .at(x*64, y*64)
+            .at(x*width, y*height)
             .hitbox(width/2, height/2)
             .fixtures(DENSITY, FRICTION, RESTITUTION)
             .create();

@@ -5,6 +5,7 @@
  */
 package yoshimaker.physics;
 
+import static java.lang.Math.round;
 import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
@@ -111,9 +112,9 @@ public class Physics {
      * @param y
      * @return
      */
-    public Physics at(float x, float y) {
+    public Physics at(int x, int y) {
         if (defined) {
-            definition().position.set(x, y);
+            definition().position.set(toMeters(x), toMeters(y));
         }
         return this;
     }
@@ -133,9 +134,9 @@ public class Physics {
      * @param y
      * @return
      */
-    public Physics position(float x, float y) {
+    public Physics position(int x, int y) {
         if (created) {
-            body.getPosition().set(x, y);
+            body.getPosition().set(toMeters(x), toMeters(y));
         }
         return this;
     }
@@ -156,9 +157,9 @@ public class Physics {
      * @param hy
      * @return
      */
-    public Physics hitbox(float hx, float hy) {
+    public Physics hitbox(int hx, int hy) {
         if (!created) {
-            _hitbox.setAsBox(hx, hy);
+            _hitbox.setAsBox(toMeters(hx), toMeters(hy));
             hitboxed = true;
         }
         return this;
@@ -226,11 +227,11 @@ public class Physics {
      * @param dvy
      * @return
      */
-    public Physics translate(float dvx, float dvy) {
+    public Physics translate(int dvx, int dvy) {
         Vec2 v = body.getLinearVelocity();
-        dvx = (dvx == 0) ? 0 : body.getMass() * (dvx - v.x);
-        dvy = (dvy == 0) ? 0 : body.getMass() * (dvy - v.y);
-        Vec2 iv = new Vec2(dvx, dvy);
+        float ddvx = (dvx == 0) ? 0 : body.getMass() * (dvx - v.x);
+        float ddvy = (dvy == 0) ? 0 : body.getMass() * (dvy - v.y);
+        Vec2 iv = new Vec2(ddvx, ddvy);
         impulse(iv.x, iv.y);
         return this;
     }
@@ -249,7 +250,7 @@ public class Physics {
      * @return
      */
     public float x() {
-        return created ? body.getPosition().x : 0;
+        return created ? toPixels(body.getPosition().x) : 0;
     }
 
     /**
@@ -257,7 +258,7 @@ public class Physics {
      * @return
      */
     public float y() {
-        return created ? body.getPosition().y : 0;
+        return created ? toPixels(body.getPosition().y) : 0;
     }
 
     /**
@@ -294,7 +295,7 @@ public class Physics {
      * Raccourci de la méthode update
      */
     public static void update() {
-        update(1.0f/60.0f, 1, 1);
+        update(0.01f, 1, 1);
     }
 
     /**
@@ -303,5 +304,13 @@ public class Physics {
      */
     public static void update(float step) {
         update(step, 6, 2);
+    }
+    
+    public static float toMeters(int pixels) {
+        return pixels * 0.02f;
+    }
+    
+    public static int toPixels(float meters) {
+        return round(meters * 50.0f);
     }
 }

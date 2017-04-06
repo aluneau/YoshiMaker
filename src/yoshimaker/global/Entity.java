@@ -36,6 +36,8 @@ public abstract class Entity {
      * @throws SlickException 
      */
     public Entity(String... files) throws SlickException {
+        //Référencement
+        ENTITIES.add(this);
         //Sprites
         Image[] images = new Image[files.length];
         for(int i = 0; i < files.length; i++){ images[i] = new Image(files[i]); }
@@ -45,6 +47,8 @@ public abstract class Entity {
     }
     
     public Entity(Image... images) throws SlickException {
+        //Référencement
+        ENTITIES.add(this);
         //Sprites
         this.sprite = new Animation(images, 1, true);
         //Physique
@@ -52,6 +56,8 @@ public abstract class Entity {
     }
     
     public Entity(Animation sprite){
+        //Référencement
+        ENTITIES.add(this);
         //Sprite
         this.sprite = sprite;
         //Physique
@@ -106,10 +112,7 @@ public abstract class Entity {
     }
     
     public Entity update(){
-        try{
-            x = (int) physics.x();
-            y = (int) physics.y();
-        } catch(Exception ignore) {  }
+        setX((int) physics.x()).setY((int) physics.y());
         return this;
     }
 
@@ -118,15 +121,9 @@ public abstract class Entity {
         
         Vec2[] vertices = physics.hitbox().getVertices();
         
-        int dx = (int)physics.x(), dy = (int)physics.y();
+        int dx = (int)physics.x() -2, dy = (int)physics.y() -2;
         for (int i = 0; i < vertices.length; i++) { 
-            g.drawOval(dx+vertices[i].x, dy+vertices[i].y, 5, 5);
-            /*g.drawLine(
-            physics.x() + vertices[i-1 < 0 ? vertices.length-1 : i-1].x, 
-            physics.y() + vertices[i-1 < 0 ? vertices.length-1 : i-1].y, 
-            physics.x() + vertices[i].x, 
-            physics.y() + vertices[i].y
-            */
+            g.fillOval(dx+Physics.toPixels(vertices[i].x), dy+Physics.toPixels(vertices[i].y), 4, 4);
         }
     }   
     

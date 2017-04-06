@@ -65,13 +65,13 @@ public class Map {
         map = grid;
     }
 
-    public void draw(GameContainer container, Graphics g) {
+   /* public void draw(GameContainer container, Graphics g) {
         for (int i = 0; i < getX(); i++) {
             for (int j = 0; j < getY(); j++) {
                map[j][i].draw(container, g);
             }
         }
-    }
+    }*/
     // sauvegarder une partie
     public void save() throws IOException {
         // Fichier dans lequel on va écrire;

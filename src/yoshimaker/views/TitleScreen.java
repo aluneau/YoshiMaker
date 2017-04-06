@@ -9,6 +9,7 @@ import yoshimaker.map.Map;
 import org.jbox2d.dynamics.BodyType;
 import org.newdawn.slick.*;
 import yoshimaker.global.Entity;
+import yoshimaker.global.cases.Brick;
 import yoshimaker.global.characters.players.Player;
 import yoshimaker.global.characters.players.Yoshi;
 import yoshimaker.global.items.Box;
@@ -24,7 +25,7 @@ public class TitleScreen extends View {
     private Image[] clouds;
     private double[] clouds_x, clouds_y;
     private Yoshi testEntity;
-    private int test = 0;
+    private boolean test = false;
     private float test2 = 0, test3 = 0, test4 = 0;
     private Map map ;
 
@@ -41,17 +42,17 @@ public class TitleScreen extends View {
     
     @Override
     public void init(GameContainer container) throws SlickException {
-        /*background = new Image("./resources/background_yoshi.png");
-        logo = new Image("./resources/logo_yoshi.png");
+        background = new Image("./resources/background_yoshi.png");
+        /*logo = new Image("./resources/logo_yoshi.png");
         clouds[0] = new Image("./resources/cloud_yoshi.png");
         clouds[1] = new Image("./resources/cloud_yoshi.png");
         clouds[2] = new Image("./resources/cloud_yoshi.png");
         clouds[3] = new Image("./resources/cloud_yoshi.png");
         clouds[4] = new Image("./resources/cloud_yoshi.png");
         */
-        Physics.world(0, 900f);
-        testEntity = new Yoshi(50, 170);
-        Box b = new Box(100, 200);
+        Physics.world(0, 100f);
+        testEntity = new Yoshi(64, 4*64);
+        Box b = new Box(3*64, 4*64);
         
         
         
@@ -66,18 +67,21 @@ public class TitleScreen extends View {
     
     @Override
     public void render(GameContainer container, Graphics g) {
-        /*background.draw(0, 00, 1.1f);
+        /*
         for (int i = 0; i < clouds.length; i++) {
             clouds[i].draw((int)clouds_x[i], (int)clouds_y[i], 1.4f);
         }
         
-        logo.draw(30, 50, 0.35f);
         
+        
+        logo.draw(30, 50, 0.35f);
         //testEntity.draw();
         
         */
-        map.draw(container, g);
+        //map.draw(container, g);
+        background.draw(0, 00, 1.1f);
         Entity.drawAll(container, g);
+        
     }
     
     @Override
