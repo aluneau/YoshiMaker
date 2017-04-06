@@ -44,6 +44,7 @@ public class WindowGame extends BasicGame {
     public void update(GameContainer container, int delta) throws SlickException {
         view.controller(input) ;
         view.update(container, delta);
+        Physics.FPS = container.getFPS();
         //Physics.update();
     }
 
