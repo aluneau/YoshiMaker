@@ -29,7 +29,9 @@ public class Map {
     public int getY() {
         return y;
     }
-
+    public Case getCase(int x, int y){
+        return map[x][y];
+    }
     public void createMap() {
         Case[][] grid = new Case[getY()][getX()];
         for (int i = 0; i < getX(); i++) {
