@@ -8,10 +8,7 @@ package yoshimaker.map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.jbox2d.dynamics.BodyType;
-import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
-import org.newdawn.slick.SlickException;
+import org.newdawn.slick.*;
 import yoshimaker.physics.Physics;
 
 /**
@@ -23,28 +20,34 @@ public class Case {
     private Block block;
     private Physics physics;
     private Image test;
-    
+    private static SpriteSheet spritesheet;
+
     public Case(int x, int y){
         this.x = x;
         this.y = y;
         block = Block.NOTHING;
         physics = new Physics();
-        
-        
+
+        try {
+            spritesheet = new SpriteSheet("./assets/tileset1.png", 64,64,1);
+        } catch (SlickException e) {
+            e.printStackTrace();
+        }
+
+
     }
     
     public Case(int x, int y, Block block){
         this(x, y);
         this.block = block; 
         
-        try {
-            if (block == Block.BRICK) { test = new Image("./resources/cloud_yoshi.png"); }
+            if (block == Block.BRICK) {
+
+                test = spritesheet.getSprite(5,0);
+            }
             physics.define(BodyType.STATIC).at(x*64, y*64).hitbox(32, 32).fixtures(1f, 1f, 0f).create();
         
-        } catch (SlickException ex) {
-            Logger.getLogger(Case.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    } 
+    }
 
     public Block getBlock() {
         return block;
