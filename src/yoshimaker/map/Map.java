@@ -65,15 +65,6 @@ public class Map {
         map = grid;
     }
 
-    public void printToDelete() {
-        for (int i = 0; i < getX(); i++) {
-            for (int j = 0; j < getY(); j++) {
-                System.out.print( map[j][i].block + "  ");
-            }
-            System.out.println( " ");
-        }
-    }
-    
     public void draw(GameContainer container, Graphics g) {
         for (int i = 0; i < getX(); i++) {
             for (int j = 0; j < getY(); j++) {

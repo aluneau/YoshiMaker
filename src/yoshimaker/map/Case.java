@@ -23,7 +23,10 @@ import yoshimaker.physics.Physics;
 public class Case implements Serialization{
 
     private int x, y;
-    private Block block;
+    private boolean beCase; // je suis une case du jeu :p si je suis marqué false
+    // ca veut dire que je sert dans le maker et donc que je ne suis pas une vrai case ou
+    // Yoshi peut sauter.
+    public Block block;
     private Physics physics;
     private Image test;
     private static SpriteSheet spritesheet;
@@ -31,6 +34,7 @@ public class Case implements Serialization{
     public Case(int x, int y) {
         this.x = x;
         this.y = y;
+        this.beCase = true;
         block = Block.NOTHING;
         physics = new Physics();
 
@@ -39,12 +43,16 @@ public class Case implements Serialization{
         } catch (SlickException e) {
             e.printStackTrace();
         }
-
+    }
+    
+    public Case( Case c){
+        this(c.getPositionX(),c.getPositionY(),c.block);
     }
 
     public Case(int x, int y, Block block) {
         this(x, y);
         this.block = block;
+        this.beCase = true;
 
         if (block == Block.BRICK) {
 
@@ -53,15 +61,26 @@ public class Case implements Serialization{
         physics.define(BodyType.STATIC).at(x * 64, y * 64).hitbox(64, 64).fixtures(1f, 1f, 0f).create();
 
     }
-
-    public Block getBlock() {
-        return block;
-    }
-
-    public void setBlock(Block block) {
+    
+    public void constructorMaker(int x, int y, Block block){
+        this.x = x;
+        this.y = y;
         this.block = block;
+        this.beCase = false;
     }
 
+    public int getPositionX() {
+        return x;
+    }
+
+    public int getPositionY() {
+        return y;
+    }
+
+    public boolean isCase() {
+        return beCase;
+    }
+    
     public void draw(GameContainer container, Graphics g) {
         try {
             g.drawImage(test, physics.x(), physics.y());
@@ -74,12 +93,14 @@ public class Case implements Serialization{
         this.x = ois.readInt();
         this.y = ois.readInt();
         this.block = (Block) ois.readObject();
+        this.beCase = ois.readBoolean();
     }
 
     public void writeObject(ObjectOutputStream oos) throws IOException {
         oos.writeInt(x);
         oos.writeInt(y);
         oos.writeObject(block);
+        oos.writeBoolean(beCase);
     }
 
     // Abstract to Sérialization
