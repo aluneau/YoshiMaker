@@ -10,6 +10,7 @@ import org.jbox2d.callbacks.ContactListener;
 import org.jbox2d.collision.Manifold;
 import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.dynamics.contacts.Contact;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import yoshimaker.global.Entity;
 import yoshimaker.physics.Physics;
@@ -27,6 +28,16 @@ public abstract class Character extends Entity implements ContactListener {
      * @throws SlickException 
      */
     public Character(String... files) throws SlickException {
+        //Initialiastion
+        super(files);
+        //Référencement
+        ENTITIES.add(this);
+        //Corps dynamique
+        physics.define(BodyType.DYNAMIC);
+        Physics.world().setContactListener(this);
+    }
+    
+    public Character(Image... files) throws SlickException {
         //Initialiastion
         super(files);
         //Référencement

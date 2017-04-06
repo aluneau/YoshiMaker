@@ -7,6 +7,7 @@ package yoshimaker.global.characters.players;
 
 import java.util.HashSet;
 import org.jbox2d.dynamics.BodyType;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import yoshimaker.global.Entity;
@@ -28,6 +29,15 @@ public abstract class Player extends yoshimaker.global.characters.Character {
      * @throws SlickException 
      */
     public Player(String... files) throws SlickException {
+        //Initialiastion
+        super(files);
+        //Référencement
+        PLAYERS.add(this);
+        //Corps dynamique
+        physics.define(BodyType.DYNAMIC);
+    }
+    
+    public Player(Image... files) throws SlickException {
         //Initialiastion
         super(files);
         //Référencement
