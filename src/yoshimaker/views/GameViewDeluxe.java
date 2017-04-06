@@ -17,8 +17,8 @@ import org.newdawn.slick.SlickException;
 
 /**
  *
- * @author punpun
- */
+ * @author punpun et ba bravo Simon :o je suis outrée !! :o 
+ 
 public class GameViewDeluxe extends View {
     //Map map = new Map(10,15);
     Image theme_ground;
@@ -61,3 +61,4 @@ public class GameViewDeluxe extends View {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
+*/
