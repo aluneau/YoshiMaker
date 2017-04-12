@@ -98,7 +98,8 @@ public class TitleScreen extends View {
     @Override
     public void update(GameContainer container, int delta) {
         Entity.updateAll();
-        
+        Physics.update();
+
         
         /*
         for (int i = 0; i < clouds.length; i++) {
