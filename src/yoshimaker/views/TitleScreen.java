@@ -74,6 +74,8 @@ public class TitleScreen extends View {
         map.setCase(8, 7, Type.BRICK);
         map.setCase(10, 8, Type.EMPTY);
         map.setCase(9, 8, Type.EMPTY);
+        map.move(100, 100);
+
     }
     
     @Override

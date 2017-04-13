@@ -87,6 +87,19 @@ public class Map {
         }
     }
 
+    public void move(int xOffset, int yOffset){
+        for(int i = 0; i < getX(); i++){
+            for (int j = 0; j < getY(); j++){
+                try {
+                    System.out.println("X: " + map[j][i].getX() + ", Y: " +map[j][i].getY());
+                    map[j][i].setX(map[j][i].getX() + xOffset);
+                    map[j][i].setY(map[j][i].getY() + yOffset);
+                    System.out.println("X: " + map[j][i].getX() + ", Y: " +map[j][i].getY());
+                }catch(Exception ignore){}
+            }
+        }
+    }
+
    /* public void draw(GameContainer container, Graphics g) {
         for (int i = 0; i < getX(); i++) {
             for (int j = 0; j < getY(); j++) {
