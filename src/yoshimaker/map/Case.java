@@ -38,11 +38,11 @@ public class Case implements Serialization{
         block = Block.NOTHING;
         physics = new Physics();
 
-        try {
+        /*try {
             spritesheet = new SpriteSheet("./assets/tileset1.png", 64, 64, 1);
         } catch (SlickException e) {
             e.printStackTrace();
-        }
+        }*/
     }
     
     public Case( Case c){
@@ -54,11 +54,11 @@ public class Case implements Serialization{
         this.block = block;
         this.beCase = true;
 
-        if (block == Block.BRICK) {
+        /*if (block == Block.BRICK) {
 
             test = spritesheet.getSprite(5, 0);
         }
-        physics.define(BodyType.STATIC).at(x * 64, y * 64).hitbox(64, 64).fixtures(1f, 1f, 0f).create();
+        physics.define(BodyType.STATIC).at(x * 64, y * 64).hitbox(64, 64).fixtures(1f, 1f, 0f).create();*/
 
     }
     
@@ -77,6 +77,14 @@ public class Case implements Serialization{
         return y;
     }
 
+    public Block getBlock() {
+        return block;
+    }
+
+    public void setBlock(Block block) {
+        this.block = block;
+    }
+    
     public boolean isCase() {
         return beCase;
     }

@@ -11,6 +11,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.Observable;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 
@@ -18,7 +19,7 @@ import org.newdawn.slick.Graphics;
  *
  * @author gaetane
  */
-public class Map {
+public class Map extends Observable  {
 
     private Case[][] map;
     private int x, y;
@@ -26,6 +27,12 @@ public class Map {
     public Map(int x, int y) {
         this.x = x;
         this.y = y;
+        createMap();
+    }
+    
+    public void update() { // Observer 
+        this.setChanged();
+        this.notifyObservers();
     }
 
     public void setX(int x) {
@@ -44,8 +51,13 @@ public class Map {
         return y;
     }
     public Case getCase(int x, int y){
-        return map[x][y];
+        return map[y][x];
     }
+    
+    public void setCase(int x, int y, Case c){
+        map[y][x] = c;
+    }
+    
     public void createMap() {
         Case[][] grid = new Case[getY()][getX()];
         for (int i = 0; i < getX(); i++) {
@@ -99,5 +111,9 @@ public class Map {
         }
         System.out.println(" Normalement déserializé ");
     }    
+    
+    public void changeCase(int x, int y, Block etat){
+        map[y][x].setBlock(etat);
+    }
     
 }
