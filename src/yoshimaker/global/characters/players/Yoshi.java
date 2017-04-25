@@ -65,7 +65,7 @@ public class Yoshi extends Player {
     @Override
     public void key_space() {
         if (jump) {
-            jump = false ;
+            jump = false ;  
             physics.impulse(0, -40);
         }
     }

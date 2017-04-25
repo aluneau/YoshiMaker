@@ -76,7 +76,7 @@ public class Map extends Observable  {
         } catch (Exception ignore) {
             Logger.getLogger(Map.class.getName()).log(Level.SEVERE, null, ignore);
         }
-        return this;
+        return this;    
     }
     
     public void createMap() {

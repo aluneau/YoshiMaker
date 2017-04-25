@@ -10,10 +10,10 @@ package yoshimaker.global.cases;
  * @author gaetane
  */
 public enum Type {
-    ICE,
+    ICE, 
     LAVA,
     BRICK,
-    PICK,
+    PICK, 
     EMPTY,
-    SPRING;
+    SPRING; // ressort
 }
