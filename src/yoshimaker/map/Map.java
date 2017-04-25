@@ -12,6 +12,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.Observable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.newdawn.slick.GameContainer;
@@ -27,7 +28,7 @@ import yoshimaker.global.cases.Type;
  *
  * @author gaetane
  */
-public class Map {
+public class Map extends Observable  {
 
     private Case[][] map;
     private int x, y;
@@ -35,6 +36,12 @@ public class Map {
     public Map(int x, int y) {
         this.x = x;
         this.y = y;
+        createMap();
+    }
+    
+    public void update() { // Observer 
+        this.setChanged();
+        this.notifyObservers();
     }
 
     public void setX(int x) {
@@ -53,7 +60,7 @@ public class Map {
         return y;
     }
     public Case getCase(int x, int y){
-        return map[x][y];
+        return map[y][x];
     }
     
     public Map setCase(int x, int y, Type type) {
@@ -139,5 +146,9 @@ public class Map {
         }
         System.out.println(" Normalement déserializé ");
     }    
+    
+    public void changeCase(int x, int y, Type etat){
+        map[y][x].setBlock(etat);
+    }
     
 }

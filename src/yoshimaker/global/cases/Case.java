@@ -71,4 +71,8 @@ public abstract class Case extends Entity {
         
     }
 */
+
+    public void setBlock(Type etat) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

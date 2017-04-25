@@ -17,6 +17,7 @@ public class MakerView extends View {
     private Image background;
     private Yoshi yoshi;
     Physics test;
+    
     @Override
     public void init(GameContainer container) throws SlickException {
         Physics.world(0, 100f);
@@ -39,26 +40,26 @@ public class MakerView extends View {
     }
 
     @Override
-    public void render(GameContainer container, Graphics g) {
+    public void render(GameContainer container, Graphics g) { //affichage
         background.draw(0, 00, 1.1f);
         Entity.drawAll(container, g);
 
     }
 
     @Override
-    public void update(GameContainer container, int delta) {
+    public void update(GameContainer container, int delta) { //physique
         Entity.updateAll();
         Physics.update();
     }
 
     @Override
-    public void controller(Input input) {
+    public void controller(Input input) { // lecture des données
         Player.controller(input);
     }
 
 
     @Override
-    public void controller(int key, char c, boolean type) {
+    public void controller(int key, char c, boolean type) { // clavier
         Player.controller(key, c, type);
     }
 
