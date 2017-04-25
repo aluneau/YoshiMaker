@@ -1,9 +1,13 @@
 package yoshimaker.global;
 
 import java.util.HashSet;
+import org.jbox2d.common.Vec2;
 import org.newdawn.slick.Animation;
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.geom.Rectangle;
 import yoshimaker.physics.Physics;
 
 /**
@@ -20,11 +24,13 @@ public abstract class Entity {
     protected int 
         x = 0, 
         y = 0, 
-        width = 0, 
-        height = 0;
+        width = 0, half_width = 0,
+        height = 0, half_height = 0;
     
     protected Physics physics;
     protected Animation sprite;
+    
+    protected boolean destroyed = false;
     
     /**
      * Entité
@@ -37,6 +43,15 @@ public abstract class Entity {
         //Sprites
         Image[] images = new Image[files.length];
         for(int i = 0; i < files.length; i++){ images[i] = new Image(files[i]); }
+        this.sprite = new Animation(images, 1, true);
+        //Physique
+        physics = new Physics();
+    }
+    
+    public Entity(Image... images) throws SlickException {
+        //Référencement
+        ENTITIES.add(this);
+        //Sprites
         this.sprite = new Animation(images, 1, true);
         //Physique
         physics = new Physics();
@@ -84,6 +99,7 @@ public abstract class Entity {
 
     public Entity setWidth(int width) {
         this.width = width;
+        this.half_width = this.width/2;
         return this;
     }
     
@@ -93,20 +109,27 @@ public abstract class Entity {
 
     public Entity setHeight(int height) {
         this.height = height;
+        this.half_height = this.height/2;
         return this;
     }
     
     public Entity update(){
-        try{
-            x = (int) physics.x();
-            y = (int) physics.y();
-        } catch(Exception ignore) {  }
+        if (destroyed) { return this ; }
+        setX((int) physics.x()).setY((int) physics.y());
         return this;
     }
 
-    public void draw(){
-        sprite.draw(x, y, width, height);
-    }
+    public void draw(GameContainer container, Graphics g){
+        if (destroyed) { return ; }
+        sprite.draw(x-half_width, y-half_height, width, height);
+        
+        Vec2[] vertices = physics.hitbox().getVertices();
+        
+        int dx = (int)physics.x() -2, dy = (int)physics.y() -2;
+        for (int i = 0; i < vertices.length; i++) { 
+            g.fillOval(dx+Physics.toPixels(vertices[i].x), dy+Physics.toPixels(vertices[i].y), 4, 4);
+        }
+    }   
     
     /**
      * Met à jour toutes les entités crées
@@ -118,9 +141,17 @@ public abstract class Entity {
     
     /**
      * Dessine toutes les entités crées
+     * @param container
+     * @param g
      */
-    public static void drawAll() {
+    public static void drawAll(GameContainer container, Graphics g) {
         //Dessine toutes les entités
-        for (Entity entity : ENTITIES) { entity.draw(); }
+        for (Entity entity : ENTITIES) { entity.draw(container, g); }
+    }
+    
+    public void destroy() {
+        physics.destroy();
+        destroyed = true ;
+        ENTITIES.remove(this);
     }
 }

@@ -9,6 +9,8 @@ import yoshimaker.map.Map;
 import org.jbox2d.dynamics.BodyType;
 import org.newdawn.slick.*;
 import yoshimaker.global.Entity;
+import yoshimaker.global.cases.Brick;
+import yoshimaker.global.cases.Type;
 import yoshimaker.global.characters.players.Player;
 import yoshimaker.global.characters.players.Yoshi;
 import yoshimaker.global.items.Box;
@@ -24,7 +26,7 @@ public class TitleScreen extends View {
     private Image[] clouds;
     private double[] clouds_x, clouds_y;
     private Yoshi testEntity;
-    private int test = 0;
+    private boolean test = false;
     private float test2 = 0, test3 = 0, test4 = 0;
     private Map map ;
 
@@ -41,17 +43,17 @@ public class TitleScreen extends View {
     
     @Override
     public void init(GameContainer container) throws SlickException {
-        /*background = new Image("./resources/background_yoshi.png");
-        logo = new Image("./resources/logo_yoshi.png");
+        background = new Image("./resources/background_yoshi.png");
+        /*logo = new Image("./resources/logo_yoshi.png");
         clouds[0] = new Image("./resources/cloud_yoshi.png");
         clouds[1] = new Image("./resources/cloud_yoshi.png");
         clouds[2] = new Image("./resources/cloud_yoshi.png");
         clouds[3] = new Image("./resources/cloud_yoshi.png");
         clouds[4] = new Image("./resources/cloud_yoshi.png");
         */
-        Physics.world(0, 40f);
-        testEntity = new Yoshi(50, 170);
-        Box b = new Box(100, 200);
+        Physics.world(0, 100f);
+        testEntity = new Yoshi(64, 4*64);
+        Box b = new Box(3*64, 4*64);
         
         
         
@@ -60,30 +62,46 @@ public class TitleScreen extends View {
         //Physics test2 = new Physics();
         //test2.define(BodyType.STATIC).at(0f, 300f).hitbox(500f, 10f).fixtures(0.5f, 0.9f, 0f).create();
         
-        map = new Map(10,6);
+        map = new Map(12,9);
+        
         map.createMap();
+        map.setCase(2, 8, Type.ICE);
+        map.setCase(3, 8, Type.ICE);
+        map.setCase(11, 8, Type.SPRING);
+        map.setCase(8, 4, Type.BRICK);
+        map.setCase(8, 5, Type.BRICK);
+        map.setCase(8, 6, Type.BRICK);
+        map.setCase(8, 7, Type.BRICK);
+        map.setCase(10, 8, Type.EMPTY);
+        map.setCase(9, 8, Type.EMPTY);
+        map.move(100, 100);
+
     }
     
     @Override
     public void render(GameContainer container, Graphics g) {
-        /*background.draw(0, 00, 1.1f);
+        /*
         for (int i = 0; i < clouds.length; i++) {
             clouds[i].draw((int)clouds_x[i], (int)clouds_y[i], 1.4f);
         }
         
-        logo.draw(30, 50, 0.35f);
         
+        
+        logo.draw(30, 50, 0.35f);
         //testEntity.draw();
         
         */
-        map.draw(container, g);
-        Entity.drawAll();
+        //map.draw(container, g);
+        background.draw(0, 00, 1.1f);
+        Entity.drawAll(container, g);
+        
     }
     
     @Override
     public void update(GameContainer container, int delta) {
         Entity.updateAll();
-        
+        Physics.update();
+
         
         /*
         for (int i = 0; i < clouds.length; i++) {

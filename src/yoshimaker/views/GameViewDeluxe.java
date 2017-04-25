@@ -7,7 +7,7 @@ package yoshimaker.views;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import yoshimaker.map.Block;
+import yoshimaker.global.cases.Type;
 import yoshimaker.map.Map;
 
 import org.newdawn.slick.GameContainer;

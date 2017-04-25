@@ -5,6 +5,7 @@
  */
 package yoshimaker.map;
 
+import yoshimaker.global.cases.Case;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -12,8 +13,16 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.Observable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.SlickException;
+import yoshimaker.global.cases.Brick;
+import yoshimaker.global.cases.Empty;
+import yoshimaker.global.cases.Ice;
+import yoshimaker.global.cases.Spring;
+import yoshimaker.global.cases.Type;
 
 /**
  *
@@ -54,31 +63,57 @@ public class Map extends Observable  {
         return map[y][x];
     }
     
-    public void setCase(int x, int y, Case c){
-        map[y][x] = c;
+    public Map setCase(int x, int y, Type type) {
+        try {
+            map[y][x].destroy();
+            
+            switch (type) {
+                case BRICK: map[y][x] = new Brick(x, y);break;
+                case ICE: map[y][x] = new Ice(x, y);break;
+                case SPRING: map[y][x] = new Spring(x, y);break;
+            }
+            
+        } catch (Exception ignore) {
+            Logger.getLogger(Map.class.getName()).log(Level.SEVERE, null, ignore);
+        }
+        return this;
     }
     
     public void createMap() {
-        Case[][] grid = new Case[getY()][getX()];
+        map = new Case[getY()][getX()];
         for (int i = 0; i < getX(); i++) {
             for (int j = 0; j < getY(); j++) {
-                if (j == getY()-1) {
-                    grid[j][i] = new Case(i, j, Block.BRICK);
-                }else {
-                    grid[j][i] = new Case(i, j);
-                }
+                try {
+                    if (j == getY()-1) {
+                        map[j][i] = new Brick(i, j);
+                    }else {
+                        map[j][i] = new Empty(i, j);
+                    }
+                } catch (Exception e) {}
             }
         }
-        map = grid;
     }
 
-    public void draw(GameContainer container, Graphics g) {
+    public void move(int xOffset, int yOffset){
+        for(int i = 0; i < getX(); i++){
+            for (int j = 0; j < getY(); j++){
+                try {
+                    System.out.println("X: " + map[j][i].getX() + ", Y: " +map[j][i].getY());
+                    map[j][i].setX(map[j][i].getX() + xOffset);
+                    map[j][i].setY(map[j][i].getY() + yOffset);
+                    System.out.println("X: " + map[j][i].getX() + ", Y: " +map[j][i].getY());
+                }catch(Exception ignore){}
+            }
+        }
+    }
+
+   /* public void draw(GameContainer container, Graphics g) {
         for (int i = 0; i < getX(); i++) {
             for (int j = 0; j < getY(); j++) {
                map[j][i].draw(container, g);
             }
         }
-    }
+    }*/
     // sauvegarder une partie
     public void save() throws IOException {
         // Fichier dans lequel on va écrire;
@@ -112,7 +147,7 @@ public class Map extends Observable  {
         System.out.println(" Normalement déserializé ");
     }    
     
-    public void changeCase(int x, int y, Block etat){
+    public void changeCase(int x, int y, Type etat){
         map[y][x].setBlock(etat);
     }
     

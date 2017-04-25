@@ -7,6 +7,7 @@ package yoshimaker.global.characters.players;
 
 import java.util.HashSet;
 import org.jbox2d.dynamics.BodyType;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import yoshimaker.global.Entity;
@@ -28,6 +29,15 @@ public abstract class Player extends yoshimaker.global.characters.Character {
      * @throws SlickException 
      */
     public Player(String... files) throws SlickException {
+        //Initialiastion
+        super(files);
+        //Référencement
+        PLAYERS.add(this);
+        //Corps dynamique
+        physics.define(BodyType.DYNAMIC);
+    }
+    
+    public Player(Image... files) throws SlickException {
         //Initialiastion
         super(files);
         //Référencement
@@ -62,7 +72,6 @@ public abstract class Player extends yoshimaker.global.characters.Character {
         try { for (Player player : PLAYERS) {
             if (input.isKeyDown(Input.KEY_D)) { player.key_d(); }
             if (input.isKeyDown(Input.KEY_Q)) { player.key_q(); }
-            if (input.isKeyDown(Input.KEY_SPACE)) { player.key_space(); }
         } } catch (Exception ignore) {}
     }
     
@@ -78,7 +87,11 @@ public abstract class Player extends yoshimaker.global.characters.Character {
      * @param key
      * @param c 
      */
-    public static void keydown(int key, char c) {}
+    public static void keydown(int key, char c) {
+        for (Player player : PLAYERS) {
+            if (key == Input.KEY_SPACE) { player.key_space(); }
+        }
+    }
     
     /**
      * Callback à la touche Q

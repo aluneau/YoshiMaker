@@ -8,7 +8,6 @@ package yoshimaker;
 import yoshimaker.map.Map;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.SlickException;
-import yoshimaker.maker.Constructor;
 import yoshimaker.physics.Physics;
 
 /**
@@ -25,7 +24,7 @@ public class YoshiMaker {
      */
     public static void main (String[] args) throws SlickException {
         //new AppGameContainer(new WindowGame(), 640, 480, false).start();
-        Constructor c = new Constructor();
+        new AppGameContainer(new WindowGame(), 1280, 720, false).start();
     }
 
 }

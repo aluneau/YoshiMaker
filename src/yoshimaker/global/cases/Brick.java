@@ -3,43 +3,41 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package yoshimaker.global.items;
+package yoshimaker.global.cases;
 
-import org.jbox2d.dynamics.BodyType;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 /**
  *
  * @author punpun
  */
-public class Box extends Item {
-    protected static int 
-        WIDTH = 64, 
-        HEIGHT = 64;
+public class Brick extends Case {
     protected static float 
-        DENSITY = 3f, 
-        FRICTION = 1f, 
+        DENSITY = 1f, 
+        FRICTION = 0.7f, 
         RESTITUTION = 0f;
     protected static int
-        TILE_X = 2,
+        TILE_X = 5,
         TILE_Y = 0;
     
     /**
-     * Boite
+     * Yoshi
      * @param x
      * @param y
      * @throws SlickException 
      */
-    public Box(int x, int y) throws SlickException {
+    public Brick(int x, int y) throws SlickException {
         //Initialisation
         super(SPRITESHEET.getSprite(TILE_X, TILE_Y));
         //Coordonnées
         setX(x).setY(y).setWidth(WIDTH).setHeight(HEIGHT);
-        //Défintion de la physique
+        //Définition de la physique
         physics
-            .at(x, y)
+            .at(x*width, y*height)
             .hitbox(width/2, height/2)
             .fixtures(DENSITY, FRICTION, RESTITUTION)
             .create();
+        update();
     }
 }
