@@ -34,7 +34,7 @@ public class WindowGame extends BasicGame {
         camera = new Camera();
 
 
-        view = new MakerView();
+        view = new TitleScreen();
         view.init(container);
 
         input = container.getInput();
