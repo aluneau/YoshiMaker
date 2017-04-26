@@ -39,11 +39,11 @@ public class CaseOld implements Serialization{
         block = Type.EMPTY;
         physics = new Physics();
 
-        try {
+        /*try {
             spritesheet = new SpriteSheet("./assets/tileset1.png", 64, 64, 1);
         } catch (SlickException e) {
             e.printStackTrace();
-        }
+        }*/
     }
     
     public CaseOld( CaseOld c){
@@ -56,7 +56,6 @@ public class CaseOld implements Serialization{
         this.beCase = true;
 
         if (block == Type.BRICK) {
-
             test = spritesheet.getSprite(5, 0);
         }
         physics.define(BodyType.STATIC).at(x * 64, y * 64).hitbox(64, 64).fixtures(1f, 1f, 0f).create();
@@ -78,6 +77,14 @@ public class CaseOld implements Serialization{
         return y;
     }
 
+    public Type getBlock() {
+        return block;
+    }
+
+    public void setBlock(Type block) {
+        this.block = block;
+    }
+    
     public boolean isCase() {
         return beCase;
     }
