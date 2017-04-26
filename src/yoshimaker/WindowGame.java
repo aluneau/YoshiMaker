@@ -31,10 +31,10 @@ public class WindowGame extends BasicGame {
     public void init(GameContainer container) throws SlickException {
 
         this.container = container;
-        camera = new Camera();
+        camera = new Camera(container);
 
 
-        view = new MakerView();
+        view = new TitleScreen();
         view.init(container);
 
         input = container.getInput();

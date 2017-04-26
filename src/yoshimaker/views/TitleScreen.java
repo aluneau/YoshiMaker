@@ -78,7 +78,7 @@ public class TitleScreen extends View {
         map.setCase(9, 8, Type.EMPTY);
         //map.move(100, 100);
 
-        camera().focus(testEntity).on(map);
+        Entity.setCamera(camera().focus(testEntity).on(map));
 
     }
     
@@ -97,7 +97,7 @@ public class TitleScreen extends View {
         */
         //map.draw(container, g);
         background.draw(0, 00, 4f);
-        Entity.drawAll(container, g);
+        Entity.drawCamera(container, g);
         
     }
     
