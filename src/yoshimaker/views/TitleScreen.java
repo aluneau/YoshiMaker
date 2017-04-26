@@ -63,10 +63,11 @@ public class TitleScreen extends View {
 
         //Physics test2 = new Physics();
         //test2.define(BodyType.STATIC).at(0f, 300f).hitbox(500f, 10f).fixtures(0.5f, 0.9f, 0f).create();
+        System.out.print(" on sait jamais 2");        
+        map.saveText("test"); 
+        System.out.print(" on sait jamais ");
         
-        map = new Map(30,14);
-        
-        map.createMap();
+        /*map.createMap();
         map.setCase(2, 8, Type.ICE);
         map.setCase(3, 8, Type.ICE);
         map.setCase(11, 8, Type.SPRING);
@@ -75,7 +76,7 @@ public class TitleScreen extends View {
         map.setCase(8, 6, Type.BRICK);
         map.setCase(8, 7, Type.BRICK);
         map.setCase(10, 8, Type.EMPTY);
-        map.setCase(9, 8, Type.EMPTY);
+        map.setCase(9, 8, Type.EMPTY);*/
         //map.move(100, 100);
 
         camera().focus(testEntity).on(map);

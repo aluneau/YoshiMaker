@@ -35,6 +35,7 @@ public class WindowGame extends BasicGame {
 
 
         view = new TitleScreen();
+        //view = new GameViewDeluxe();
         view.init(container);
 
         input = container.getInput();

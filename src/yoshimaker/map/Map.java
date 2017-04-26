@@ -5,11 +5,14 @@
  */
 package yoshimaker.map;
 
+import java.io.BufferedReader;
 import yoshimaker.global.cases.Case;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.Observable;
@@ -28,7 +31,7 @@ import yoshimaker.global.cases.Type;
  *
  * @author gaetane
  */
-public class Map extends Observable  {
+public class Map extends Observable {
 
     private Case[][] map;
     private int x, y;
@@ -37,11 +40,6 @@ public class Map extends Observable  {
         this.x = x;
         this.y = y;
         createMap();
-    }
-    
-    public void update() { // Observer 
-        this.setChanged();
-        this.notifyObservers();
     }
 
     public void setX(int x) {
@@ -59,61 +57,70 @@ public class Map extends Observable  {
     public int getY() {
         return y;
     }
-    public Case getCase(int x, int y){
+
+    public Case getCase(int x, int y) {
         return map[y][x];
     }
-    
+
     public Map setCase(int x, int y, Type type) {
         try {
             map[y][x].destroy();
-            
+
             switch (type) {
-                case BRICK: map[y][x] = new Brick(x, y);break;
-                case ICE: map[y][x] = new Ice(x, y);break;
-                case SPRING: map[y][x] = new Spring(x, y);break;
+                case BRICK:
+                    map[y][x] = new Brick(x, y);
+                    break;
+                case ICE:
+                    map[y][x] = new Ice(x, y);
+                    break;
+                case SPRING:
+                    map[y][x] = new Spring(x, y);
+                    break;
             }
-            
+
         } catch (Exception ignore) {
             Logger.getLogger(Map.class.getName()).log(Level.SEVERE, null, ignore);
         }
-        return this;    
+        return this;
     }
-    
+
     public void createMap() {
         map = new Case[getY()][getX()];
         for (int i = 0; i < getX(); i++) {
             for (int j = 0; j < getY(); j++) {
                 try {
-                    if (j == getY()-1) {
+                    if (j == getY() - 1) {
                         map[j][i] = new Brick(i, j);
-                    }else {
+                    } else {
                         map[j][i] = new Empty(i, j);
                     }
-                } catch (Exception e) {}
+                } catch (Exception e) {
+                }
             }
         }
     }
 
-    public void move(int xOffset, int yOffset){
-        for(int i = 0; i < getX(); i++){
-            for (int j = 0; j < getY(); j++){
+    public void move(int xOffset, int yOffset) {
+        for (int i = 0; i < getX(); i++) {
+            for (int j = 0; j < getY(); j++) {
                 try {
-                    System.out.println("X: " + map[j][i].getX() + ", Y: " +map[j][i].getY());
+                    System.out.println("X: " + map[j][i].getX() + ", Y: " + map[j][i].getY());
                     map[j][i].setX(map[j][i].getX() + xOffset);
                     map[j][i].setY(map[j][i].getY() + yOffset);
-                    System.out.println("X: " + map[j][i].getX() + ", Y: " +map[j][i].getY());
-                }catch(Exception ignore){}
+                    System.out.println("X: " + map[j][i].getX() + ", Y: " + map[j][i].getY());
+                } catch (Exception ignore) {
+                }
             }
         }
     }
 
-   /* public void draw(GameContainer container, Graphics g) {
+     public void draw(GameContainer container, Graphics g) {
         for (int i = 0; i < getX(); i++) {
             for (int j = 0; j < getY(); j++) {
                map[j][i].draw(container, g);
             }
         }
-    }*/
+    }
     // sauvegarder une partie
     public void save() throws IOException {
         // Fichier dans lequel on va écrire;
@@ -145,10 +152,73 @@ public class Map extends Observable  {
             }
         }
         System.out.println(" Normalement déserializé ");
-    }    
-    
-    public void changeCase(int x, int y, Type etat){
+    }
+
+    public void changeCase(int x, int y, Type etat) {
         map[y][x].setBlock(etat);
     }
-    
+/*
+    public void saveText(String name) throws SlickException {
+        String ok = name + ".txt";
+        int largeur = 0, avant = 0;
+        int r = 0;
+        String[] saveBlock = null;
+        String poum;
+        int i = 0;
+        System.out.println(" 1 ");
+        try {
+            System.out.println(" 2 ");
+            InputStream flux = new FileInputStream(ok);
+            InputStreamReader lecture = new InputStreamReader(flux);
+            BufferedReader buff = new BufferedReader(lecture);
+            String ligne;
+            while ((ligne = buff.readLine()) != null) {                
+                saveBlock. (ligne.split(" "));
+                if (largeur < (saveBlock.length - avant)) {
+                    largeur = saveBlock.length;
+                }
+                avant = saveBlock.length;
+            }
+            System.out.println(" 3");
+            for (int h = 0;h < saveBlock.length ; h++){
+                System.out.print(saveBlock[h]);
+            }
+            buff.close();
+        } catch (Exception e) {
+            System.out.println(e.toString());
+            System.out.println(" 3B ");
+        }
+        this.y = i;
+        System.out.println(" 4 ");
+        while (r < saveBlock.length) {
+            for (int y = 0; y < largeur; y++) {
+                System.out.println(saveBlock[r]);
+                switch (saveBlock[r]) {
+                    case "B": // brique
+                        setCase(y,r,Type.BRICK);
+                        break;
+                    case "_": // vide
+                        setCase(y,r,Type.EMPTY);
+                        break;
+                    case "I":// glace
+                        setCase(y,r,Type.ICE);
+                        break;
+                    case "P": // pic
+                        setCase(y,r,Type.PICK);
+                        break;
+                    case "L": // lave
+                        setCase(y,r,Type.LAVA);
+                        break;
+                    case "S":// ressort
+                        setCase(y,r,Type.SPRING);
+                        break;
+                    default:
+                        setCase(y,r,Type.EMPTY);
+                }
+            }
+            r++;
+        }
+        
+    }*/ // Pour le moment ca marche pas 
+
 }
