@@ -29,7 +29,7 @@ public class Empty extends Case {
      */
     public Empty(int x, int y) throws SlickException {
         //Initialisation
-        super(SPRITESHEET.getSprite(TILE_X, TILE_Y));
+        super();
         //Coordonnées
         setX(x).setY(y).setWidth(WIDTH).setHeight(HEIGHT);
     }

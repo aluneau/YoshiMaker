@@ -53,7 +53,7 @@ public class Camera {
         return 
             (entity.getX() >= Math.min(follow.getX(), xs-hw)-hw)&&
             (entity.getX() <= Math.max(follow.getX(), hw)+hw)&&
-            (entity.getY()+entity.getHeight() >= Math.max(follow.getY(), hh)-hh-Case.HEIGHT)&&
-            (entity.getY() <= Math.min(follow.getY(), ys-hh)+hh);
+            (entity.getY()+entity.getHeight() >= Math.min(follow.getY(), ys-hh)-hh)&&
+            (entity.getY() <= Math.max(follow.getY(), hh)+hh);
     }
 }

@@ -53,20 +53,17 @@ public class TitleScreen extends View {
         */
         Physics.world(0, 100f);
         testEntity = new Yoshi(64, 4*64);
-
-
-
-        Box b = new Box(3*64, 4*64);
-
         
-       //Item testItem = new Item("./resources/cloud_yoshi.png");
+        Box b = new Box(3*64, 4*64);
+ 
+        //Item testItem = new Item("./resources/cloud_yoshi.png");
 
         //Physics test2 = new Physics();
         //test2.define(BodyType.STATIC).at(0f, 300f).hitbox(500f, 10f).fixtures(0.5f, 0.9f, 0f).create();
         
         map = new Map(30,14);
         
-        map.createMap();
+
         map.setCase(2, 8, Type.ICE);
         map.setCase(3, 8, Type.ICE);
         map.setCase(11, 8, Type.SPRING);

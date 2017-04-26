@@ -24,7 +24,6 @@ public class MakerView extends View {
 
         map = new Map(20, 11);
         background = new Image("./resources/background_yoshi.png");
-        map.createMap();
         map.setCase(2, 8, Type.ICE);
         map.setCase(3, 8, Type.ICE);
         map.setCase(11, 8, Type.SPRING);
@@ -34,7 +33,6 @@ public class MakerView extends View {
         map.setCase(8, 7, Type.BRICK);
         map.setCase(10, 8, Type.EMPTY);
         map.setCase(9, 8, Type.EMPTY);
-        map.move(2, 3);
         yoshi = new Yoshi(64, 4*64);
 
     }

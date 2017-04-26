@@ -70,6 +70,10 @@ public abstract class Entity {
         physics = new Physics();
     }
     
+    public Entity() {
+        
+    }
+    
     public int getY() {
         return y;
     }
@@ -155,15 +159,19 @@ public abstract class Entity {
     
     public static void drawCamera(GameContainer container, Graphics g) {
         //Dessine toutes les entités présentes dans la caméra
-        displayed = 0;
-        for (Entity entity : ENTITIES) { if (CAMERA.isVisible(entity)) { entity.draw(container, g); displayed++ ;} }
-        System.out.println("Displayed "+displayed);
+        if (CAMERA == null) { return ; }
+        for (Entity entity : ENTITIES) { if (CAMERA.isVisible(entity)) { entity.draw(container, g); } }
+        /*
+            displayed = 0;
+            for (Entity entity : ENTITIES) { if (CAMERA.isVisible(entity)) { entity.draw(container, g); displayed++;} }
+            System.out.println("Displayed "+displayed);
+        */
     }
     
     public void destroy() {
         physics.destroy();
         destroyed = true ;
-        ENTITIES.remove(this);
+        ENTITIES.removeIf(f -> { return f.destroyed ;});
     }
     
     public static void setCamera(Camera camera) {
