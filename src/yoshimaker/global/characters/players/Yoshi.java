@@ -5,6 +5,7 @@
  */
 package yoshimaker.global.characters.players;
 
+import org.newdawn.slick.Animation;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 
@@ -21,7 +22,14 @@ public class Yoshi extends Player {
         FRICTION = 0.7f, 
         RESTITUTION = 0f;
     
+    private boolean saveDirection = false;
+    
     private int jumped = 0 ;
+    private Animation left;
+    private Animation right;
+    private Animation stopLeft;
+    private Animation stopRight;
+
     
     /**
      * Yoshi
@@ -31,8 +39,11 @@ public class Yoshi extends Player {
      */
     public Yoshi(int x, int y) throws SlickException {
         //Initialisation
-        super(SPRITESHEET.getSprite(0, 1), SPRITESHEET.getSprite(1, 1), SPRITESHEET.getSprite(2, 1), SPRITESHEET.getSprite(3, 1), SPRITESHEET.getSprite(4, 1),
-                RETURNO.getSprite(0, 1), RETURNO.getSprite(1, 1), RETURNO.getSprite(2, 1), RETURNO.getSprite(3, 1),RETURNO.getSprite(4, 1));
+        super(STATUS_RIGHT.getSprite(0, 0));
+        this.stopLeft = new Animation(STATUS_LEFT,1);
+        this.stopRight = new Animation(STATUS_RIGHT,1);
+        this.left = new Animation(RETURNO,1);
+        this.right = new Animation(SPRITESHEET,1);
         sprite.stop();
         //Coordonnées
         setX(x).setY(y).setWidth(WIDTH).setHeight(HEIGHT);
@@ -44,9 +55,18 @@ public class Yoshi extends Player {
             .create();
     }
     
+    @Override 
     public void no_key(){
-        sprite.stop();
-        physics.translate(0,0);
+        physics.translate(0,0);        
+        if(saveDirection == true){
+            sprite = stopLeft;
+            sprite.start();
+            sprite.setSpeed(0.01f);              
+        }else {
+            sprite = stopRight;
+            sprite.start();
+            sprite.setSpeed(0.01f);              
+        }                  
     }
     
     /**
@@ -54,11 +74,11 @@ public class Yoshi extends Player {
      */
     @Override
     public void key_q() {
+        saveDirection = true;
         physics.translate(-10, 0);
+        sprite = this.left;
         sprite.start();
-        sprite.setCurrentFrame(5);
-        sprite.stopAt(10);
-        sprite.setSpeed(0.001f);            
+        sprite.setSpeed(0.01f);            
     }
     
     /**
@@ -66,7 +86,9 @@ public class Yoshi extends Player {
      */
     @Override
     public void key_d() {
+        saveDirection = false;
         physics.translate(+10, 0);
+        sprite = this.right;
         sprite.start();
         sprite.setSpeed(0.01f);
 
@@ -81,17 +103,20 @@ public class Yoshi extends Player {
             jump = false ;  
             physics.impulse(0, -30);
         }
-        jump = true;
     }
     
     
     protected static SpriteSheet SPRITESHEET;
     protected static SpriteSheet RETURNO;
+    protected static SpriteSheet STATUS_RIGHT;
+    protected static SpriteSheet STATUS_LEFT;
     static {
         //Initalisation
         try {
-            SPRITESHEET = new SpriteSheet("./assets/yoshi.png", 32, 32, 0);
-            RETURNO = new SpriteSheet("./assets/demi-tour.png", 32, 32, 0);
+            SPRITESHEET = new SpriteSheet("./assets/right.png", 32, 32,0);
+            RETURNO = new SpriteSheet("./assets/left.png", 32, 32,0);
+            STATUS_RIGHT = new SpriteSheet("./assets/stopRight.png",32,32,0);
+            STATUS_LEFT = new SpriteSheet("./assets/stopLeft.png",32,32,0);        
         } catch (Exception ignore) { }
     }
 }
