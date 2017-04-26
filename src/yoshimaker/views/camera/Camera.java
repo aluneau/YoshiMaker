@@ -27,7 +27,7 @@ public class Camera {
             x = -follow.getX() + xs + ox ;
             g.translate(
                     x > container.getWidth() ? 0 : x > xs - container.getWidth() ? x - container.getWidth() : xs-2*container.getWidth() ,
-                    y > container.getHeight() ? 0 : y > ys - container.getHeight() ? x - container.getHeight() : ys-2*container.getHeight()
+                    y > container.getHeight() ? 0 : y > ys - container.getHeight() ? y - container.getHeight() : ys-2*container.getHeight()
             );
             //System.out.println(x+" "+(x - container.getWidth())+" "+xs+" "+container.getWidth()+" "+(xs - container.getWidth()));
         }
@@ -36,7 +36,7 @@ public class Camera {
     public Camera focus(Entity entity) {
         this.follow = entity ;
         ox = 0-entity.getX();
-        oy = 0-entity.getY();
+        oy = entity.getY();
         return this;
     }
 
