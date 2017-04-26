@@ -10,6 +10,8 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import yoshimaker.WindowGame;
+import yoshimaker.views.camera.Camera;
 
 /**
  *
@@ -49,4 +51,7 @@ public abstract class View  {
      * @param c 
      */
     public abstract void controller(int key, char c, boolean type);
+
+
+    public Camera camera() { return WindowGame.getInstance().getCamera(); }
 }

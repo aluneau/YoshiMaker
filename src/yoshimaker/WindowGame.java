@@ -7,24 +7,31 @@ import org.newdawn.slick.*;
 import yoshimaker.physics.Physics;
 import yoshimaker.physics.PhysicsThread;
 import yoshimaker.views.View;
+import yoshimaker.views.camera.Camera;
 
 public class WindowGame extends BasicGame {
     private GameContainer container;
     private View view;
-
+    private Camera camera;
     private Thread physicThread;
+
+    static WindowGame instance;
 
     private int test3 = 0;
     public Input input;
     public WindowGame() {
         super("Yoshi Game");
+        instance = this;
        
     }
+
+    static public WindowGame getInstance() { return instance; }
 
     @Override
     public void init(GameContainer container) throws SlickException {
 
         this.container = container;
+        camera = new Camera();
 
 
         view = new MakerView();
@@ -37,8 +44,11 @@ public class WindowGame extends BasicGame {
 
     }
 
+    public Camera getCamera() { return camera ; }
+
     @Override
     public void render(GameContainer container, Graphics g) throws SlickException {
+        camera.render(container, g);
         view.render(container, g);
     }
 

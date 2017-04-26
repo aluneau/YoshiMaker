@@ -23,7 +23,7 @@ public abstract class Case extends Entity {
     public Type block;
     private Image test;
     protected static SpriteSheet SPRITESHEET;
-    protected static int WIDTH = 64, HEIGHT = 64;
+    public static int WIDTH = 64, HEIGHT = 64;
     private boolean beCase;
    
     public Case(Image... files) throws SlickException {
