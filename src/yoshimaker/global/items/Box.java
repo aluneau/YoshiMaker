@@ -6,7 +6,9 @@
 package yoshimaker.global.items;
 
 import org.jbox2d.dynamics.BodyType;
+import org.newdawn.slick.Animation;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.SpriteSheet;
 
 /**
  *
@@ -23,7 +25,7 @@ public class Box extends Item {
     protected static int
         TILE_X = 2,
         TILE_Y = 0;
-    
+    private Animation animation;
     /**
      * Boite
      * @param x
@@ -34,6 +36,9 @@ public class Box extends Item {
         //Initialisation
         super(SPRITESHEET.getSprite(TILE_X, TILE_Y));
         //Coordonnées
+        this.animation = new Animation(new SpriteSheet("./assets/images/test/block1.png", 64, 64,1),100);
+        this.sprite = this.animation;
+        this.sprite.start();
         setX(x).setY(y).setWidth(WIDTH).setHeight(HEIGHT);
         //Défintion de la physique
         physics

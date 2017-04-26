@@ -55,6 +55,7 @@ public final class GameViewDeluxe extends View {
         Physics.world(0, 100f);
         testEntity = new Yoshi(64, 4*64);
         Box b = new Box(3*64, 4*64);
+        
         map = new Map(13,9);
         map.createMap();
         map.setLevel1();
