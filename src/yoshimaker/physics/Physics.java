@@ -30,6 +30,7 @@ public class Physics {
     private boolean created, defined, fixtured, hitboxed;
     private Object data;
     private final static HashSet<Body> DESTROYED = new HashSet();
+    private final static HashSet<Entity> HIDDEN = new HashSet();
 
     /**
      * Contructeur
@@ -307,6 +308,7 @@ public class Physics {
      * @param pi - Nb itérations pour le calcul de la position
      */
     public static void update(float step, int vi, int pi) {
+        Body list = world().getBodyList(), bs;
         world().step(step, vi, pi);
         for (Body b : DESTROYED) { DESTROYED.remove(b); world().destroyBody(b); }
     }

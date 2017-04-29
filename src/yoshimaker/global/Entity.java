@@ -31,6 +31,8 @@ public abstract class Entity {
         width = 0, half_width = 0,
         height = 0, half_height = 0;
     
+    protected boolean _hidden = false ;
+    
     protected Physics physics;
     protected Animation sprite;
     
@@ -177,6 +179,11 @@ public abstract class Entity {
     public static void setCamera(Camera camera) {
         CAMERA = camera;
     }
+    
+    public Physics getPhysics() { return physics; }
+    
+    public boolean hidden() { return _hidden ; }
+    public Entity hidden(boolean hide) { _hidden = hide ; return this ; }
     
     @Override
     public String toString() { return "entity" ; }
