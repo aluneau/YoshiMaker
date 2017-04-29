@@ -11,6 +11,7 @@ import org.newdawn.slick.*;
 import yoshimaker.global.Entity;
 import yoshimaker.global.cases.Brick;
 import yoshimaker.global.cases.Type;
+import yoshimaker.global.characters.ennemies.Boo;
 import yoshimaker.global.characters.ennemies.Goomba;
 import yoshimaker.global.characters.players.Player;
 import yoshimaker.global.characters.players.Yoshi;
@@ -53,10 +54,11 @@ public class TitleScreen extends View {
         clouds[4] = new Image("./resources/cloud_yoshi.png");
         */
         Physics.world(0, 100f);
-        testEntity = new Yoshi(64, 4*64);
+        testEntity = new Yoshi(64, 12*64);
         
         Box b = new Box(3*64, 4*64);
-        Goomba g = new Goomba(5*64, 4*64);
+        Goomba g = new Goomba(5*64, 12*64);
+        Boo boo = new Boo(4*64, 10*64);
  
         //Item testItem = new Item("./resources/cloud_yoshi.png");
 

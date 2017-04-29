@@ -75,6 +75,7 @@ public class Yoshi extends Player {
      */
     @Override
     public void key_q() {
+        super.key_q();
         saveDirection = true;
         physics.translate(-10, 0);
         sprite = this.left;
@@ -87,6 +88,7 @@ public class Yoshi extends Player {
      */
     @Override
     public void key_d() {
+        super.key_d();
         saveDirection = false;
         physics.translate(+10, 0);
         sprite = this.right;

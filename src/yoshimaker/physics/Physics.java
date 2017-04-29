@@ -6,6 +6,7 @@
 package yoshimaker.physics;
 
 import static java.lang.Math.round;
+import java.util.HashSet;
 import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
@@ -14,6 +15,7 @@ import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.dynamics.FixtureDef;
 import org.jbox2d.dynamics.World;
 import org.newdawn.slick.geom.Rectangle;
+import yoshimaker.global.Entity;
 
 /**
  *
@@ -27,6 +29,7 @@ public class Physics {
     private final FixtureDef _fixtures;
     private boolean created, defined, fixtured, hitboxed;
     private Object data;
+    private final static HashSet<Body> DESTROYED = new HashSet();
 
     /**
      * Contructeur
@@ -283,6 +286,7 @@ public class Physics {
      * @param gy
      */
     public static void world(float gx, float gy) {
+        if (_world instanceof World) { _world.setContactListener(null); }
         Vec2 gravity = new Vec2(gx, gy);
         _world = new World(gravity, true);
         _world.setContactListener(new Collisions());
@@ -304,6 +308,7 @@ public class Physics {
      */
     public static void update(float step, int vi, int pi) {
         world().step(step, vi, pi);
+        for (Body b : DESTROYED) { DESTROYED.remove(b); world().destroyBody(b); }
     }
 
     /**
@@ -330,7 +335,10 @@ public class Physics {
     }
     
     public void destroy() {
-        System.out.println(created);
-        if (created) { world().destroyBody(body); world().setContactListener(null); }
+        if (created) { 
+            DESTROYED.add(body);
+            body.destroyFixture(body.getFixtureList().getNext());
+            created = false ;
+        }
     }
 }
