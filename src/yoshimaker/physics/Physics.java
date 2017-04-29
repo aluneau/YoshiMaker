@@ -26,6 +26,7 @@ public class Physics {
     private final PolygonShape _hitbox;
     private final FixtureDef _fixtures;
     private boolean created, defined, fixtured, hitboxed;
+    private Object data;
 
     /**
      * Contructeur
@@ -62,10 +63,22 @@ public class Physics {
         defined = false ;
         hitboxed = false ;
         fixtured = false ;
+        data = null ;
         //JBox 2D initialisation
         _definition = new BodyDef();
         _hitbox = new PolygonShape();
         _fixtures = new FixtureDef();
+        
+    }
+    
+    public Physics data(Object d) {
+        this.data = d;
+        return this ;
+    }
+    
+    public Object data() {
+        if (!created) { return null; }
+        return body.getUserData();
     }
 
     /**
@@ -202,6 +215,7 @@ public class Physics {
         if ((!created)&&(defined)&&(fixtured)) {
             body = world().createBody(definition());
             body.createFixture(fixtures());
+            body.setUserData(this.data);
             created = true ;
         }
         return this;
@@ -271,6 +285,7 @@ public class Physics {
     public static void world(float gx, float gy) {
         Vec2 gravity = new Vec2(gx, gy);
         _world = new World(gravity, true);
+        _world.setContactListener(new Collisions());
     }
 
     /**
@@ -316,6 +331,6 @@ public class Physics {
     
     public void destroy() {
         System.out.println(created);
-        if (created) { world().destroyBody(body); }
+        if (created) { world().destroyBody(body); world().setContactListener(null); }
     }
 }
