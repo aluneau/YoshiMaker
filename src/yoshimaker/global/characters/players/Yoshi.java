@@ -24,7 +24,7 @@ public class Yoshi extends Player {
     
     private boolean saveDirection = false;
     
-    private int jumped = 0 ;
+ 
     private Animation left;
     private Animation right;
     private Animation stopLeft;
@@ -52,6 +52,7 @@ public class Yoshi extends Player {
             .at(x, y)
             .hitbox(width/2, height/2)
             .fixtures(DENSITY, FRICTION, RESTITUTION)
+            .data(this)
             .create();
     }
     
@@ -99,10 +100,8 @@ public class Yoshi extends Player {
      */
     @Override
     public void key_space() {
-        if (jump) {
-            jump = false ;  
-            physics.impulse(0, -30);
-        }
+        jumped = false;
+        jump(false);
     }
     
     
@@ -119,4 +118,5 @@ public class Yoshi extends Player {
             STATUS_LEFT = new SpriteSheet("./assets/stopLeft.png",32,32,0);        
         } catch (Exception ignore) { }
     }
+    
 }

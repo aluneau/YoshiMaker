@@ -21,7 +21,7 @@ public abstract class Player extends yoshimaker.global.characters.Character {
      * Liste des joueurs
      */
     protected final static HashSet<Player> PLAYERS = new HashSet();
-   
+       protected boolean jumped = false ;
     
     /**
      * Joueur
@@ -120,4 +120,20 @@ public abstract class Player extends yoshimaker.global.characters.Character {
      * Callback à la touche Espace
      */
     public abstract void key_space();    
+    
+    @Override
+    public String toString() { return "player" ; }
+    
+    @Override
+    public void die() {
+        System.out.println("player died :( ");
+    }
+    
+    public void jump(boolean forced) {
+        if ((!jumped)||(forced)) {
+            jumped = true ;  
+            physics.impulse(0, -30);
+            if (forced) { physics.impulse(0, -20); }
+        }
+    }
 }

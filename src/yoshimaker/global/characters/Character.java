@@ -8,8 +8,11 @@ package yoshimaker.global.characters;
 import org.jbox2d.callbacks.ContactImpulse;
 import org.jbox2d.callbacks.ContactListener;
 import org.jbox2d.collision.Manifold;
+import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.dynamics.contacts.Contact;
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import yoshimaker.global.Entity;
@@ -19,7 +22,7 @@ import yoshimaker.physics.Physics;
  *
  * @author punpun
  */
-public abstract class Character extends Entity implements ContactListener {
+public abstract class Character extends Entity {
     protected boolean jump = true ;
     
     /**
@@ -34,7 +37,6 @@ public abstract class Character extends Entity implements ContactListener {
         ENTITIES.add(this);
         //Corps dynamique
         physics.define(BodyType.DYNAMIC);
-        Physics.world().setContactListener(this);
     }
     
     public Character(Image... files) throws SlickException {
@@ -44,18 +46,12 @@ public abstract class Character extends Entity implements ContactListener {
         ENTITIES.add(this);
         //Corps dynamique
         physics.define(BodyType.DYNAMIC);
-        Physics.world().setContactListener(this);
     }
-    
+
     @Override
-    public void beginContact(Contact contact) {
-        if (contact.getFixtureB().getBody().getType() == BodyType.STATIC) { jump = true; }
+    public String toString() { return "character" ; }
+    
+    public void die() {
+        this.destroy();
     }
-    
-    @Override
-    public void endContact(Contact contact) {}
-    @Override
-    public void preSolve(Contact contact, Manifold oldManifold) {}
-    @Override
-    public void postSolve(Contact contact, ContactImpulse impulse) {}
 }

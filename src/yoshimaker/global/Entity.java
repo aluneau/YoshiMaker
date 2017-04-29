@@ -177,4 +177,7 @@ public abstract class Entity {
     public static void setCamera(Camera camera) {
         CAMERA = camera;
     }
+    
+    @Override
+    public String toString() { return "entity" ; }
 }
