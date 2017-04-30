@@ -66,6 +66,7 @@ public class Thwomp extends Ennemy {
         if (destroyed) { return this ; }
         setX((int) physics.x()).setY((int) physics.y());
         //
+        if (physics.getBody() == null) { return this; }
         if (state < 0) { state++; }
         physics.move(0, 0);
             for (Player p : Player.PLAYERS) {

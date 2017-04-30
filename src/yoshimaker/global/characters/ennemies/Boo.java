@@ -42,6 +42,7 @@ public class Boo extends Ennemy {
      public Entity update(){
         if (destroyed) { return this ; }
         setX((int) physics.x()).setY((int) physics.y());
+        if (physics.getBody() == null) { return this; }
         //
             for (Player p : Player.PLAYERS) {
                 if ((Math.abs(p.getY()-getY()) < 200)&&(

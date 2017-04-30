@@ -31,6 +31,7 @@ public class Physics {
     private boolean created, defined, fixtured, hitboxed;
     private Object data;
     private final static HashSet<Body> DESTROYED = new HashSet(), FORCED = new HashSet();
+    private final static HashSet<Physics> CREATION = new HashSet();
     private int _group;
 
     /**
@@ -226,12 +227,17 @@ public class Physics {
      */
     public Physics create() {
         if ((!created)&&(defined)&&(fixtured)) {
-            body = world().createBody(definition());
-            body.createFixture(fixtures());
-            body.setUserData(this.data);
-            created = true ;
+            CREATION.add(this);
         }
         return this;
+    }
+    
+    public void stepCreate() {
+        if (created) { return ; }
+        body = world().createBody(definition());
+        body.createFixture(fixtures());
+        body.setUserData(this.data);
+        created = true ;
     }
 
     /**
@@ -331,12 +337,14 @@ public class Physics {
      * @param vi - Nb itération pour le calcul de la vélocité
      * @param pi - Nb itérations pour le calcul de la position
      */
-    public static void update(float step, int vi, int pi) {    
+    public static void update(float step, int vi, int pi) {  
         world().step(step, vi, pi);
         for (Body b : DESTROYED) { DESTROYED.remove(b); world().destroyBody(b); }
+        for (Physics p : CREATION) { p.stepCreate(); }
+        
         for (Body b : FORCED) { FORCED.remove(b); 
-        Player p = (Player) (b.getUserData());
-        b.setTransform(new Vec2(p.getSpawnX(), p.getSpawnY()), b.getAngle()); }
+            Player p = (Player) (b.getUserData());
+            b.setTransform(new Vec2(p.getSpawnX(), p.getSpawnY()), b.getAngle()); }
     }
 
     /**
