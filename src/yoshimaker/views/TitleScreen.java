@@ -14,6 +14,7 @@ import yoshimaker.global.cases.Type;
 import yoshimaker.global.characters.ennemies.Boo;
 import yoshimaker.global.characters.ennemies.Goomba;
 import yoshimaker.global.characters.ennemies.Koopa;
+import yoshimaker.global.characters.ennemies.ParaGoomba;
 import yoshimaker.global.characters.ennemies.Thwomp;
 import yoshimaker.global.characters.players.Player;
 import yoshimaker.global.characters.players.Yoshi;
@@ -61,6 +62,7 @@ public class TitleScreen extends View {
         
         Box b = new Box(3*64, 4*64);
         Goomba g = new Goomba(7*64, 12*64);
+        ParaGoomba pg = new ParaGoomba(8*64, 10*64);
         Boo boo = new Boo(4*64, 10*64);
         Thwomp t = new Thwomp(16*64, 8*64);
         
