@@ -86,9 +86,6 @@ public class Map extends Observable  {
         setCase(9, 8, Type.EMPTY);
     }
     
-    public void readLevel(String lvlname){
-        //Fonction qui permettrait de lire un fichier serialiser et de le prendre comme map
-    }
     public Map setCase(int x, int y, Type type) {
         try {
             if (map[y][x] != null) { map[y][x].destroy(); }
@@ -108,7 +105,7 @@ public class Map extends Observable  {
         for (int i = 0; i < getX(); i++) {
             for (int j = 0; j < getY(); j++) {
                 try {
-                    if (j == getY()-1) { setCase(i, j, Type.BRICK); }
+                    if (j == getY()-1 || j == 0 || i == getX()-1 || i== 0) { setCase(i, j, Type.BRICK); }
                 } catch (Exception e) {}
             }
         }
