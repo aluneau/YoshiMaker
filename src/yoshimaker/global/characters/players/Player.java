@@ -130,14 +130,15 @@ public abstract class Player extends yoshimaker.global.characters.Character {
     
     @Override
     public void die() {
-        physics.forcePosition(sx, sy);
+        physics.forcePosition();
+        update();
     }
     
     public void jump(boolean forced) {
         if ((!jumped)||(forced)) {
             jumped = true ;  
-            physics.impulse(0, -30);
-            if (forced) { physics.impulse(0, -20); }
+            physics.moveY(-30);
+            if (forced) { physics.moveY(-20); }
         }
     }
     
@@ -145,9 +146,12 @@ public abstract class Player extends yoshimaker.global.characters.Character {
         return direction ;
     }
     
-    private int sx, sy;
-    public Player setSpawn(int x, int y) {
+    private float sx, sy;
+    public Player setSpawn(float x, float y) {
         sx = x; sy = y;
         return this;
     }
+    
+    public float getSpawnX() { return sx ; }
+    public float getSpawnY() { return sy ; }
 }

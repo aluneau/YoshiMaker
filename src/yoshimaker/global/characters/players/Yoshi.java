@@ -78,7 +78,7 @@ public class Yoshi extends Player {
     public void key_q() {
         super.key_q();
         saveDirection = true;
-        physics.translate(-10, 0);
+        physics.moveX(-10);
         sprite = this.left;
         sprite.start();
         sprite.setSpeed(0.01f);            
@@ -91,7 +91,7 @@ public class Yoshi extends Player {
     public void key_d() {
         super.key_d();
         saveDirection = false;
-        physics.translate(+10, 0);
+        physics.moveX(+10);
         sprite = this.right;
         sprite.start();
         sprite.setSpeed(0.01f);

@@ -60,7 +60,7 @@ public class TitleScreen extends View {
         Box b = new Box(3*64, 4*64);
         Goomba g = new Goomba(5*64, 12*64);
         Boo boo = new Boo(4*64, 10*64);
-        Thwomp t = new Thwomp(6*64, 8*64);
+        Thwomp t = new Thwomp(10*64, 8*64);
  
         //Item testItem = new Item("./resources/cloud_yoshi.png");
 

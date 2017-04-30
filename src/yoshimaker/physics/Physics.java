@@ -16,6 +16,7 @@ import org.jbox2d.dynamics.FixtureDef;
 import org.jbox2d.dynamics.World;
 import org.newdawn.slick.geom.Rectangle;
 import yoshimaker.global.Entity;
+import yoshimaker.global.characters.players.Player;
 
 /**
  *
@@ -29,8 +30,7 @@ public class Physics {
     private final FixtureDef _fixtures;
     private boolean created, defined, fixtured, hitboxed;
     private Object data;
-    private final static HashSet<Body> DESTROYED = new HashSet();
-    private final static HashSet<Entity> HIDDEN = new HashSet();
+    private final static HashSet<Body> DESTROYED = new HashSet(), FORCED = new HashSet();
     private int _group;
 
     /**
@@ -267,6 +267,16 @@ public class Physics {
         body.setLinearVelocity(new Vec2(dvx, dvy));
         return this;
     }
+    
+    public Physics moveX(int dvx) {
+        body.setLinearVelocity(new Vec2(dvx, body.getLinearVelocity().y));
+        return this;
+    }
+    
+    public Physics moveY(int dvy) {
+        body.setLinearVelocity(new Vec2(body.getLinearVelocity().x, dvy));
+        return this;
+    }
 
 
     /**
@@ -321,10 +331,12 @@ public class Physics {
      * @param vi - Nb itération pour le calcul de la vélocité
      * @param pi - Nb itérations pour le calcul de la position
      */
-    public static void update(float step, int vi, int pi) {
-            
+    public static void update(float step, int vi, int pi) {    
         world().step(step, vi, pi);
         for (Body b : DESTROYED) { DESTROYED.remove(b); world().destroyBody(b); }
+        for (Body b : FORCED) { FORCED.remove(b); 
+        Player p = (Player) (b.getUserData());
+        b.setTransform(new Vec2(p.getSpawnX(), p.getSpawnY()), b.getAngle()); }
     }
 
     /**
@@ -362,9 +374,8 @@ public class Physics {
         return this.body;
     }
     
-    public Physics forcePosition(int x, int y) {
-        body.setTransform(new Vec2(x, y), body.getAngle());
-        update();
+    public Physics forcePosition() {
+        FORCED.add(body);
         return this;
     }
 }
