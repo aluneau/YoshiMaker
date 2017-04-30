@@ -30,7 +30,7 @@ public class Boo extends Ennemy {
         //Défintion de la physique
         physics
             .at(x, y)
-            .define(BodyType.KINEMATIC)
+            .define(BodyType.KINEMATIC, 2)
             .hitbox(width/2, height/2-10)
             .fixtures(DENSITY, FRICTION, RESTITUTION)
             .data(this)
@@ -48,7 +48,13 @@ public class Boo extends Ennemy {
                         ||((p.getX() > getX())&&(p.getDirection().equals("left")))
                     )) { 
                     this.sprite =  this.hidden;
-                } else { this.sprite = this.walking ; }
+                    //Collisions activé
+                    physics.getBody().getFixtureList().m_filter.categoryBits = 1;
+                    physics.getBody().getFixtureList().m_filter.maskBits = 1;
+                } else { this.sprite = this.walking ; 
+                    physics.getBody().getFixtureList().m_filter.categoryBits = 2;
+                    physics.getBody().getFixtureList().m_filter.maskBits = 2;
+                }
             }
         return this;
     }

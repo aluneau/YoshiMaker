@@ -31,6 +31,7 @@ public class Physics {
     private Object data;
     private final static HashSet<Body> DESTROYED = new HashSet();
     private final static HashSet<Entity> HIDDEN = new HashSet();
+    private int _group;
 
     /**
      * Contructeur
@@ -69,6 +70,7 @@ public class Physics {
         fixtured = false ;
         data = null ;
         //JBox 2D initialisation
+        _group = 1;
         _definition = new BodyDef();
         _hitbox = new PolygonShape();
         _fixtures = new FixtureDef();
@@ -98,9 +100,10 @@ public class Physics {
      * @param type
      * @return
      */
-    public Physics definition(BodyType type) {
+    public Physics definition(BodyType type, int group) {
         if (!created) {
             _definition.type = type;
+            _group = group;
             defined = true;
         }
         return this;
@@ -112,7 +115,11 @@ public class Physics {
      * @return
      */
     public Physics define(BodyType type) {
-        return definition(type);
+        return definition(type, _group);
+    }
+    
+    public Physics define(BodyType type, int group) {
+        return definition(type, group);
     }
 
     /**
@@ -203,6 +210,8 @@ public class Physics {
             _fixtures.density = density;
             _fixtures.friction = friction;
             _fixtures.restitution = restitution;
+            _fixtures.filter.categoryBits = _group;
+            _fixtures.filter.maskBits = _group;
             fixtured = true ;
         }
         return this;
@@ -308,7 +317,7 @@ public class Physics {
      * @param pi - Nb itérations pour le calcul de la position
      */
     public static void update(float step, int vi, int pi) {
-        Body list = world().getBodyList(), bs;
+            
         world().step(step, vi, pi);
         for (Body b : DESTROYED) { DESTROYED.remove(b); world().destroyBody(b); }
     }
@@ -342,5 +351,9 @@ public class Physics {
             body.destroyFixture(body.getFixtureList().getNext());
             created = false ;
         }
+    }
+    
+    public Body getBody() {
+        return this.body;
     }
 }
