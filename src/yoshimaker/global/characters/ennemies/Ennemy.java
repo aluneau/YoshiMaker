@@ -20,7 +20,7 @@ public abstract class Ennemy extends yoshimaker.global.characters.Character {
      * Liste des joueurs
      */
     protected final static HashSet<Ennemy> ENNEMIES = new HashSet();
-   
+    protected boolean killable = false;
     
     /**
      * Joueur
@@ -51,4 +51,6 @@ public abstract class Ennemy extends yoshimaker.global.characters.Character {
         ENNEMIES.remove(this);
         super.destroy();
     }
+    
+    public boolean isKillable() { return killable; }
 }

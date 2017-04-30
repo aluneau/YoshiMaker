@@ -21,6 +21,7 @@ import yoshimaker.physics.Physics;
  */
 public abstract class Case extends Entity {
     public Type block;
+    public Type type = Type.EMPTY;
     private Image test;
     protected static SpriteSheet SPRITESHEET;
     public static int WIDTH = 64, HEIGHT = 64;

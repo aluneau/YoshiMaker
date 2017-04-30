@@ -39,5 +39,6 @@ public class Spring extends Case {
             .fixtures(DENSITY, FRICTION, RESTITUTION)
             .create();
         update();
+        type = Type.SPRING;
     }
 }

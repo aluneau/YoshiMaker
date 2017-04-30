@@ -7,6 +7,7 @@ import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.dynamics.contacts.Contact;
 import yoshimaker.global.Entity;
 import yoshimaker.global.characters.ennemies.Ennemy;
+import yoshimaker.global.characters.ennemies.Thwomp;
 import yoshimaker.global.characters.players.Player;
 
 /*
@@ -29,13 +30,20 @@ public class Collisions  implements ContactListener  {
         
         if ((a == null)||(b == null)) { return ; }
         
+        if (((a instanceof Thwomp)&&(b instanceof yoshimaker.global.characters.Character))||((b instanceof Thwomp)&&(a instanceof yoshimaker.global.characters.Character))) {
+            Thwomp t = (Thwomp) ((a instanceof Thwomp) ? a : b);
+            yoshimaker.global.characters.Character e = (yoshimaker.global.characters.Character) ((a instanceof Thwomp) ? b : a);
+            //Note axe des y inversés
+            if (t.getY()+(t.getHeight()/2) < e.getY()) { e.die(); }
+        }
+        
         
         if (((a instanceof Player)&&(b instanceof Ennemy))||((b instanceof Player)&&(a instanceof Ennemy))) {
             Player p = (Player) ((a instanceof Player) ? a : b);
             Ennemy e = (Ennemy) ((a instanceof Player) ? b : a);
             //Note axe des y inversés
             System.out.println("p:"+p.getY()+" ph:"+p.getHeight()+" e:"+e.getY()+" eh:"+e.getHeight()+" ph2:"+(p.getY()+(p.getHeight()/2)));
-            if (p.getY()+(p.getHeight()/2) < e.getY()) { e.die() ; p.jump(true);} else { p.die(); }
+            if (p.getY()+(p.getHeight()/2) < e.getY()) { if (e.isKillable()) { e.die() ; p.jump(true); }} else { p.die(); }
         }
         
         //if (contact.getFixtureB().getBody().getType() == BodyType.STATIC) { }

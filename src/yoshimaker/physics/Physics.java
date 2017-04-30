@@ -262,6 +262,11 @@ public class Physics {
         impulse(iv.x, iv.y);
         return this;
     }
+    
+    public Physics move(int dvx, int dvy) {
+        body.setLinearVelocity(new Vec2(dvx, dvy));
+        return this;
+    }
 
 
     /**

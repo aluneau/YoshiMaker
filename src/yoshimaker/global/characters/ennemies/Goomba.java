@@ -34,6 +34,7 @@ public class Goomba extends Ennemy {
             .fixtures(DENSITY, FRICTION, RESTITUTION)
             .data(this)
             .create();
+        killable = true ;
     }
        
     protected static int 

@@ -33,11 +33,22 @@ public class Map extends Observable  {
 
     private Case[][] map;
     private int x, y;
+    public final static int WIDTH = 64, HEIGHT = 64;
+    
+    public static Map CURRENT;
 
     public Map(int x, int y) {
         this.x = x;
         this.y = y;
         createMap();
+        CURRENT = this;
+    }
+    
+    public Type whatIs(int x, int y) {
+        x = Math.max(0, Math.min(getX()-1, Math.floorDiv(x, WIDTH)));
+        y = Math.max(0, Math.min(getY()-1, Math.floorDiv(y, HEIGHT)));
+        Case tmp = getCase(x, y);
+        return tmp == null ? Type.EMPTY : tmp.type;
     }
     
     public void update() { // Observer 
@@ -92,7 +103,7 @@ public class Map extends Observable  {
         return this;    
     }
     
-    public void createMap() {
+    private void createMap() {
         map = new Case[getY()][getX()];
         for (int i = 0; i < getX(); i++) {
             for (int j = 0; j < getY(); j++) {

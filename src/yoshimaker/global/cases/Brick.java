@@ -39,5 +39,6 @@ public class Brick extends Case {
             .fixtures(DENSITY, FRICTION, RESTITUTION)
             .create();
         update();
+        type = Type.BRICK;
     }
 }

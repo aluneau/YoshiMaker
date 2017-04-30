@@ -35,6 +35,7 @@ public class Boo extends Ennemy {
             .fixtures(DENSITY, FRICTION, RESTITUTION)
             .data(this)
             .create();
+        killable = true;
     }
     
     @Override
