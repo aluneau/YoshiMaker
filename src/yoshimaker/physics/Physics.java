@@ -7,6 +7,7 @@ package yoshimaker.physics;
 
 import static java.lang.Math.round;
 import java.util.HashSet;
+import java.util.Iterator;
 import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
@@ -340,13 +341,25 @@ public class Physics {
     public static void update(float step, int vi, int pi) {  
         world().step(step, vi, pi);
         for (Body b : DESTROYED) { DESTROYED.remove(b); world().destroyBody(b); }
-        for (Physics p : CREATION) { p.stepCreate(); }
-        
+        stepCreateAll();
         for (Body b : FORCED) { FORCED.remove(b); 
             Player p = (Player) (b.getUserData());
             b.setTransform(new Vec2(p.getSpawnX(), p.getSpawnY()), b.getAngle()); }
     }
 
+    private static boolean locked = false;
+    public static void stepCreateAll() {
+        if (locked) { return; }
+        locked = true;
+        Iterator<Physics> it = CREATION.iterator();
+        while (it.hasNext()) {
+            Physics p = it.next();
+            p.stepCreate(); 
+            it.remove();
+        }
+        locked = false;
+    }
+    
     /**
      * Raccourci de la méthode update
      */
