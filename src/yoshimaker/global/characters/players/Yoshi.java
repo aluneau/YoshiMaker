@@ -54,6 +54,7 @@ public class Yoshi extends Player {
             .fixtures(DENSITY, FRICTION, RESTITUTION)
             .data(this)
             .create();
+        setSpawn((int)physics.at().x, (int)physics.at().y);
     }
     
     @Override 

@@ -361,4 +361,10 @@ public class Physics {
     public Body getBody() {
         return this.body;
     }
+    
+    public Physics forcePosition(int x, int y) {
+        body.setTransform(new Vec2(x, y), body.getAngle());
+        update();
+        return this;
+    }
 }

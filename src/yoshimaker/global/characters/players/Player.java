@@ -130,7 +130,7 @@ public abstract class Player extends yoshimaker.global.characters.Character {
     
     @Override
     public void die() {
-        System.out.println("player died :( ");
+        physics.forcePosition(sx, sy);
     }
     
     public void jump(boolean forced) {
@@ -143,5 +143,11 @@ public abstract class Player extends yoshimaker.global.characters.Character {
     
     public String getDirection() {
         return direction ;
+    }
+    
+    private int sx, sy;
+    public Player setSpawn(int x, int y) {
+        sx = x; sy = y;
+        return this;
     }
 }
