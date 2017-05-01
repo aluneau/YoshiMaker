@@ -31,8 +31,8 @@ public class WindowGame extends BasicGame {
 
     @Override
     public void init(GameContainer container) throws SlickException {
-
         this.container = container;
+        container.setTargetFrameRate(60);
         input = container.getInput();
         camera = new Camera(container);
         Button.LISTENER = input ;   
