@@ -30,6 +30,7 @@ public class Yoshi extends Player {
     private Animation right;
     private Animation stopLeft;
     private Animation stopRight;
+    private Music saut;
 
     
     /**
@@ -56,6 +57,7 @@ public class Yoshi extends Player {
             .data(this)
             .create();
         setSpawn((int)physics.at().x, (int)physics.at().y);
+        saut = new Music("sounds/saut.wav");
     }
     
     @Override 
@@ -104,12 +106,8 @@ public class Yoshi extends Player {
      */
     @Override
     public void key_space() {
-        try {
-            Music saut = new Music("sounds/saut.wav");
             saut.play();
-        } catch (SlickException e) {
-            e.printStackTrace();
-        }
+
         jumped = false;
         jump(false);
     }
