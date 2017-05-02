@@ -8,6 +8,7 @@ package yoshimaker.views;
 import io.socket.client.IO;
 import io.socket.client.Socket;
 import io.socket.emitter.Emitter;
+import org.json.JSONObject;
 import yoshimaker.map.Map;
 import org.jbox2d.dynamics.BodyType;
 import org.newdawn.slick.*;
@@ -38,6 +39,7 @@ public class TitleScreen extends View {
     private boolean test = false;
     private float test2 = 0, test3 = 0, test4 = 0;
     private Map map ;
+    private Socket socket;
 
     public TitleScreen() {
         clouds = new Image[5];
@@ -83,17 +85,21 @@ public class TitleScreen extends View {
         map.setCase(2, 8, Type.ICE);
         map.setCase(3, 8, Type.ICE);
         map.setCase(11, 8, Type.SPRING);
-        map.setCase(8, 4, Type.BRICK);
-        map.setCase(8, 5, Type.BRICK);
-        map.setCase(8, 6, Type.BRICK);
-        map.setCase(8, 7, Type.BRICK);
+        map.setCase(9, 10, Type.BRICK);
+
+        map.setCase(8, 10, Type.BRICK);
+        map.setCase(8, 11, Type.BRICK);
+        map.setCase(8, 12, Type.BRICK);
+        map.setCase(8, 13, Type.BRICK);
+        map.setCase(8, 14, Type.BRICK);
         map.setCase(10, 8, Type.EMPTY);
         map.setCase(9, 8, Type.EMPTY);
         //map.move(100, 100);
 
         Entity.setCamera(camera().focus(testEntity).on(map));
+
         try {
-            Socket socket = IO.socket("http://localhost:3000");
+            socket = IO.socket("http://localhost:3000");
             socket.on(Socket.EVENT_CONNECT, new Emitter.Listener() {
 
                 @Override
@@ -107,7 +113,6 @@ public class TitleScreen extends View {
                 public void call(Object... args) {
                     System.out.println("On m'a dis que mon message est reçu");
                     System.out.println("J'ai reçu en retour: " + args[0].toString());
-                    socket.disconnect();
                 }
 
             }).on(Socket.EVENT_DISCONNECT, new Emitter.Listener() {
@@ -139,6 +144,7 @@ public class TitleScreen extends View {
         
         */
         //map.draw(container, g);
+
         background.draw(0, 00, 4f);
         Entity.drawCamera(container, g);
 
@@ -148,8 +154,8 @@ public class TitleScreen extends View {
     public void update(GameContainer container, int delta) {
         Entity.updateAll();
         Physics.update();
+        socket.emit("sendObject", testEntity.toString());
 
-        
         /*
         for (int i = 0; i < clouds.length; i++) {
             clouds_x[i] += delta*0.05;

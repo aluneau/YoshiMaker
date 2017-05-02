@@ -126,7 +126,7 @@ public abstract class Player extends yoshimaker.global.characters.Character {
     public abstract void key_space();    
     
     @Override
-    public String toString() { return "player" ; }
+    public String toString() { return "player x:"  + x + ", y:" + y ; }
     
     @Override
     public void die() {

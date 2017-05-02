@@ -49,7 +49,7 @@ public abstract class Character extends Entity {
     }
 
     @Override
-    public String toString() { return "character" ; }
+    public String toString() { return "character x:" + x +  " ,y:" + y; }
     
     public void die() {
         this.destroy();
