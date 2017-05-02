@@ -79,6 +79,8 @@ public class TitleScreen extends View {
         map = new Map(30,14);
         //System.out.println(Entity.ENTITIES.size());
 
+
+        map.setCase(0, 0, Type.BRICK);
         map.setCase(2, 8, Type.ICE);
         map.setCase(3, 8, Type.ICE);
         map.setCase(11, 8, Type.SPRING);
