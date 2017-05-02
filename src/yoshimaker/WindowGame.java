@@ -39,7 +39,7 @@ public class WindowGame extends BasicGame {
 
 
         //view = new TitleScreen();
-        view = new GameViewDeluxe();
+        //view = new GameViewDeluxe();
         view = new TitleScreen();
         //view = new GameViewDeluxe();
         view.init(container);

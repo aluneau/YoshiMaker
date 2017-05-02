@@ -20,7 +20,7 @@ public abstract class Entity {
     /**
      * Liste des entités
      */
-    protected final static HashSet<Entity> ENTITIES = new HashSet();
+    public static final HashSet<Entity> ENTITIES = new HashSet();
      
     protected static Camera CAMERA;
     private static int displayed;
@@ -163,11 +163,11 @@ public abstract class Entity {
         //Dessine toutes les entités présentes dans la caméra
         if (CAMERA == null) { return ; }
         for (Entity entity : ENTITIES) { if (CAMERA.isVisible(entity)) { entity.draw(container, g); } }
-        /*
+        
             displayed = 0;
             for (Entity entity : ENTITIES) { if (CAMERA.isVisible(entity)) { entity.draw(container, g); displayed++;} }
             System.out.println("Displayed "+displayed);
-        */
+        
     }
     
     public void destroy() {

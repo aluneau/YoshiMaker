@@ -94,42 +94,29 @@ public class Map extends Observable {
         //Fonction qui permettrait de lire un fichier serialiser et de le prendre comme map
     }
 
-    public Map setCase(int x, int y, Type type) {
+     public Map setCase(int x, int y, Type type) {
         try {
-            if (map[y][x] != null) { map[y][x].destroy(); }            
+            if (map[y][x] != null) { map[y][x].destroy(); }
+            
             switch (type) {
-                case BRICK:
-                    map[y][x] = new Brick(x, y);
-                    break;
-                case ICE:
-                    map[y][x] = new Ice(x, y);
-                    break;
-                case SPRING:
-                    map[y][x] = new Spring(x, y);
-                    break;
+                case BRICK: map[y][x] = new Brick(x, y);break;
+                case ICE: map[y][x] = new Ice(x, y);break;
+                case SPRING: map[y][x] = new Spring(x, y);break;
             }
-        } catch (Exception ignore) {
-            Logger.getLogger(Map.class.getName()).log(Level.SEVERE, null, ignore);
-        }
-        return this;            
-    } 
-
-
+            
+        } catch (Exception ignore) { }
+        return this;    
+    }
     
     private void createMap() {
         map = new Case[getY()][getX()];
         for (int i = 0; i < getX(); i++) {
             for (int j = 0; j < getY(); j++) {
                 try {
-                    if (j == getY() - 1) {
-                        map[j][i] = new Brick(i, j);
-                    } else {
-                        map[j][i] = new Empty(i, j);
-                    }
-                } catch (Exception e) {
-                }
+                    if (j == getY()-1) { setCase(i, j, Type.BRICK); }
+                } catch (Exception e) {}
             }
-       }
+        }
     }
 
     public void move(int xOffset, int yOffset) {
