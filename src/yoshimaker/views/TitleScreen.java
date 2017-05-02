@@ -53,21 +53,19 @@ public class TitleScreen extends View {
         */
         Physics.world(0, 100f);
         testEntity = new Yoshi(64, 4*64);
-
-
-
-        Box b = new Box(3*64, 4*64);
-
         
-       //Item testItem = new Item("./resources/cloud_yoshi.png");
+        Box b = new Box(3*64, 4*64);
+ 
+        //Item testItem = new Item("./resources/cloud_yoshi.png");
 
         //Physics test2 = new Physics();
         //test2.define(BodyType.STATIC).at(0f, 300f).hitbox(500f, 10f).fixtures(0.5f, 0.9f, 0f).create();
-        System.out.print(" on sait jamais 2");        
-        map.saveText("test"); 
-        System.out.print(" on sait jamais ");
+        //map.saveText("test"); 
         
         /*map.createMap();
+        map = new Map(30,14);
+        
+
         map.setCase(2, 8, Type.ICE);
         map.setCase(3, 8, Type.ICE);
         map.setCase(11, 8, Type.SPRING);
@@ -79,7 +77,7 @@ public class TitleScreen extends View {
         map.setCase(9, 8, Type.EMPTY);*/
         //map.move(100, 100);
 
-        camera().focus(testEntity).on(map);
+        Entity.setCamera(camera().focus(testEntity).on(map));
 
     }
     
@@ -98,7 +96,7 @@ public class TitleScreen extends View {
         */
         //map.draw(container, g);
         background.draw(0, 00, 4f);
-        Entity.drawAll(container, g);
+        Entity.drawCamera(container, g);
         
     }
     

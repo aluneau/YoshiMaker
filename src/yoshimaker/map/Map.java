@@ -42,6 +42,11 @@ public class Map extends Observable {
         createMap();
     }
 
+    public Map(){
+        
+    }
+    
+    
     public void setX(int x) {
         this.x = x;
     }
@@ -61,11 +66,26 @@ public class Map extends Observable {
     public Case getCase(int x, int y) {
         return map[y][x];
     }
-
+    
+    public void setLevel1(){
+        setCase(2, 8, Type.ICE);
+        setCase(3, 8, Type.ICE);
+        setCase(11, 8, Type.SPRING);
+        setCase(8, 4, Type.BRICK);
+        setCase(8, 5, Type.BRICK);
+        setCase(8, 6, Type.BRICK);
+        setCase(8, 7, Type.BRICK);
+        setCase(10, 8, Type.EMPTY);
+        setCase(9, 8, Type.EMPTY);
+    }
+    
+    public void readLevel(String lvlname){
+        //Fonction qui permettrait de lire un fichier serialiser et de le prendre comme map
+    }
+    
     public Map setCase(int x, int y, Type type) {
         try {
-            map[y][x].destroy();
-
+            if (map[y][x] != null) { map[y][x].destroy(); }            
             switch (type) {
                 case BRICK:
                     map[y][x] = new Brick(x, y);
@@ -77,12 +97,11 @@ public class Map extends Observable {
                     map[y][x] = new Spring(x, y);
                     break;
             }
-
         } catch (Exception ignore) {
             Logger.getLogger(Map.class.getName()).log(Level.SEVERE, null, ignore);
         }
-        return this;
-    }
+        return this;            
+    } 
 
     public void createMap() {
         map = new Case[getY()][getX()];
@@ -97,7 +116,7 @@ public class Map extends Observable {
                 } catch (Exception e) {
                 }
             }
-        }
+       }
     }
 
     public void move(int xOffset, int yOffset) {
@@ -114,14 +133,15 @@ public class Map extends Observable {
         }
     }
 
-     public void draw(GameContainer container, Graphics g) {
+    public void draw(GameContainer container, Graphics g) {
         for (int i = 0; i < getX(); i++) {
             for (int j = 0; j < getY(); j++) {
                map[j][i].draw(container, g);
             }
         }
     }
-    // sauvegarder une partie
+
+// sauvegarder une partie
     public void save() throws IOException {
         // Fichier dans lequel on va écrire;
         File fichier = new File("test1.yoshiMaker");
@@ -157,68 +177,48 @@ public class Map extends Observable {
     public void changeCase(int x, int y, Type etat) {
         map[y][x].setBlock(etat);
     }
-/*
-    public void saveText(String name) throws SlickException {
-        String ok = name + ".txt";
-        int largeur = 0, avant = 0;
-        int r = 0;
-        String[] saveBlock = null;
-        String poum;
-        int i = 0;
-        System.out.println(" 1 ");
+
+    public void loadText(String name){
+        String fileName = name + ".txt";// fichier 
+        String[] saveBlock = null;      // récuperation de la ligne 
+        String ligne;
+        
         try {
-            System.out.println(" 2 ");
-            InputStream flux = new FileInputStream(ok);
+            InputStream flux = new FileInputStream(fileName);
             InputStreamReader lecture = new InputStreamReader(flux);
             BufferedReader buff = new BufferedReader(lecture);
-            String ligne;
-            while ((ligne = buff.readLine()) != null) {                
-                saveBlock. (ligne.split(" "));
-                if (largeur < (saveBlock.length - avant)) {
-                    largeur = saveBlock.length;
-                }
-                avant = saveBlock.length;
-            }
-            System.out.println(" 3");
-            for (int h = 0;h < saveBlock.length ; h++){
-                System.out.print(saveBlock[h]);
-            }
-            buff.close();
-        } catch (Exception e) {
-            System.out.println(e.toString());
-            System.out.println(" 3B ");
+            
+            while((ligne = buff.readLine()) != null){
+                saveBlock = ligne.split(" ");
+                ligneMap(saveBlock,saveBlock.length);
+            }          
+        }catch( Exception e ){
+            System.out.println(e.toString());    
+        }   
+    }
+    
+    private void ligneMap(String[] saveBlock, int hauteur ){
+        for(int i = 0 ; i < saveBlock.length ; i++){
+            setCase(i,hauteur,valueBlock(saveBlock[i]));
         }
-        this.y = i;
-        System.out.println(" 4 ");
-        while (r < saveBlock.length) {
-            for (int y = 0; y < largeur; y++) {
-                System.out.println(saveBlock[r]);
-                switch (saveBlock[r]) {
-                    case "B": // brique
-                        setCase(y,r,Type.BRICK);
-                        break;
-                    case "_": // vide
-                        setCase(y,r,Type.EMPTY);
-                        break;
-                    case "I":// glace
-                        setCase(y,r,Type.ICE);
-                        break;
-                    case "P": // pic
-                        setCase(y,r,Type.PICK);
-                        break;
-                    case "L": // lave
-                        setCase(y,r,Type.LAVA);
-                        break;
-                    case "S":// ressort
-                        setCase(y,r,Type.SPRING);
-                        break;
-                    default:
-                        setCase(y,r,Type.EMPTY);
-                }
-            }
-            r++;
+    }
+    
+    private Type valueBlock(String donne){
+        switch (donne) {
+            case "B": // brique
+                return Type.BRICK;
+            case "_": // vide
+                return Type.EMPTY;
+            case "I":// glace
+                return Type.ICE;
+            case "P": // pic
+                return Type.PICK;
+            case "L": // lave
+                return Type.LAVA;
+            case "S":// ressort
+                return Type.SPRING;
+            default:
+                return Type.EMPTY;
         }
-        
-    }*/ // Pour le moment ca marche pas 
-
-}
+    }
+}    

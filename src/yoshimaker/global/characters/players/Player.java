@@ -46,6 +46,13 @@ public abstract class Player extends yoshimaker.global.characters.Character {
         physics.define(BodyType.DYNAMIC);
     }
     
+    
+    @Override
+    public void destroy() {
+        PLAYERS.remove(this);
+        super.destroy();
+    }
+    
     /**
      * Controller permanent
      * @param input 

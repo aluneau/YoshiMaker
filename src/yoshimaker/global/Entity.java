@@ -9,6 +9,7 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 import yoshimaker.physics.Physics;
+import yoshimaker.views.camera.Camera;
 
 /**
  * Class entity.
@@ -21,6 +22,9 @@ public abstract class Entity {
      */
     protected final static HashSet<Entity> ENTITIES = new HashSet();
      
+    protected static Camera CAMERA;
+    private static int displayed;
+    
     protected int 
         x = 0, 
         y = 0, 
@@ -64,6 +68,10 @@ public abstract class Entity {
         this.sprite = sprite;
         //Physique
         physics = new Physics();
+    }
+    
+    public Entity() {
+        
     }
     
     public int getY() {
@@ -149,9 +157,24 @@ public abstract class Entity {
         for (Entity entity : ENTITIES) { entity.draw(container, g); }
     }
     
+    public static void drawCamera(GameContainer container, Graphics g) {
+        //Dessine toutes les entités présentes dans la caméra
+        if (CAMERA == null) { return ; }
+        for (Entity entity : ENTITIES) { if (CAMERA.isVisible(entity)) { entity.draw(container, g); } }
+        /*
+            displayed = 0;
+            for (Entity entity : ENTITIES) { if (CAMERA.isVisible(entity)) { entity.draw(container, g); displayed++;} }
+            System.out.println("Displayed "+displayed);
+        */
+    }
+    
     public void destroy() {
         physics.destroy();
         destroyed = true ;
-        ENTITIES.remove(this);
+        ENTITIES.removeIf(f -> { return f.destroyed ;});
+    }
+    
+    public static void setCamera(Camera camera) {
+        CAMERA = camera;
     }
 }

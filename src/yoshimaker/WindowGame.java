@@ -4,8 +4,10 @@ import org.jbox2d.dynamics.BodyType;
 import yoshimaker.maker.view.MakerView;
 import yoshimaker.views.TitleScreen;
 import org.newdawn.slick.*;
+import yoshimaker.maker.view.Button;
 import yoshimaker.physics.Physics;
 import yoshimaker.physics.PhysicsThread;
+import yoshimaker.views.GameViewDeluxe;
 import yoshimaker.views.View;
 import yoshimaker.views.camera.Camera;
 
@@ -31,14 +33,14 @@ public class WindowGame extends BasicGame {
     public void init(GameContainer container) throws SlickException {
 
         this.container = container;
-        camera = new Camera();
-
-
-        view = new TitleScreen();
-        //view = new GameViewDeluxe();
-        view.init(container);
-
         input = container.getInput();
+        camera = new Camera(container);
+        Button.LISTENER = input ;   
+
+
+        //view = new TitleScreen();
+        view = new GameViewDeluxe();
+
 
         //physicThread = new Thread(new PhysicsThread());
         //physicThread.start();

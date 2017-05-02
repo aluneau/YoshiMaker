@@ -5,60 +5,90 @@
  */
 package yoshimaker.views;
 
-import java.util.logging.Level;
 import java.util.logging.Logger;
-import yoshimaker.global.cases.Type;
-import yoshimaker.map.Map;
+import org.lwjgl.input.Mouse;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
+import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import yoshimaker.global.Entity;
+import yoshimaker.global.cases.Type;
+import yoshimaker.global.characters.players.Player;
+import yoshimaker.global.characters.players.Yoshi;
+import yoshimaker.global.items.Box;
+import yoshimaker.maker.view.Button;
+import yoshimaker.map.Map;
+import yoshimaker.physics.Physics;
 
-/**
- *
- * @author punpun et ba bravo Simon :o je suis outrée !! :o 
-
-public class GameViewDeluxe extends View {
-    //Map map = new Map(10,15);
-    Image theme_ground;
+public final class GameViewDeluxe extends View {
+    public Image logo, background, imageTest;
+    private final Image[] clouds;
+    private final double[] clouds_x;
+    private final double[] clouds_y;
+    private Yoshi testEntity;
+    private final boolean test = false;
+    private final float test2 = 0;
+    private final float test3 = 0;
+    private final float test4 = 0;
+    private Map map ;
+    
+    private Button button,button1;
 
     public GameViewDeluxe() throws SlickException {
-    //    map.createMap();
-        this.init();
+   
+        clouds = new Image[5];
+        clouds_x = new double[5];
+        clouds_y = new double[5];
+        clouds_y[0] = 10; clouds_x[0] = 10;
+        clouds_y[1] = 75; clouds_x[1] = 300;
+        clouds_y[2] = 50; clouds_x[2] = 600;
+        clouds_y[3] = 100; clouds_x[3] = 750;
+        clouds_y[4] = 85; clouds_x[4] = 450;
     }
     
-    public void init() throws SlickException {
-    //    map.getCase(1, 1).setBlock(Block.LAVA);
-        theme_ground = new Image("assets/images/maps/Ground.png");
+    @Override
+    public void init(GameContainer container) throws SlickException {
+        background = new Image("./resources/background_yoshi.png");
+        imageTest = new Image("./assets/images/test/arrow.jpg");
+        Physics.world(0, 100f);
+        testEntity = new Yoshi(64, 4*64);
+        Box b = new Box(3*64, 4*64);
+        
+        map = new Map(13,9);
+        map.createMap();
+        map.setLevel1();
+        button = new Button(container, 100, 100, 50, 50, imageTest);
+        button1 = new Button(container, 100, 130, 50, 50, imageTest);
+
     }
     
     @Override
     public void render(GameContainer container, Graphics g) {
-        try {
-            Ressources test = new Ressources(theme_ground,1,0);
-            //Image sprite = theme.getSubImage(15, 15);
-
-            //test.sprite.drawEmbedded(0, 0, 32, 32);
-            test.sprite.drawCentered(60, 60);
-        } catch (SlickException ex) {
-            Logger.getLogger(GameViewDeluxe.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        background.draw(0, 00, 1.1f);        
+        //imageTest.draw(200, 00, 0.4f);        
+        Entity.drawAll(container, g);
+        Button.drawAll(container, g);
     }
     
     @Override
     public void update(GameContainer container, int delta) {
-
+        int posX = Mouse.getX();
+        int posY = Mouse.getY();
+        Entity.updateAll();
+        Physics.update();
+        //if()
     }
 
     @Override
-    public void init(GameContainer container) throws SlickException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void controller(Input input) {
+        Player.controller(input);
     }
 
     @Override
-    public void controller(int key, char c) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void controller(int key, char c, boolean type) {
+        Player.controller(key, c, type);
     }
 }
-*/
+
