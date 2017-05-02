@@ -163,11 +163,11 @@ public abstract class Entity {
         //Dessine toutes les entités présentes dans la caméra
         if (CAMERA == null) { return ; }
         for (Entity entity : ENTITIES) { if (CAMERA.isVisible(entity)) { entity.draw(container, g); } }
-        
+        /*
             displayed = 0;
             for (Entity entity : ENTITIES) { if (CAMERA.isVisible(entity)) { entity.draw(container, g); displayed++;} }
             System.out.println("Displayed "+displayed);
-        
+        */
     }
     
     public void destroy() {

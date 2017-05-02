@@ -67,7 +67,7 @@ public class TitleScreen extends View {
         Thwomp t = new Thwomp(16*64, 8*64);
 
         Koopa k = new Koopa(10*64, 8*64);
-        //Shell s = new Shell(9*64, 8*64);
+        Shell s = new Shell(9*64, 8*64);
 
         //Item testItem = new Item("./resources/cloud_yoshi.png");
 
@@ -77,7 +77,7 @@ public class TitleScreen extends View {
         
 
         map = new Map(30,14);
-        System.out.println(Entity.ENTITIES.size());
+        //System.out.println(Entity.ENTITIES.size());
 
         map.setCase(2, 8, Type.ICE);
         map.setCase(3, 8, Type.ICE);

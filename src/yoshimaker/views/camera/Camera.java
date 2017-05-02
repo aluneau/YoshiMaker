@@ -39,7 +39,7 @@ public class Camera {
         this.follow = entity ;
         //ox = 0-entity.getX();
         //oy = entity.getY();
-        oy = +hh;
+        oy = h/3;
         return this;
     }
 

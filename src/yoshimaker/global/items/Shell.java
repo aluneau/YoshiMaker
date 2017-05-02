@@ -34,7 +34,8 @@ public class Shell extends Item {
     protected static int
         TILE_X = 0,
         TILE_Y = 0;
-    private Animation animation;
+    private Animation inactive, active;
+    protected boolean spinning = false;
     /**
      * Boite
      * @param x
@@ -45,15 +46,31 @@ public class Shell extends Item {
         //Initialisation
         super(SHELL.getSprite(TILE_X, TILE_Y));
         //Coordonnées
-        //this.animation = new Animation(new SpriteSheet("./assets/images/test/block1.png", 64, 64,1),100);
-        //this.sprite = this.animation;
-        //this.sprite.start();
+        this.inactive = new Animation(SHELL, 0, 0, 0, 0, true, 1, true);
+        this.active = new Animation(SHELL, 1, 0, 2, 0, true, 1, true);
+        this.sprite = this.inactive;
+        this.sprite.start();
         setX(x).setY(y).setWidth(WIDTH).setHeight(HEIGHT);
         //Défintion de la physique
         physics
             .at(x, y)
             .hitbox(width/2, height/2)
             .fixtures(DENSITY, FRICTION, RESTITUTION)
+            .data(this)
             .create();
+    }
+    
+    public void spinning(boolean v) {
+        spinning = v;
+        this.sprite = spinning ? active : inactive;
+    }
+    
+    public boolean spinning() {
+        return spinning;
+    }
+    
+    @Override
+    public String toString() {
+        return "shell";
     }
 }
