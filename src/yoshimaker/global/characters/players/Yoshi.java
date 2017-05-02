@@ -6,6 +6,7 @@
 package yoshimaker.global.characters.players;
 
 import org.newdawn.slick.Animation;
+import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 
@@ -103,6 +104,12 @@ public class Yoshi extends Player {
      */
     @Override
     public void key_space() {
+        try {
+            Music saut = new Music("sounds/saut.wav");
+            saut.play();
+        } catch (SlickException e) {
+            e.printStackTrace();
+        }
         jumped = false;
         jump(false);
     }
