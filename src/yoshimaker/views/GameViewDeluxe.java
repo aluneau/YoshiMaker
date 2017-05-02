@@ -57,7 +57,6 @@ public final class GameViewDeluxe extends View {
         Box b = new Box(3*64, 4*64);
         
         map = new Map(13,9);
-        map.createMap();
         map.setLevel1();
         button = new Button(container, 100, 100, 50, 50, imageTest);
         button1 = new Button(container, 100, 130, 50, 50, imageTest);

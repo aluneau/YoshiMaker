@@ -20,8 +20,10 @@ public abstract class Player extends yoshimaker.global.characters.Character {
     /**
      * Liste des joueurs
      */
-    protected final static HashSet<Player> PLAYERS = new HashSet();
-   
+    public final static HashSet<Player> PLAYERS = new HashSet();
+       protected boolean jumped = false ;
+       protected String direction;
+       
     
     /**
      * Joueur
@@ -35,6 +37,7 @@ public abstract class Player extends yoshimaker.global.characters.Character {
         PLAYERS.add(this);
         //Corps dynamique
         physics.define(BodyType.DYNAMIC);
+        direction = "right";
     }
     
     public Player(Image... files) throws SlickException {
@@ -44,6 +47,7 @@ public abstract class Player extends yoshimaker.global.characters.Character {
         PLAYERS.add(this);
         //Corps dynamique
         physics.define(BodyType.DYNAMIC);
+        direction = "right";
     }
     
     
@@ -109,15 +113,45 @@ public abstract class Player extends yoshimaker.global.characters.Character {
     /**
      * Callback à la touche Q
      */
-    public abstract void key_q();
+    public void key_q() { direction = "left" ;};
     
     /**
      * Callback à la touche D
      */
-    public abstract void key_d();
+    public void key_d() { direction = "right"; };
     
     /**
      * Callback à la touche Espace
      */
     public abstract void key_space();    
+    
+    @Override
+    public String toString() { return "player" ; }
+    
+    @Override
+    public void die() {
+        physics.forcePosition();
+        update();
+    }
+    
+    public void jump(boolean forced) {
+        if ((!jumped)||(forced)) {
+            jumped = true ;  
+            physics.moveY(-30);
+            if (forced) { physics.moveY(-20); }
+        }
+    }
+    
+    public String getDirection() {
+        return direction ;
+    }
+    
+    private float sx, sy;
+    public Player setSpawn(float x, float y) {
+        sx = x; sy = y;
+        return this;
+    }
+    
+    public float getSpawnX() { return sx ; }
+    public float getSpawnY() { return sy ; }
 }

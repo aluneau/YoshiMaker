@@ -6,6 +6,8 @@
 package yoshimaker.physics;
 
 import static java.lang.Math.round;
+import java.util.HashSet;
+import java.util.Iterator;
 import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
@@ -14,6 +16,8 @@ import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.dynamics.FixtureDef;
 import org.jbox2d.dynamics.World;
 import org.newdawn.slick.geom.Rectangle;
+import yoshimaker.global.Entity;
+import yoshimaker.global.characters.players.Player;
 
 /**
  *
@@ -26,6 +30,10 @@ public class Physics {
     private final PolygonShape _hitbox;
     private final FixtureDef _fixtures;
     private boolean created, defined, fixtured, hitboxed;
+    private Object data;
+    private final static HashSet<Body> DESTROYED = new HashSet(), FORCED = new HashSet();
+    private final static HashSet<Physics> CREATION = new HashSet();
+    private int _group;
 
     /**
      * Contructeur
@@ -62,10 +70,23 @@ public class Physics {
         defined = false ;
         hitboxed = false ;
         fixtured = false ;
+        data = null ;
         //JBox 2D initialisation
+        _group = 1;
         _definition = new BodyDef();
         _hitbox = new PolygonShape();
         _fixtures = new FixtureDef();
+        
+    }
+    
+    public Physics data(Object d) {
+        this.data = d;
+        return this ;
+    }
+    
+    public Object data() {
+        if (!created) { return null; }
+        return body.getUserData();
     }
 
     /**
@@ -81,9 +102,10 @@ public class Physics {
      * @param type
      * @return
      */
-    public Physics definition(BodyType type) {
+    public Physics definition(BodyType type, int group) {
         if (!created) {
             _definition.type = type;
+            _group = group;
             defined = true;
         }
         return this;
@@ -95,7 +117,11 @@ public class Physics {
      * @return
      */
     public Physics define(BodyType type) {
-        return definition(type);
+        return definition(type, _group);
+    }
+    
+    public Physics define(BodyType type, int group) {
+        return definition(type, group);
     }
 
     /**
@@ -186,6 +212,8 @@ public class Physics {
             _fixtures.density = density;
             _fixtures.friction = friction;
             _fixtures.restitution = restitution;
+            _fixtures.filter.categoryBits = _group;
+            _fixtures.filter.maskBits = _group;
             fixtured = true ;
         }
         return this;
@@ -200,11 +228,17 @@ public class Physics {
      */
     public Physics create() {
         if ((!created)&&(defined)&&(fixtured)) {
-            body = world().createBody(definition());
-            body.createFixture(fixtures());
-            created = true ;
+            CREATION.add(this);
         }
         return this;
+    }
+    
+    public void stepCreate() {
+        if (created) { return ; }
+        body = world().createBody(definition());
+        body.createFixture(fixtures());
+        body.setUserData(this.data);
+        created = true ;
     }
 
     /**
@@ -233,6 +267,21 @@ public class Physics {
         float ddvy = (dvy == 0) ? 0 : body.getMass() * (dvy - v.y);
         Vec2 iv = new Vec2(ddvx, ddvy);
         impulse(iv.x, iv.y);
+        return this;
+    }
+    
+    public Physics move(int dvx, int dvy) {
+        body.setLinearVelocity(new Vec2(dvx, dvy));
+        return this;
+    }
+    
+    public Physics moveX(int dvx) {
+        body.setLinearVelocity(new Vec2(dvx, body.getLinearVelocity().y));
+        return this;
+    }
+    
+    public Physics moveY(int dvy) {
+        body.setLinearVelocity(new Vec2(body.getLinearVelocity().x, dvy));
         return this;
     }
 
@@ -269,8 +318,10 @@ public class Physics {
      * @param gy
      */
     public static void world(float gx, float gy) {
+        if (_world instanceof World) { _world.setContactListener(null); }
         Vec2 gravity = new Vec2(gx, gy);
         _world = new World(gravity, true);
+        _world.setContactListener(new Collisions());
     }
 
     /**
@@ -287,10 +338,28 @@ public class Physics {
      * @param vi - Nb itération pour le calcul de la vélocité
      * @param pi - Nb itérations pour le calcul de la position
      */
-    public static void update(float step, int vi, int pi) {
+    public static void update(float step, int vi, int pi) {  
         world().step(step, vi, pi);
+        for (Body b : DESTROYED) { DESTROYED.remove(b); world().destroyBody(b); }
+        stepCreateAll();
+        for (Body b : FORCED) { FORCED.remove(b); 
+            Player p = (Player) (b.getUserData());
+            b.setTransform(new Vec2(p.getSpawnX(), p.getSpawnY()), b.getAngle()); }
     }
 
+    private static boolean locked = false;
+    public static void stepCreateAll() {
+        if (locked) { return; }
+        locked = true;
+        Iterator<Physics> it = CREATION.iterator();
+        while (it.hasNext()) {
+            Physics p = it.next();
+            p.stepCreate(); 
+            it.remove();
+        }
+        locked = false;
+    }
+    
     /**
      * Raccourci de la méthode update
      */
@@ -315,7 +384,19 @@ public class Physics {
     }
     
     public void destroy() {
-        System.out.println(created);
-        if (created) { world().destroyBody(body); }
+        if (created) { 
+            DESTROYED.add(body);
+            body.destroyFixture(body.getFixtureList().getNext());
+            created = false ;
+        }
+    }
+    
+    public Body getBody() {
+        return this.body;
+    }
+    
+    public Physics forcePosition() {
+        FORCED.add(body);
+        return this;
     }
 }

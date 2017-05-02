@@ -35,11 +35,22 @@ public class Map extends Observable {
 
     private Case[][] map;
     private int x, y;
+    public final static int WIDTH = 64, HEIGHT = 64;
+    
+    public static Map CURRENT;
 
     public Map(int x, int y) {
         this.x = x;
         this.y = y;
         createMap();
+        CURRENT = this;
+    }
+    
+    public Type whatIs(int x, int y) {
+        x = Math.max(0, Math.min(getX()-1, Math.floorDiv(x, WIDTH)));
+        y = Math.max(0, Math.min(getY()-1, Math.floorDiv(y, HEIGHT)));
+        Case tmp = getCase(x, y);
+        return tmp == null ? Type.EMPTY : tmp.type;
     }
 
     public Map(){
@@ -82,7 +93,7 @@ public class Map extends Observable {
     public void readLevel(String lvlname){
         //Fonction qui permettrait de lire un fichier serialiser et de le prendre comme map
     }
-    
+
     public Map setCase(int x, int y, Type type) {
         try {
             if (map[y][x] != null) { map[y][x].destroy(); }            
@@ -103,7 +114,9 @@ public class Map extends Observable {
         return this;            
     } 
 
-    public void createMap() {
+
+    
+    private void createMap() {
         map = new Case[getY()][getX()];
         for (int i = 0; i < getX(); i++) {
             for (int j = 0; j < getY(); j++) {
@@ -129,6 +142,7 @@ public class Map extends Observable {
                     System.out.println("X: " + map[j][i].getX() + ", Y: " + map[j][i].getY());
                 } catch (Exception ignore) {
                 }
+                if (j == getY()-1 || j == 0 || i == getX()-1 || i== 0) { setCase(i, j, Type.BRICK); }
             }
         }
     }
@@ -182,19 +196,36 @@ public class Map extends Observable {
         String fileName = name + ".txt";// fichier 
         String[] saveBlock = null;      // récuperation de la ligne 
         String ligne;
+        boolean firstLine = true;
         
         try {
             InputStream flux = new FileInputStream(fileName);
             InputStreamReader lecture = new InputStreamReader(flux);
             BufferedReader buff = new BufferedReader(lecture);
-            
+            this.y = knowSize(buff);
             while((ligne = buff.readLine()) != null){
                 saveBlock = ligne.split(" ");
+                if(firstLine == true){
+                    this.x = saveBlock.length;
+                    createMap();
+                }
                 ligneMap(saveBlock,saveBlock.length);
             }          
         }catch( Exception e ){
             System.out.println(e.toString());    
         }   
+    }
+    
+    private int knowSize(BufferedReader nameFile){
+        int y = 0;
+        try {
+            while((nameFile.readLine() !=null)){
+                
+                y ++;
+            }
+        } catch (IOException ex) {
+        }
+        return y;
     }
     
     private void ligneMap(String[] saveBlock, int hauteur ){

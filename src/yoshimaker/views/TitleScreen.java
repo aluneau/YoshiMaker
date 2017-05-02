@@ -5,17 +5,26 @@
  */
 package yoshimaker.views;
 
+import io.socket.client.IO;
+import io.socket.client.Socket;
+import io.socket.emitter.Emitter;
 import yoshimaker.map.Map;
 import org.jbox2d.dynamics.BodyType;
 import org.newdawn.slick.*;
 import yoshimaker.global.Entity;
 import yoshimaker.global.cases.Brick;
 import yoshimaker.global.cases.Type;
+import yoshimaker.global.characters.ennemies.Boo;
+import yoshimaker.global.characters.ennemies.Goomba;
+import yoshimaker.global.characters.ennemies.Koopa;
+import yoshimaker.global.characters.ennemies.ParaGoomba;
+import yoshimaker.global.characters.ennemies.Thwomp;
 import yoshimaker.global.characters.players.Player;
 import yoshimaker.global.characters.players.Yoshi;
 import yoshimaker.global.items.Box;
 import yoshimaker.physics.Physics;
 import yoshimaker.global.items.Item;
+import yoshimaker.global.items.Shell;
 
 /**
  *
@@ -40,7 +49,7 @@ public class TitleScreen extends View {
         clouds_y[3] = 100; clouds_x[3] = 750;
         clouds_y[4] = 85; clouds_x[4] = 450;
     }
-    
+
     @Override
     public void init(GameContainer container) throws SlickException {
         background = new Image("./resources/background_yoshi.png");
@@ -52,10 +61,17 @@ public class TitleScreen extends View {
         clouds[4] = new Image("./resources/cloud_yoshi.png");
         */
         Physics.world(0, 100f);
-        testEntity = new Yoshi(64, 4*64);
-        
+        testEntity = new Yoshi(64, 12*64);
+
         Box b = new Box(3*64, 4*64);
- 
+        Goomba g = new Goomba(7*64, 12*64);
+        ParaGoomba pg = new ParaGoomba(8*64, 10*64);
+        Boo boo = new Boo(4*64, 10*64);
+        Thwomp t = new Thwomp(16*64, 8*64);
+
+        Koopa k = new Koopa(10*64, 8*64);
+        //Shell s = new Shell(9*64, 8*64);
+
         //Item testItem = new Item("./resources/cloud_yoshi.png");
 
         //Physics test2 = new Physics();
@@ -63,8 +79,9 @@ public class TitleScreen extends View {
         //map.saveText("test"); 
         
         /*map.createMap();
+
         map = new Map(30,14);
-        
+
 
         map.setCase(2, 8, Type.ICE);
         map.setCase(3, 8, Type.ICE);
@@ -78,9 +95,39 @@ public class TitleScreen extends View {
         //map.move(100, 100);
 
         Entity.setCamera(camera().focus(testEntity).on(map));
+        try {
+            Socket socket = IO.socket("http://localhost:3000");
+            socket.on(Socket.EVENT_CONNECT, new Emitter.Listener() {
 
-    }
-    
+                @Override
+                public void call(Object... args) {
+                    socket.emit("foo", "Hi");
+                }
+
+            }).on("event", new Emitter.Listener() {
+
+                @Override
+                public void call(Object... args) {
+                    System.out.println("On m'a dis que mon message est reçu");
+                    System.out.println("J'ai reçu en retour: " + args[0].toString());
+                    socket.disconnect();
+                }
+
+            }).on(Socket.EVENT_DISCONNECT, new Emitter.Listener() {
+
+                @Override
+                public void call(Object... args) {
+                }
+
+            });
+            socket.connect();
+        }catch(Exception e) {
+            System.out.println("Connection problem");
+        }
+
+
+}
+
     @Override
     public void render(GameContainer container, Graphics g) {
         /*
@@ -97,9 +144,9 @@ public class TitleScreen extends View {
         //map.draw(container, g);
         background.draw(0, 00, 4f);
         Entity.drawCamera(container, g);
-        
+
     }
-    
+
     @Override
     public void update(GameContainer container, int delta) {
         Entity.updateAll();

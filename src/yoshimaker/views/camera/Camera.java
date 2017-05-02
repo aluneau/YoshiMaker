@@ -37,8 +37,9 @@ public class Camera {
     
     public Camera focus(Entity entity) {
         this.follow = entity ;
-        ox = 0-entity.getX();
-        oy = entity.getY();
+        //ox = 0-entity.getX();
+        //oy = entity.getY();
+        oy = +hh;
         return this;
     }
 
