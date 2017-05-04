@@ -47,4 +47,9 @@ public abstract class Item extends Entity {
             SPRITESHEET = new SpriteSheet("./assets/tileset1.png", 64, 64, 1);
         } catch (Exception ignore) { }
     }
+    
+    @Override
+    public String toString() {
+        return "item";
+    }
 }

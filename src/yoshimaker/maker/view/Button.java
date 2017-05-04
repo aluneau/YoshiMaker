@@ -8,18 +8,39 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.MouseListener;
 import org.newdawn.slick.SlickException;
 import yoshimaker.global.Entity;
+import yoshimaker.global.cases.Type;
+import yoshimaker.map.Map;
 
 public class Button extends Entity implements  MouseListener{
     private Image image;
     private GameContainer container;
     protected final static HashSet<Button> BUTTONS = new HashSet();
+
+    private Type type;
+    
     static public Input LISTENER ;
+    static private boolean onSelection = false;
+    static private Type selectedType;
+    static private Button selectedButton = null;
+    static private int lastX = 0;
+    static private int lastY = 0;
     
-    public Button(GameContainer container, int x, int y, int height, int width, String... files) throws SlickException {
+    protected int
+        POSITION_X,
+        POSITION_Y,
+        SELECT_POSITION_ADD_X = 50,
+        SELECT_POSITION_ADD_Y = 0;
+        
+    public Button(GameContainer container, int x, int y, int height, int width, Type type, String... files) throws SlickException {
+        //Button(container,x,y,height,width,type,new Image(files);
+        /*ptite modif de sioux*/
+
         //Initialiastion
         super(files);
         this.setX(x);
         this.setY(y);
+        POSITION_X = x;
+        POSITION_Y = y;
         this.setHeight(height);
         this.setWidth(width);
         this.container = container;
@@ -28,18 +49,31 @@ public class Button extends Entity implements  MouseListener{
         LISTENER.addMouseListener(this);
     }
     
-    public Button(GameContainer container, int x, int y, int height, int width, Image... files) throws SlickException {
+    public Button(GameContainer container, int x, int y, int height, int width, Type type, Image... files) throws SlickException {
         //Initialiastion
         super(files);
         this.setX(x);
         this.setY(y);
+        POSITION_X = x;
+        POSITION_Y = y;
         this.setHeight(height);
         this.setWidth(width);
         this.container = container;
+        this.image = files[0];
+        this.type = type;
         //Référencement
         BUTTONS.add(this);
         LISTENER.addMouseListener(this);
     }
+
+    public static boolean isOnSelection() {
+        return onSelection;
+    }
+
+    public static void setOnSelection(boolean onSelection) {
+        Button.onSelection = onSelection;
+    }
+    
     
     public Entity update(){
         return this;
@@ -61,24 +95,72 @@ public class Button extends Entity implements  MouseListener{
     }
 
     @Override
-    public void mouseClicked(int i, int i1, int i2, int i3) {
-        if(this.container.getInput().getMouseX() < getX() || 
+    // i = 0 : clic droit ; i = 1 : clic gauche
+    //i1 = x ; i2 = y ; i3 = doubleclic (?)
+    public void mouseClicked(int i, int i1, int i2, int i3){
+        if(i == 1){ // EVENT STOP SELECTION
+            if(onSelection){ 
+                System.out.println("Stop Selection : " + onSelection + " " + i);
+                eventUnselect();
+                return;
+            }else{
+                return;
+            }
+        }
+        //PUT THE BLOCK SELECTED
+        if(onSelection && i == 0 && (i2/64 < Map.CURRENT.getY()-1 && i2/64 > 0 && i1/64 < Map.CURRENT.getX()-1 && i1/64 > 0)){
+            eventSetBlock(i1,i2);
+            return;
+        }
+       
+        if(this.container.getInput().getMouseX() < getX() || // STOP IF CLIC ISN'T ON THE BUTTON
            this.container.getInput().getMouseX() > getX()+this.getWidth() ||
            this.container.getInput().getMouseY() < getY() || 
-           this.container.getInput().getMouseY() > getY()+this.getHeight()) 
-                return;
-        
-        eventDecale();
-        
+           this.container.getInput().getMouseY() > getY()+this.getHeight())
+        {
+            System.out.println("Pas sur un bouton : " + isOnSelection());
+            return; 
+        }
+        System.out.println("Selection");
+        //SELECTION
+        eventSelect();
     }
 
-    public void eventDecale(){
-        if(getX() == 100 ) setX(200);
-        else setX(100);    
+    public void eventSelect(){
+        eventUnselect();
+        this.selectedButton = this;
+        this.selectedType = this.type;
+        setX(this.POSITION_X + this.SELECT_POSITION_ADD_X);
+        setY(this.POSITION_Y + this.SELECT_POSITION_ADD_Y); 
+        this.onSelection = true;
+    }
+    public static void eventUnselect(){
+        if(selectedButton == null) return;
+        selectedButton.setX(selectedButton.POSITION_X);
+        selectedButton.setY(selectedButton.POSITION_Y);
+        onSelection = false;
+    }
+    
+    public static void eventSetBlock(int xMouse, int yMouse){
+        int xMap = (xMouse+32)/64;
+        int yMap = (yMouse+32)/64;
+        if(selectedType != null && Map.CURRENT.getCase(xMap, yMap) != null && Map.CURRENT.getCase(xMap, yMap).type.compareTo(selectedType) == 0){
+           System.out.println("ALREADY BLOCK");         
+            return;
+        }else{
+            System.out.println(selectedType + " " + Map.CURRENT.getCase(xMap, yMap));
+        }
+
+        if(Map.CURRENT.getCase(xMap, yMap) != null){
+            Map.CURRENT.deleteCase(xMap, yMap);
+        }
+        //System.out.println("Put Block !");
+        Map.CURRENT.setCase(xMap, yMap, selectedType);
+
     }
     @Override
     public void mousePressed(int i, int i1, int i2) {
-       // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
     }
 
     @Override

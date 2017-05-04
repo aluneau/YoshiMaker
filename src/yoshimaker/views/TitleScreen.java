@@ -46,7 +46,7 @@ public class TitleScreen extends View {
         clouds_y[3] = 100; clouds_x[3] = 750;
         clouds_y[4] = 85; clouds_x[4] = 450;
     }
-    
+
     @Override
     public void init(GameContainer container) throws SlickException {
         background = new Image("./resources/background_yoshi.png");
@@ -59,24 +59,28 @@ public class TitleScreen extends View {
         */
         Physics.world(0, 100f);
         testEntity = new Yoshi(64, 12*64);
-        
+
         Box b = new Box(3*64, 4*64);
         Goomba g = new Goomba(7*64, 12*64);
         ParaGoomba pg = new ParaGoomba(8*64, 10*64);
         Boo boo = new Boo(4*64, 10*64);
         Thwomp t = new Thwomp(16*64, 8*64);
-        
+
         Koopa k = new Koopa(10*64, 8*64);
-        //Shell s = new Shell(9*64, 8*64);
- 
+        Shell s = new Shell(9*64, 8*64);
+
         //Item testItem = new Item("./resources/cloud_yoshi.png");
 
         //Physics test2 = new Physics();
         //test2.define(BodyType.STATIC).at(0f, 300f).hitbox(500f, 10f).fixtures(0.5f, 0.9f, 0f).create();
-        
-        map = new Map(30,14);
+        //map.saveText("test"); 
         
 
+        map = new Map(30,14);
+        //System.out.println(Entity.ENTITIES.size());
+
+
+        map.setCase(0, 0, Type.BRICK);
         map.setCase(2, 8, Type.ICE);
         map.setCase(3, 8, Type.ICE);
         map.setCase(11, 8, Type.SPRING);
@@ -89,9 +93,8 @@ public class TitleScreen extends View {
         //map.move(100, 100);
 
         Entity.setCamera(camera().focus(testEntity).on(map));
+}
 
-    }
-    
     @Override
     public void render(GameContainer container, Graphics g) {
         /*
@@ -108,9 +111,9 @@ public class TitleScreen extends View {
         //map.draw(container, g);
         background.draw(0, 00, 4f);
         Entity.drawCamera(container, g);
-        
+
     }
-    
+
     @Override
     public void update(GameContainer container, int delta) {
         Entity.updateAll();
