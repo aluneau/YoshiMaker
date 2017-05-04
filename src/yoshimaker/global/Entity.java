@@ -20,7 +20,7 @@ public abstract class Entity {
     /**
      * Liste des entités
      */
-    protected final static HashSet<Entity> ENTITIES = new HashSet();
+    public static final HashSet<Entity> ENTITIES = new HashSet();
      
     protected static Camera CAMERA;
     private static int displayed;

@@ -25,12 +25,13 @@ public class Camera {
 
     public void render(GameContainer container, Graphics g) {
         if ((follow != null)&&(map != null)) {
-            
-            y = -follow.getY() + ys + oy;
-            x = -follow.getX() + xs + ox;
+
+            x = -follow.getX()+hw ;
+            y = -follow.getY()+h-128 ;
             g.translate(
-                x > container.getWidth() ? 0 : x > xs - container.getWidth() ? x - container.getWidth() : xs-2*container.getWidth() ,
-                y > container.getHeight() ? 0 : y > ys - container.getHeight() ? y - container.getHeight() : ys-2*container.getHeight()
+                Math.max(Math.min(x, 0), -xs+w+64), Math.min(y, 0)
+                //x > container.getWidth() ? 0 : x > xs - container.getWidth() ? x - container.getWidth() : xs-2*container.getWidth() ,
+                //y > container.getHeight() ? 0 : y > ys - container.getHeight() ? y - container.getHeight() : ys-2*container.getHeight()
             );
         }
     }
@@ -39,7 +40,7 @@ public class Camera {
         this.follow = entity ;
         //ox = 0-entity.getX();
         //oy = entity.getY();
-        oy = +hh;
+
         return this;
     }
 
@@ -51,10 +52,10 @@ public class Camera {
     }
     
     public boolean isVisible(Entity entity) {
-        return 
-            (entity.getX() >= Math.min(follow.getX(), xs-hw)-hw)&&
-            (entity.getX() <= Math.max(follow.getX(), hw)+hw)&&
-            (entity.getY()+entity.getHeight() >= Math.min(follow.getY(), ys-hh)-hh)&&
-            (entity.getY() <= Math.max(follow.getY(), hh)+hh);
+        return
+            (entity.getX() >= follow.getX()-w)&&
+            (entity.getX() <= follow.getX()+w)&&
+            (entity.getY()+entity.getHeight() >= follow.getY()-h)&&
+            (entity.getY() <= follow.getY()+h);
     }
 }

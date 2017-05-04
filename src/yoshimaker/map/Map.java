@@ -5,11 +5,14 @@
  */
 package yoshimaker.map;
 
+import java.io.BufferedReader;
 import yoshimaker.global.cases.Case;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.Observable;
@@ -18,7 +21,6 @@ import java.util.logging.Logger;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
-import yoshimaker.global.Entity;
 import yoshimaker.global.cases.Brick;
 import yoshimaker.global.cases.Empty;
 import yoshimaker.global.cases.Ice;
@@ -29,7 +31,7 @@ import yoshimaker.global.cases.Type;
  *
  * @author gaetane
  */
-public class Map extends Observable  {
+public class Map extends Observable {
 
     private Case[][] map;
     private int x, y;
@@ -50,12 +52,12 @@ public class Map extends Observable  {
         Case tmp = getCase(x, y);
         return tmp == null ? Type.EMPTY : tmp.type;
     }
-    
-    public void update() { // Observer 
-        this.setChanged();
-        this.notifyObservers();
-    }
 
+    public Map(){
+        
+    }
+    
+    
     public void setX(int x) {
         this.x = x;
     }
@@ -71,10 +73,12 @@ public class Map extends Observable  {
     public int getY() {
         return y;
     }
-    public Case getCase(int x, int y){
+
+    public Case getCase(int x, int y) {
         return map[y][x];
     }
-        public void setLevel1(){
+    
+    public void setLevel1(){
         setCase(2, 8, Type.ICE);
         setCase(2, 8, Type.EMPTY);
         setCase(3, 8, Type.ICE);
@@ -92,7 +96,8 @@ public class Map extends Observable  {
     public void readLevel(String lvlname){
         //Fonction qui permettrait de lire un fichier serialiser et de le prendre comme map
     }
-    public Map setCase(int x, int y, Type type) {
+
+     public Map setCase(int x, int y, Type type) {
         try {
             if (map[y][x] != null) { map[y][x].destroy(); }
             
@@ -129,7 +134,30 @@ public class Map extends Observable  {
         }
     }
 
-    // sauvegarder une partie
+    public void move(int xOffset, int yOffset) {
+        for (int i = 0; i < getX(); i++) {
+            for (int j = 0; j < getY(); j++) {
+                try {
+                    System.out.println("X: " + map[j][i].getX() + ", Y: " + map[j][i].getY());
+                    map[j][i].setX(map[j][i].getX() + xOffset);
+                    map[j][i].setY(map[j][i].getY() + yOffset);
+                    System.out.println("X: " + map[j][i].getX() + ", Y: " + map[j][i].getY());
+                } catch (Exception ignore) {
+                }
+                if (j == getY()-1 || j == 0 || i == getX()-1 || i== 0) { setCase(i, j, Type.BRICK); }
+            }
+        }
+    }
+
+    public void draw(GameContainer container, Graphics g) {
+        for (int i = 0; i < getX(); i++) {
+            for (int j = 0; j < getY(); j++) {
+               map[j][i].draw(container, g);
+            }
+        }
+    }
+
+// sauvegarder une partie
     public void save() throws IOException {
         // Fichier dans lequel on va écrire;
         File fichier = new File("test1.yoshiMaker");
@@ -160,5 +188,70 @@ public class Map extends Observable  {
             }
         }
         System.out.println(" Normalement déserializé ");
-    }    
-}
+    }
+
+    public void changeCase(int x, int y, Type etat) {
+        map[y][x].setBlock(etat);
+    }
+
+    public void loadText(String name){
+        String fileName = name + ".txt";// fichier 
+        String[] saveBlock = null;      // récuperation de la ligne 
+        String ligne;
+        boolean firstLine = true;
+        
+        try {
+            InputStream flux = new FileInputStream(fileName);
+            InputStreamReader lecture = new InputStreamReader(flux);
+            BufferedReader buff = new BufferedReader(lecture);
+            this.y = knowSize(buff);
+            while((ligne = buff.readLine()) != null){
+                saveBlock = ligne.split(" ");
+                if(firstLine == true){
+                    this.x = saveBlock.length;
+                    createMap();
+                }
+                ligneMap(saveBlock,saveBlock.length);
+            }          
+        }catch( Exception e ){
+            System.out.println(e.toString());    
+        }   
+    }
+    
+    private int knowSize(BufferedReader nameFile){
+        int y = 0;
+        try {
+            while((nameFile.readLine() !=null)){
+                
+                y ++;
+            }
+        } catch (IOException ex) {
+        }
+        return y;
+    }
+    
+    private void ligneMap(String[] saveBlock, int hauteur ){
+        for(int i = 0 ; i < saveBlock.length ; i++){
+            setCase(i,hauteur,valueBlock(saveBlock[i]));
+        }
+    }
+    
+    private Type valueBlock(String donne){
+        switch (donne) {
+            case "B": // brique
+                return Type.BRICK;
+            case "_": // vide
+                return Type.EMPTY;
+            case "I":// glace
+                return Type.ICE;
+            case "P": // pic
+                return Type.PICK;
+            case "L": // lave
+                return Type.LAVA;
+            case "S":// ressort
+                return Type.SPRING;
+            default:
+                return Type.EMPTY;
+        }
+    }
+}    

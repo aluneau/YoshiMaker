@@ -1,0 +1,13 @@
+build
+.idea
+.idea/*
+YoshiMaker.iml
+out
+/build/
+nbproject
+manifest.mf
+/dist/
+/lib/slick
+lib/slf4j-1.7.25.tar.gz
+
+/yoshi/dist/
