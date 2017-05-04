@@ -76,14 +76,17 @@ public class Map extends Observable  {
     }
         public void setLevel1(){
         setCase(2, 8, Type.ICE);
+        setCase(2, 8, Type.EMPTY);
         setCase(3, 8, Type.ICE);
         setCase(11, 8, Type.SPRING);
         setCase(8, 4, Type.BRICK);
         setCase(8, 5, Type.BRICK);
         setCase(8, 6, Type.BRICK);
         setCase(8, 7, Type.BRICK);
-        setCase(10, 8, Type.EMPTY);
-        setCase(9, 8, Type.EMPTY);
+        setCase(8, 7, Type.ICE);
+
+        setCase(10, 8, null);
+        setCase(9, 8, null);
     }
     
     public void readLevel(String lvlname){
@@ -97,18 +100,30 @@ public class Map extends Observable  {
                 case BRICK: map[y][x] = new Brick(x, y);break;
                 case ICE: map[y][x] = new Ice(x, y);break;
                 case SPRING: map[y][x] = new Spring(x, y);break;
+                default: map[y][x] = null;
             }
             
         } catch (Exception ignore) { }
         return this;    
     }
-    
+    public void deleteCase(int x, int y){
+        /***
+        *** ALED : Ne supprime pas l'image : gros fail sur l'affichage.
+        ***/
+        if (y < getY()-1 && y > 0 && x < getX()-1 && x > 0) {
+            if(map[y][x] != null && !map[y][x].equals(Type.EMPTY)){
+                /* supprimer ici */
+                map[y][x] = null;
+                System.out.println("Block delete");
+            }
+        }
+    }
     private void createMap() {
         map = new Case[getY()][getX()];
         for (int i = 0; i < getX(); i++) {
             for (int j = 0; j < getY(); j++) {
                 try {
-                    if (j == getY()-1) { setCase(i, j, Type.BRICK); }
+                    if (j == getY()-1 || j == 0 || i == getX()-1 || i== 0) { setCase(i, j, Type.BRICK); }
                 } catch (Exception e) {}
             }
         }
