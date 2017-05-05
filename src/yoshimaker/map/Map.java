@@ -13,6 +13,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.LineNumberReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.Observable;
@@ -44,6 +45,10 @@ public class Map extends Observable {
         this.y = y;
         createMap();
         CURRENT = this;
+    }
+    
+    public Map(String fileName){
+        loadText(fileName);
     }
     
     public Type whatIs(int x, int y) {
@@ -108,8 +113,7 @@ public class Map extends Observable {
                     map[y][x] = new Spring(x, y);
                     break;
             }
-        } catch (Exception ignore) {
-            Logger.getLogger(Map.class.getName()).log(Level.SEVERE, null, ignore);
+        } catch (Exception ex) { 
         }
         return this;            
     } 
@@ -131,6 +135,8 @@ public class Map extends Observable {
             }
        }
     }
+    
+  
 
     public void move(int xOffset, int yOffset) {
         for (int i = 0; i < getX(); i++) {
@@ -177,7 +183,6 @@ public class Map extends Observable {
         File fichier = new File("test1.yoshiMaker");
         // Ouverture du flux fichier pour récuperer
         ObjectInputStream fluxRentrant = new ObjectInputStream(new FileInputStream(fichier));
-        System.out.println(" 2 ");
         setX(fluxRentrant.readInt());
         setY(fluxRentrant.readInt());
         for (int j = 0; j < getY(); j++) {
@@ -193,44 +198,43 @@ public class Map extends Observable {
     }
 
     public void loadText(String name){
-        String fileName = name + ".txt";// fichier 
+        String fileName = name+".txt";// fichier 
         String[] saveBlock = null;      // récuperation de la ligne 
         String ligne;
         boolean firstLine = true;
-        
         try {
-            InputStream flux = new FileInputStream(fileName);
+            FileInputStream flux = new FileInputStream(fileName);
             InputStreamReader lecture = new InputStreamReader(flux);
             BufferedReader buff = new BufferedReader(lecture);
-            this.y = knowSize(buff);
+            y = knowSize(lecture);
+            y = 16  ; int l = 0;
             while((ligne = buff.readLine()) != null){
                 saveBlock = ligne.split(" ");
                 if(firstLine == true){
-                    this.x = saveBlock.length;
-                    createMap();
+                    x = saveBlock.length;
+                    System.out.println("x:"+x+" y:"+y);
+                    map = new Case[y][x];
+                    firstLine = false;
                 }
-                ligneMap(saveBlock,saveBlock.length);
+                ligneMap(saveBlock, l++);
             }          
         }catch( Exception e ){
             System.out.println(e.toString());    
         }   
     }
     
-    private int knowSize(BufferedReader nameFile){
-        int y = 0;
-        try {
-            while((nameFile.readLine() !=null)){
-                
-                y ++;
-            }
-        } catch (IOException ex) {
-        }
-        return y;
+    private int knowSize(InputStreamReader nameFile){
+        LineNumberReader lnr = new LineNumberReader(nameFile);
+        return y= lnr.getLineNumber();
     }
     
     private void ligneMap(String[] saveBlock, int hauteur ){
         for(int i = 0 ; i < saveBlock.length ; i++){
+            System.out.println("i:"+i);
+            System.out.println("hauteur:"+hauteur);
             setCase(i,hauteur,valueBlock(saveBlock[i]));
+            System.out.println(whatIs(0, 0));
+            //System.out.println( saveBlock[i]);
         }
     }
     
@@ -239,7 +243,7 @@ public class Map extends Observable {
             case "B": // brique
                 return Type.BRICK;
             case "_": // vide
-                return Type.EMPTY;
+                return null;
             case "I":// glace
                 return Type.ICE;
             case "P": // pic
@@ -249,7 +253,7 @@ public class Map extends Observable {
             case "S":// ressort
                 return Type.SPRING;
             default:
-                return Type.EMPTY;
+                return null;
         }
     }
 }    

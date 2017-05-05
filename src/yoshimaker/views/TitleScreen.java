@@ -7,7 +7,7 @@ package yoshimaker.views;
 
 import io.socket.client.IO;
 import io.socket.client.Socket;
-import io.socket.emitter.Emitter;
+//import io.socket.emitter.Emitter;
 import yoshimaker.map.Map;
 import org.jbox2d.dynamics.BodyType;
 import org.newdawn.slick.*;
@@ -50,6 +50,7 @@ public class TitleScreen extends View {
         clouds_y[4] = 85; clouds_x[4] = 450;
     }
 
+
     @Override
     public void init(GameContainer container) throws SlickException {
         background = new Image("./resources/background_yoshi.png");
@@ -64,7 +65,7 @@ public class TitleScreen extends View {
         testEntity = new Yoshi(64, 12*64);
 
         Box b = new Box(3*64, 4*64);
-        Goomba g = new Goomba(7*64, 12*64);
+       // Goomba g = new Goomba(7*64, 12*64);
         ParaGoomba pg = new ParaGoomba(8*64, 10*64);
         Boo boo = new Boo(4*64, 10*64);
         Thwomp t = new Thwomp(16*64, 8*64);
@@ -78,10 +79,9 @@ public class TitleScreen extends View {
         //test2.define(BodyType.STATIC).at(0f, 300f).hitbox(500f, 10f).fixtures(0.5f, 0.9f, 0f).create();
         //map.saveText("test"); 
         
-        /*map.createMap();
 
         map = new Map(30,14);
-
+        //System.out.println(Entity.ENTITIES.size());
 
         map.setCase(2, 8, Type.ICE);
         map.setCase(3, 8, Type.ICE);
@@ -91,41 +91,10 @@ public class TitleScreen extends View {
         map.setCase(8, 6, Type.BRICK);
         map.setCase(8, 7, Type.BRICK);
         map.setCase(10, 8, Type.EMPTY);
-        map.setCase(9, 8, Type.EMPTY);*/
+        map.setCase(9, 8, Type.EMPTY);
         //map.move(100, 100);
 
         Entity.setCamera(camera().focus(testEntity).on(map));
-        try {
-            Socket socket = IO.socket("http://localhost:3000");
-            socket.on(Socket.EVENT_CONNECT, new Emitter.Listener() {
-
-                @Override
-                public void call(Object... args) {
-                    socket.emit("foo", "Hi");
-                }
-
-            }).on("event", new Emitter.Listener() {
-
-                @Override
-                public void call(Object... args) {
-                    System.out.println("On m'a dis que mon message est reçu");
-                    System.out.println("J'ai reçu en retour: " + args[0].toString());
-                    socket.disconnect();
-                }
-
-            }).on(Socket.EVENT_DISCONNECT, new Emitter.Listener() {
-
-                @Override
-                public void call(Object... args) {
-                }
-
-            });
-            socket.connect();
-        }catch(Exception e) {
-            System.out.println("Connection problem");
-        }
-
-
 }
 
     @Override

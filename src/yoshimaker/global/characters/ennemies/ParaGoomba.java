@@ -7,22 +7,55 @@ package yoshimaker.global.characters.ennemies;
 
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.SlickException;
+import yoshimaker.global.Entity;
 import static yoshimaker.global.characters.ennemies.Goomba.WALKING;
+import static yoshimaker.global.characters.ennemies.Goomba.RETURN;
+
 
 /**
  *
  * @author punpun
  */
+
+
 public class ParaGoomba extends Goomba {
+ 
+    private Animation walkingL,walkingR;
+    private int where = getX();
+    private int mouvement =2 ;
+    private Animation sens;
     public ParaGoomba(int x, int y) throws SlickException {
        super(x, y);
-       this.sprite = new Animation(WALKING, 2, 0, 4, 0, true, 1, true);
+       this.walkingL = new Animation(WALKING, 2, 0, 4, 0, true, 1, true);
+       this.walkingR = new Animation(RETURN,2 ,0 ,4 ,0, true ,1 ,true); 
+       sens = walkingR;
+       this.sprite = sens;     
        this.sprite.setSpeed(0.01f);
     }
     
     static {
         RESTITUTION = 0.95f;
     }
+    
+    @Override
+     public Entity update(){
+        if (destroyed) { return this ; }
+        setX((int) physics.x()).setY((int) physics.y());
+        if (physics.getBody() == null) { return this; }
+            physics.moveX(mouvement);
+            this.sprite = sens;
+        if( getX() < where-250 ){
+            sens = walkingR;
+            mouvement = 2;
+            
+        }else if( getX() > where+250 ){ 
+            sens = walkingL;
+            this.sprite.setSpeed(0.01f);
+            mouvement =-2;
+        }
+        return this;
+     }
+    
 }
 
      

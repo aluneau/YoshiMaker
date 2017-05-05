@@ -24,9 +24,8 @@ public class YoshiMaker {
      */
     public static void main (String[] args) throws SlickException {
         //new AppGameContainer(new WindowGame(), 1280, 720, false).start();
-        //new AppGameContainer(new WindowGame(), 1280, 720, false).start();
-        Map m = new Map(10,10);
-        m.loadText("test");
+        new AppGameContainer(new WindowGame(), 1280, 720, false).start();
+        
     }
 
 }

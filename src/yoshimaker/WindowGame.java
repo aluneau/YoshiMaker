@@ -38,10 +38,9 @@ public class WindowGame extends BasicGame {
         Button.LISTENER = input ;   
 
 
-        //view = new TitleScreen();
-        view = new GameViewDeluxe();
         view = new TitleScreen();
-        //view = new GameViewDeluxe();
+       //view = new GameViewDeluxe();
+      // view = new TitleScreen();
         view.init(container);
 
 

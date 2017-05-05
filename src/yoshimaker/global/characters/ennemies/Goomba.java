@@ -49,10 +49,12 @@ public class Goomba extends Ennemy {
     private Animation walking;
     
     protected static SpriteSheet WALKING;
+    protected static SpriteSheet RETURN;
     static {
         //Initalisation
         try {
             WALKING = new SpriteSheet("./assets/goombas.png", 64, 64, 0);
+            RETURN = new SpriteSheet("./assets/goombasRetourner.png",64,64,0);
         } catch (Exception ignore) { }
     }
 }
