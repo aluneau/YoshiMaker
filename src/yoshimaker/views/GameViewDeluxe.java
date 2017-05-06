@@ -5,6 +5,7 @@
  */
 package yoshimaker.views;
 
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.lwjgl.input.Mouse;
 
@@ -13,12 +14,16 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.SpriteSheet;
 import yoshimaker.global.Entity;
 import yoshimaker.global.cases.Type;
 import yoshimaker.global.characters.players.Player;
 import yoshimaker.global.characters.players.Yoshi;
 import yoshimaker.global.items.Box;
+import yoshimaker.global.items.Door;
 import yoshimaker.maker.view.Button;
+import yoshimaker.maker.view.MenuButtonMaker;
+
 import yoshimaker.map.Map;
 import yoshimaker.physics.Physics;
 
@@ -33,8 +38,8 @@ public final class GameViewDeluxe extends View {
     private final float test3 = 0;
     private final float test4 = 0;
     private Map map ;
-    
-    private Button button,button1;
+        private Button button,button1,button2;
+
 
     public GameViewDeluxe() throws SlickException {
    
@@ -55,17 +60,26 @@ public final class GameViewDeluxe extends View {
         Physics.world(0, 100f);
         testEntity = new Yoshi(64, 4*64);
         Box b = new Box(3*64, 4*64);
-        
         map = new Map(13,9);
         map.setLevel1();
-        button = new Button(container, 100, 100, 50, 50, imageTest);
-        button1 = new Button(container, 100, 130, 50, 50, imageTest);
-
+        MenuButtonMaker menuMaker = new MenuButtonMaker(container, 900);
+        /*Image buttonRessources = new Image("./assets/images/test/maker.png");
+        SpriteSheet buttonImage = new SpriteSheet(buttonRessources,48,64,1,2);
+        button = new Button(container, 900, 100, 50, 50, Type.BRICK, buttonImage.getSubImage(2, 2));
+        button1 = new Button(container, 900, 160, 50, 50, Type.ICE, buttonImage.getSubImage(12, 4));
+        button2 = new Button(container, 900, 210, 50, 50, Type.SPRING, buttonImage.getSubImage(8, 6));
+*/
     }
     
     @Override
     public void render(GameContainer container, Graphics g) {
-        background.draw(0, 00, 1.1f);        
+        background.draw(0, 00, 1.1f);  
+        try {
+            Door d = new Door(5*64,6*64);
+        } catch (SlickException ex) {
+            Logger.getLogger(GameViewDeluxe.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
         //imageTest.draw(200, 00, 0.4f);        
         Entity.drawAll(container, g);
         Button.drawAll(container, g);

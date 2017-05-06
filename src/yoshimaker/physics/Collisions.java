@@ -9,6 +9,7 @@ import yoshimaker.global.Entity;
 import yoshimaker.global.characters.ennemies.Ennemy;
 import yoshimaker.global.characters.ennemies.Thwomp;
 import yoshimaker.global.characters.players.Player;
+import yoshimaker.global.items.Shell;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -27,7 +28,8 @@ public class Collisions  implements ContactListener  {
     public void beginContact(Contact contact) {
         Entity a = (Entity) contact.getFixtureA().getBody().getUserData();
         Entity b = (Entity) contact.getFixtureB().getBody().getUserData();
-        
+        System.out.println(a);
+        System.out.println(b);
         if ((a == null)||(b == null)) { return ; }
         
         if (((a instanceof Thwomp)&&(b instanceof yoshimaker.global.characters.Character))||((b instanceof Thwomp)&&(a instanceof yoshimaker.global.characters.Character))) {
@@ -42,15 +44,25 @@ public class Collisions  implements ContactListener  {
             Player p = (Player) ((a instanceof Player) ? a : b);
             Ennemy e = (Ennemy) ((a instanceof Player) ? b : a);
             //Note axe des y inversés
-            System.out.println("p:"+p.getY()+" ph:"+p.getHeight()+" e:"+e.getY()+" eh:"+e.getHeight()+" ph2:"+(p.getY()+(p.getHeight()/2)));
+            //System.out.println("p:"+p.getY()+" ph:"+p.getHeight()+" e:"+e.getY()+" eh:"+e.getHeight()+" ph2:"+(p.getY()+(p.getHeight()/2)));
             if (p.getY()+(p.getHeight()/2) < e.getY()) { if (e.isKillable()) { e.die() ; p.jump(true); }} else { p.die(); }
         }
         
-        //if (contact.getFixtureB().getBody().getType() == BodyType.STATIC) { }
-         Entity entity = (Entity) contact.getFixtureB().getBody().getUserData();
-
-        if (entity instanceof Player) { System.out.println("ouch"); }
-    
+        //Shell
+        if (((a instanceof Player)&&(b instanceof Shell))||((b instanceof Player)&&(a instanceof Shell))) {
+            Player p = (Player) ((a instanceof Player) ? a : b);
+            Shell e = (Shell) ((a instanceof Player) ? b : a);
+            //Note axe des y inversés
+            if (p.getY()+(p.getHeight()/2) < e.getY()) { e.spinning(!e.spinning()) ; p.jump(true); }
+        }
+        
+        if (((a instanceof Shell)&&(b instanceof yoshimaker.global.characters.Character))||((b instanceof Shell)&&(a instanceof yoshimaker.global.characters.Character))) {
+            Shell t = (Shell) ((a instanceof Shell) ? a : b);
+            yoshimaker.global.characters.Character e = (yoshimaker.global.characters.Character) ((a instanceof Shell) ? b : a);
+            //Note axe des y inversés
+            if (t.getY()+(t.getHeight()/2) < e.getY()) { e.die(); }
+        }
+        
     }
     
     @Override

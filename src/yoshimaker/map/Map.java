@@ -85,55 +85,62 @@ public class Map extends Observable {
     
     public void setLevel1(){
         setCase(2, 8, Type.ICE);
+        setCase(2, 8, Type.EMPTY);
         setCase(3, 8, Type.ICE);
         setCase(11, 8, Type.SPRING);
         setCase(8, 4, Type.BRICK);
         setCase(8, 5, Type.BRICK);
         setCase(8, 6, Type.BRICK);
         setCase(8, 7, Type.BRICK);
-        setCase(10, 8, Type.EMPTY);
-        setCase(9, 8, Type.EMPTY);
+        setCase(8, 7, Type.ICE);
+
+        setCase(10, 8, null);
+        setCase(9, 8, null);
     }
     
     public void readLevel(String lvlname){
         //Fonction qui permettrait de lire un fichier serialiser et de le prendre comme map
     }
 
-    public Map setCase(int x, int y, Type type) {
+     public Map setCase(int x, int y, Type type) {
         try {
-            if (map[y][x] != null) { map[y][x].destroy(); }            
+            if (map[y][x] != null) { map[y][x].destroy(); }
+            
             switch (type) {
-                case BRICK:
-                    map[y][x] = new Brick(x, y);
-                    break;
-                case ICE:
-                    map[y][x] = new Ice(x, y);
-                    break;
-                case SPRING:
-                    map[y][x] = new Spring(x, y);
-                    break;
+                case BRICK: map[y][x] = new Brick(x, y);break;
+                case ICE: map[y][x] = new Ice(x, y);break;
+                case SPRING: map[y][x] = new Spring(x, y);break;
+                default: map[y][x] = null;
             }
+            
+        } catch (Exception ignore) { }
+        return this;    
+    }
+    public void deleteCase(int x, int y){
+        /***
+        *** ALED : Ne supprime pas l'image : gros fail sur l'affichage.
+        ***/
+        if (y < getY()-1 && y > 0 && x < getX()-1 && x > 0) {
+            if(map[y][x] != null && !map[y][x].equals(Type.EMPTY)){
+                /* supprimer ici */
+                map[y][x] = null;
+                System.out.println("Block delete");
+            }
+<<<<<<< HEAD
         } catch (Exception ex) { 
+=======
+>>>>>>> 40a4068930c7d9dee2838fd6f528fe6976cf1cf5
         }
-        return this;            
-    } 
-
-
-    
+    }
     private void createMap() {
         map = new Case[getY()][getX()];
         for (int i = 0; i < getX(); i++) {
             for (int j = 0; j < getY(); j++) {
                 try {
-                    if (j == getY() - 1) {
-                        map[j][i] = new Brick(i, j);
-                    } else {
-                        map[j][i] = new Empty(i, j);
-                    }
-                } catch (Exception e) {
-                }
+                    if (j == getY()-1 || j == 0 || i == getX()-1 || i== 0) { setCase(i, j, Type.BRICK); }
+                } catch (Exception e) {}
             }
-       }
+        }
     }
     
   

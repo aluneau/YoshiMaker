@@ -6,7 +6,6 @@
 package yoshimaker.global.characters.players;
 
 import org.newdawn.slick.Animation;
-import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 
@@ -14,32 +13,31 @@ import org.newdawn.slick.SpriteSheet;
  *
  * @author punpun
  */
-public class Yoshi extends Player {
-    protected static int 
-        WIDTH = 52, 
+public class Yoshi2 extends Player {
+    protected static int
+        WIDTH = 52,
         HEIGHT = 70;
-    protected static float 
-        DENSITY = 1f, 
-        FRICTION = 0.7f, 
+    protected static float
+        DENSITY = 1f,
+        FRICTION = 0.7f,
         RESTITUTION = 0f;
-    
+
     private boolean saveDirection = false;
-    
- 
+
+
     private Animation left;
     private Animation right;
     private Animation stopLeft;
     private Animation stopRight;
-    private Music saut;
 
-    
+
     /**
      * Yoshi
      * @param x
      * @param y
-     * @throws SlickException 
+     * @throws SlickException
      */
-    public Yoshi(int x, int y) throws SlickException {
+    public Yoshi2(int x, int y) throws SlickException {
         //Initialisation
         super(STATUS_RIGHT.getSprite(0, 0));
         this.stopLeft = new Animation(STATUS_LEFT,1);
@@ -57,7 +55,6 @@ public class Yoshi extends Player {
             .data(this)
             .create();
         setSpawn((int)physics.at().x, (int)physics.at().y);
-        saut = new Music("sounds/saut.wav");
     }
     
     @Override 
@@ -106,8 +103,6 @@ public class Yoshi extends Player {
      */
     @Override
     public void key_space() {
-            saut.play();
-
         jumped = false;
         jump(false);
     }

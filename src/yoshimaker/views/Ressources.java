@@ -1,6 +1,5 @@
 package yoshimaker.views;
 
-import java.io.IOException;
 import yoshimaker.global.cases.Type;
 import yoshimaker.map.Map;
 import org.newdawn.slick.Image;
