@@ -8,8 +8,10 @@ package yoshimaker.global.characters.ennemies;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.SlickException;
 import yoshimaker.global.Entity;
+import yoshimaker.global.cases.Type;
 import static yoshimaker.global.characters.ennemies.Goomba.WALKING;
 import static yoshimaker.global.characters.ennemies.Goomba.RETURN;
+import yoshimaker.map.Map;
 
 
 /**
@@ -46,13 +48,22 @@ public class ParaGoomba extends Goomba {
             this.sprite = sens;
         if( getX() < where-250 ){
             sens = walkingR;
-            mouvement = 2;
-            
+            mouvement = 2;        
         }else if( getX() > where+250 ){ 
             sens = walkingL;
             this.sprite.setSpeed(0.01f);
             mouvement =-2;
         }
+        if (Map.CURRENT.whatIs(getX()+getHeight()+10, getY()) != Type.EMPTY ){
+            sens = walkingL;
+            this.sprite.setSpeed(0.01f);            
+            mouvement = -2;            
+        }
+        
+        if(Map.CURRENT.whatIs(getX()+getHeight()-10, getY()) != Type.EMPTY ) {
+            sens = walkingR;            
+            mouvement = 2;
+        }        
         return this;
      }
     

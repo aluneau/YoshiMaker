@@ -126,11 +126,8 @@ public class Map extends Observable {
                 map[y][x] = null;
                 System.out.println("Block delete");
             }
-<<<<<<< HEAD
-        } catch (Exception ex) { 
-=======
->>>>>>> 40a4068930c7d9dee2838fd6f528fe6976cf1cf5
-        }
+        } /*catch (Exception ex) { 
+        }*/
     }
     private void createMap() {
         map = new Case[getY()][getX()];
