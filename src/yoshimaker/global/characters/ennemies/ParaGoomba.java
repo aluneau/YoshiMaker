@@ -54,13 +54,12 @@ public class ParaGoomba extends Goomba {
             this.sprite.setSpeed(0.01f);
             mouvement =-2;
         }
-        if (Map.CURRENT.whatIs(getX()+getHeight()+10, getY()) != Type.EMPTY ){
+        if (Map.CURRENT.whatIs(getX()+getHeight()+75, getY()) != Type.EMPTY ){
             sens = walkingL;
             this.sprite.setSpeed(0.01f);            
             mouvement = -2;            
-        }
-        
-        if(Map.CURRENT.whatIs(getX()+getHeight()-10, getY()) != Type.EMPTY ) {
+        }       
+        if(Map.CURRENT.whatIs(getX()+getHeight()-75, getY()) != Type.EMPTY ) {
             sens = walkingR;            
             mouvement = 2;
         }        

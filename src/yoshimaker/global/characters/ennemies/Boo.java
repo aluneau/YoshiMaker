@@ -28,7 +28,7 @@ public class Boo extends Ennemy {
         this.hiddenL = new Animation(SPRITESHEET, 2, 0, 2, 0, true, 1, true);
         this.hiddenR = new Animation(RETURNO, 2, 0, 2, 0, true, 1, true);
         this.sprite = this.hiddenR;
-        sprite.setSpeed(0.001f);
+        sprite.setSpeed(0.01f);
         sprite.start();
         //Coordonnées
         setX(x).setY(y).setWidth(WIDTH).setHeight(HEIGHT);
@@ -66,16 +66,16 @@ public class Boo extends Ennemy {
                         physics.getBody().getFixtureList().m_filter.maskBits = 1;
                         physics.move(0, 0);    
                     }
-                } else { this.sprite = this.walkingR ; 
+                } else { 
                     physics.getBody().getFixtureList().m_filter.categoryBits = 1;
                     physics.getBody().getFixtureList().m_filter.maskBits = 2;
-                    if( p.getX() > getX() && p.getY() < getY() ){physics.move(5, -5); this.sprite = this.walkingR; sprite.setSpeed(0.001f); } // detection haut droit
-                    else if( p.getX() > getX() && p.getY() > getY()){ physics.move(5, 5); this.sprite = this.walkingR; sprite.setSpeed(0.001f);} // detection bas droit*/
-                    else if( p.getX() < getX() && p.getY() > getY()) {physics.move(-5, 5);this.sprite = this.walkingL;sprite.setSpeed(0.001f);} //detection bas gauche 
-                    else if( p.getX() < getX() && p.getY() < getY()) {physics.move(-5, -5);this.sprite = this.walkingL;sprite.setSpeed(0.001f);} //detection haut gauche
-                   /* if (Map.CURRENT.whatIs(getX(), getY()+getHeight()+100) != Type.EMPTY && Map.CURRENT.whatIs(getX()+getWidth()+100, getY()) != Type.EMPTY ) {                      
-                        physics.move(5 , 0);
-                    }*/          
+                    if( p.getX() > getX() && p.getY() < getY() ){physics.move(5, -5); this.sprite = this.walkingR; sprite.setSpeed(0.01f); } // detection haut droit
+                    else if( p.getX() > getX() && p.getY() > getY()){ physics.move(5, 5); this.sprite = this.walkingR; sprite.setSpeed(0.01f);} // detection bas droit*/
+                    else if( p.getX() < getX() && p.getY() > getY()) {physics.move(-5, 5);this.sprite = this.walkingL;sprite.setSpeed(0.01f);} //detection bas gauche 
+                    else if( p.getX() < getX() && p.getY() < getY()) {physics.move(-5, -5);this.sprite = this.walkingL;sprite.setSpeed(0.01f);} //detection haut gauche
+                    /*if (Map.CURRENT.whatIs(getX(), getY()+getHeight()+100) != Type.EMPTY && Map.CURRENT.whatIs(getX()+getWidth()+100, getY()) != Type.EMPTY ) {                      
+                        physics.move(5 , 0);                
+                    } */         
                 }
             }
         return this;

@@ -65,13 +65,13 @@ public class TitleScreen extends View {
         testEntity = new Yoshi(64, 12*64);
 
         Box b = new Box(3*64, 4*64);
-        Goomba g = new Goomba(7*64, 12*64);
+        //Goomba g = new Goomba(7*64, 12*64);
         //ParaGoomba pg = new ParaGoomba(8*64, 10*64);
-       // Boo boo = new Boo(4*64, 10*64);
-       // Thwomp t = new Thwomp(16*64, 8*64);
+        Boo boo = new Boo(4*64, 10*64);
+        //Thwomp t = new Thwomp(16*64, 8*64);
 
         //Koopa k = new Koopa(10*64, 8*64);
-       // Shell s = new Shell(9*64, 8*64);
+        //Shell s = new Shell(9*64, 8*64);
 
         //Item testItem = new Item("./resources/cloud_yoshi.png");
 

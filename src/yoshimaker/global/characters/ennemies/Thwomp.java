@@ -74,7 +74,7 @@ public class Thwomp extends Ennemy {
                     this.sprite =  this.falling;
                     state = 1 ;
                     if (Map.CURRENT.whatIs(getX(), getY()+getHeight()) == Type.EMPTY) {
-                        physics.move(0, 32);
+                        physics.move(0, 27);
                     } else { state = 2 ; }
                 } else { 
                     this.sprite = this.sleeping;
