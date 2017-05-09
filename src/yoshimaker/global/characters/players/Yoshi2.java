@@ -5,12 +5,7 @@
  */
 package yoshimaker.global.characters.players;
 
-import org.newdawn.slick.Animation;
-import org.newdawn.slick.Color;
-import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Graphics;
-import org.newdawn.slick.SlickException;
-import org.newdawn.slick.SpriteSheet;
+import org.newdawn.slick.*;
 import yoshimaker.global.items.FireBall;
 
 /**
@@ -33,6 +28,7 @@ public class Yoshi2 extends Player {
     private Animation right;
     private Animation stopLeft;
     private Animation stopRight;
+    private Sound saut;
 
 
     /**
@@ -59,6 +55,8 @@ public class Yoshi2 extends Player {
             .data(this)
             .create();
         setSpawn((int)physics.at().x, (int)physics.at().y);
+        saut = new Sound("sounds/saut.wav");
+
     }
     
     @Override 
@@ -114,6 +112,7 @@ public class Yoshi2 extends Player {
      */
     @Override
     public void key_i() {
+        saut.play(1.1f,0.4f);
         jumped = false;
         jump(false);
     }

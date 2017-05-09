@@ -5,10 +5,7 @@
  */
 package yoshimaker.global.characters.players;
 
-import org.newdawn.slick.Animation;
-import org.newdawn.slick.Music;
-import org.newdawn.slick.SlickException;
-import org.newdawn.slick.SpriteSheet;
+import org.newdawn.slick.*;
 import yoshimaker.global.items.FireBall;
 
 /**
@@ -31,7 +28,7 @@ public class Yoshi extends Player {
     private Animation right;
     private Animation stopLeft;
     private Animation stopRight;
-    private Music saut;
+    private Sound saut;
     
     
     
@@ -59,7 +56,7 @@ public class Yoshi extends Player {
             .data(this)
             .create();
         setSpawn((int)physics.at().x, (int)physics.at().y);
-        saut = new Music("sounds/saut.wav");
+        saut = new Sound("sounds/saut.wav");
     }
     
     @Override 
