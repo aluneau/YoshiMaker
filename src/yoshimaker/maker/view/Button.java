@@ -7,9 +7,12 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.MouseListener;
 import org.newdawn.slick.SlickException;
+import yoshimaker.WindowGame;
 import yoshimaker.global.Entity;
 import yoshimaker.global.cases.Type;
 import yoshimaker.map.Map;
+import yoshimaker.views.MenuView;
+import yoshimaker.views.WinView;
 import yoshimaker.views.camera.Camera;
 
 public class Button extends Entity implements  MouseListener{
@@ -18,7 +21,7 @@ public class Button extends Entity implements  MouseListener{
     protected final static HashSet<Button> BUTTONS = new HashSet();
 
     private Type type;
-    
+    public int action;
     static public Input LISTENER ;
     static private boolean onSelection = false;
     static private Type selectedType;
@@ -45,6 +48,8 @@ public class Button extends Entity implements  MouseListener{
         this.setHeight(height);
         this.setWidth(width);
         this.container = container;
+        this.action = 0;
+
         //Référencement
         BUTTONS.add(this);
         LISTENER.addMouseListener(this);
@@ -61,12 +66,30 @@ public class Button extends Entity implements  MouseListener{
         this.setWidth(width);
         this.container = container;
         this.image = files[0];
+        this.action = 0;
         this.type = type;
         //Référencement
         BUTTONS.add(this);
         LISTENER.addMouseListener(this);
     }
 
+    public Button(GameContainer container, int x, int y, int height, int width, int action, Image... files) throws SlickException {
+        //Initialiastion
+        super(files);
+        this.setX(x);
+        this.setY(y);
+        POSITION_X = x;
+        POSITION_Y = y;
+        this.setHeight(height);
+        this.setWidth(width);
+        this.container = container;
+        this.image = files[0];
+        this.type = type;
+        this.action = 1;
+        //Référencement
+        BUTTONS.add(this);
+        LISTENER.addMouseListener(this);
+    }
     public static boolean isOnSelection() {
         return onSelection;
     }
@@ -109,7 +132,7 @@ public class Button extends Entity implements  MouseListener{
             }
         }
         //PUT THE BLOCK SELECTED
-        if(onSelection && i == 0 && (i2/64 < Map.CURRENT.getY()-1+Camera.yTop && i2/64 > 0 && i1/64 < Map.CURRENT.getX()+Camera.xTop && i1/64 > 0) && i1 < 1000){
+        if(onSelection && i == 0 && (i2/64 < Map.CURRENT.getY()-1+Camera.yTop && i2/64 > 0 && i1/64 < Map.CURRENT.getX()+Camera.xTop && i1/64 > 0) && i1 < container.getWidth()-100){
             eventSetBlock(i1,i2);
             return;
         }
@@ -124,7 +147,8 @@ public class Button extends Entity implements  MouseListener{
         }
         //System.out.println("Selection");
         //SELECTION
-        eventSelect();
+        if(action == 0) eventSelect();
+        if(action == 1) saveMap();
     }
 
     public void eventSelect(){
@@ -142,6 +166,16 @@ public class Button extends Entity implements  MouseListener{
         onSelection = false;
     }
     
+    public static void saveMap(){
+        Map.CURRENT.saveText("test");
+        System.out.println("save");
+        try {
+            Entity.DESTROY();
+            BUTTONS.clear();
+            WindowGame.getInstance().view = new MenuView();
+            WindowGame.getInstance().view.init(WindowGame.getInstance().container);
+        } catch (SlickException ex) {  }
+    }
     public static void eventSetBlock(int xMouse, int yMouse){
         int xMap = (xMouse+Camera.xTop+32)/64;
         int yMap = (yMouse+Camera.yTop+32)/64;

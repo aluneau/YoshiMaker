@@ -62,13 +62,8 @@ public final class GameViewDeluxe extends View {
         Box b = new Box(3*64, 4*64);
         map = new Map(13,9);
         map.setLevel1();
-        MenuButtonMaker menuMaker = new MenuButtonMaker(container, 400);
-        /*Image buttonRessources = new Image("./assets/images/test/maker.png");
-        SpriteSheet buttonImage = new SpriteSheet(buttonRessources,48,64,1,2);
-        button = new Button(container, 900, 100, 50, 50, Type.BRICK, buttonImage.getSubImage(2, 2));
-        button1 = new Button(container, 900, 160, 50, 50, Type.ICE, buttonImage.getSubImage(12, 4));
-        button2 = new Button(container, 900, 210, 50, 50, Type.SPRING, buttonImage.getSubImage(8, 6));
-*/
+        System.out.println(container.getScreenWidth());
+        MenuButtonMaker menuMaker = new MenuButtonMaker(container, container.getWidth()-200);
     }
     
     @Override

@@ -5,6 +5,7 @@
  */
 package yoshimaker.title;
 
+import java.awt.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.jbox2d.dynamics.BodyType;
@@ -58,12 +59,14 @@ public class Button extends Entity implements MouseListener {
                 case 0:
                     WindowGame.getInstance().view = new MenuView();
                     try {
+                        MenuView.music.stop();
                         WindowGame.getInstance().view.init(WindowGame.getInstance().container);
                     } catch (SlickException ex) { }
                     break;
                 case 1:
                     WindowGame.getInstance().view = new TitleScreen();
                     try {
+                        //MenuView.music.stop();
                         WindowGame.getInstance().view.init(WindowGame.getInstance().container);
                     } catch (SlickException ex) {  }
                     break;
@@ -71,12 +74,14 @@ public class Button extends Entity implements MouseListener {
                 case 2:
             {
                 try {
+                    //MenuView.music.stop();
                     WindowGame.getInstance().view = new GameViewDeluxe();
                 } catch (SlickException ex) {
                     Logger.getLogger(Button.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
                     try {
+                        //MenuView.music.stop();
                         WindowGame.getInstance().view.init(WindowGame.getInstance().container);
                     } catch (SlickException ex) {  }
                     break;
