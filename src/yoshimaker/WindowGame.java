@@ -47,10 +47,6 @@ public class WindowGame extends BasicGame {
         view = new MenuView();
         view.init(container);
         
-        
-        StripeEx st = new StripeEx();
-        st.exec();
-
         //physicThread = new Thread(new PhysicsThread());
         //physicThread.start();
 

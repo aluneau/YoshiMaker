@@ -30,6 +30,8 @@ import yoshimaker.global.cases.Ice;
 import yoshimaker.global.cases.Lava;
 import yoshimaker.global.cases.Spring;
 import yoshimaker.global.cases.Type;
+import yoshimaker.global.characters.players.Yoshi;
+import yoshimaker.global.characters.players.Yoshi2;
 
 /**
  *
@@ -40,7 +42,8 @@ public class Map extends Observable {
     private Case[][] map;
     private int x, y;
     public final static int WIDTH = 64, HEIGHT = 64;
-    
+    public Yoshi y1;
+    public Yoshi2 y2;
     public static Map CURRENT;
 
     public Map(int x, int y) {

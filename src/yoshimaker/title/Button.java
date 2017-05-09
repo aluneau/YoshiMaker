@@ -19,6 +19,7 @@ import yoshimaker.global.Entity;
 import static yoshimaker.global.Entity.ENTITIES;
 import yoshimaker.maker.view.MakerView;
 import yoshimaker.views.GameViewDeluxe;
+import yoshimaker.views.LevelView;
 import yoshimaker.views.MenuView;
 import yoshimaker.views.TitleScreen;
 import yoshimaker.views.WinView;
@@ -56,6 +57,7 @@ public class Button extends Entity implements MouseListener {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         if ((x >= getX()-getWidth()/2)&&(x <= getX()+getWidth()/2)&&(y >= getY()-getHeight()/2)&&(y <= getY()+getHeight()/2)) {
             switch (action) {
+                //Menu
                 case 0:
                     WindowGame.getInstance().view = new MenuView();
                     try {
@@ -63,6 +65,7 @@ public class Button extends Entity implements MouseListener {
                         WindowGame.getInstance().view.init(WindowGame.getInstance().container);
                     } catch (SlickException ex) { }
                     break;
+                //Ecran de jeu ?
                 case 1:
                     WindowGame.getInstance().view = new TitleScreen();
                     try {
@@ -70,20 +73,33 @@ public class Button extends Entity implements MouseListener {
                         WindowGame.getInstance().view.init(WindowGame.getInstance().container);
                     } catch (SlickException ex) {  }
                     break;
-                    
+                //Editeur
                 case 2:
-            {
-                try {
-                    //MenuView.music.stop();
-                    WindowGame.getInstance().view = new GameViewDeluxe();
-                } catch (SlickException ex) {
-                    Logger.getLogger(Button.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
+            
+                    try {
+                        //MenuView.music.stop();
+                        WindowGame.getInstance().view = new GameViewDeluxe();
+                    } catch (SlickException ex) {
+                        Logger.getLogger(Button.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+            
                     try {
                         //MenuView.music.stop();
                         WindowGame.getInstance().view.init(WindowGame.getInstance().container);
                     } catch (SlickException ex) {  }
+                    break;
+                //Ecran de jeu ?
+                case 3:
+                    WindowGame.getInstance().view = new LevelView();
+                    try {
+                        //MenuView.music.stop();
+                        WindowGame.getInstance().view.init(WindowGame.getInstance().container);
+                    } catch (SlickException ex) {  }
+                    break;
+                    
+                case 100:
+                    
+                    
                     break;
             } 
         }
