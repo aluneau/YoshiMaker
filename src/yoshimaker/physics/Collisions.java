@@ -10,6 +10,7 @@ import yoshimaker.global.characters.ennemies.Ennemy;
 import yoshimaker.global.characters.ennemies.Thwomp;
 import yoshimaker.global.characters.players.Player;
 import yoshimaker.global.items.Shell;
+import yoshimaker.global.items.Star;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -28,8 +29,8 @@ public class Collisions  implements ContactListener  {
     public void beginContact(Contact contact) {
         Entity a = (Entity) contact.getFixtureA().getBody().getUserData();
         Entity b = (Entity) contact.getFixtureB().getBody().getUserData();
-        System.out.println(a);
-        System.out.println(b);
+        //System.out.println(a);
+        //System.out.println(b);
         if ((a == null)||(b == null)) { return ; }
         
         if (((a instanceof Thwomp)&&(b instanceof yoshimaker.global.characters.Character))||((b instanceof Thwomp)&&(a instanceof yoshimaker.global.characters.Character))) {
@@ -61,6 +62,23 @@ public class Collisions  implements ContactListener  {
             yoshimaker.global.characters.Character e = (yoshimaker.global.characters.Character) ((a instanceof Shell) ? b : a);
             //Note axe des y inversés
             if (t.getY()+(t.getHeight()/2) < e.getY()) { e.die(); }
+        }
+
+        //Star
+        if (((a instanceof Player)&&(b instanceof Star))||((b instanceof Player)&&(a instanceof Star))) {
+            Player p = (Player) ((a instanceof Player) ? a : b);
+            Star e = (Star) ((a instanceof Player) ? b : a);
+
+            System.out.println("Star");
+            if(!e.destroyed) {
+                e.destroy();
+                Player.countStar--;
+            }
+
+            System.out.println(Player.countStar);
+
+
+
         }
         
     }

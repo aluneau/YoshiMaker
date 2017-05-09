@@ -36,7 +36,7 @@ public abstract class Entity {
     protected Physics physics;
     protected Animation sprite;
     
-    protected boolean destroyed = false;
+    public boolean destroyed = false;
     
     /**
      * Entité

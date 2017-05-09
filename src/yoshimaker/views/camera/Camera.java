@@ -16,6 +16,9 @@ public class Camera {
     private Entity follow;
     private Map map;
 
+    public static int xTop = 0;
+    public static int yTop = 0;
+
     public Camera(GameContainer container) {
         x = 0; y = 0; ox = 0; oy = 0; ys = 0; xs = 0; ys = 0;
         w = container.getWidth(); hw = w/2;
@@ -28,6 +31,9 @@ public class Camera {
 
             x = -follow.getX()+hw ;
             y = -follow.getY()+h-128 ;
+
+            xTop = -Math.max(Math.min(x, 0), -xs+w+64);
+            yTop = -Math.min(y, 0);
             g.translate(
                 Math.max(Math.min(x, 0), -xs+w+64), Math.min(y, 0)
                 //x > container.getWidth() ? 0 : x > xs - container.getWidth() ? x - container.getWidth() : xs-2*container.getWidth() ,
