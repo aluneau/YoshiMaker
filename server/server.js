@@ -27,4 +27,7 @@ io.on('connection', function (socket) {
     console.log("J'ai reçu " + data);
     socket.emit("event", {x: 4, y: 3});
   });
+  socket.on("sendObject", function(data){
+  	console.log(data);
+  });
 });
