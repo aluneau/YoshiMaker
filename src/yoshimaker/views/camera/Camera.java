@@ -39,7 +39,7 @@ public class Camera {
                 //x > container.getWidth() ? 0 : x > xs - container.getWidth() ? x - container.getWidth() : xs-2*container.getWidth() ,
                 //y > container.getHeight() ? 0 : y > ys - container.getHeight() ? y - container.getHeight() : ys-2*container.getHeight()
             );
-        }
+        } else { g.translate(0, 0); }
     }
     
     public Camera focus(Entity entity) {

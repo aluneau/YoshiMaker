@@ -10,6 +10,9 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
+import yoshimaker.global.characters.ennemies.Ennemy;
+import yoshimaker.global.characters.players.Player;
+import static yoshimaker.global.characters.players.Player.PLAYERS;
 import yoshimaker.physics.Physics;
 import static yoshimaker.physics.Physics.world;
 import yoshimaker.views.camera.Camera;
@@ -213,4 +216,18 @@ public abstract class Entity {
     
     public void onCreate() {};
 
+    
+    public static void DESTROY() {
+        //HashSet<Entity> cloned = (HashSet<Entity>) ENTITIES.clone() ;
+        Iterator<Entity> it = ENTITIES.iterator();
+        while (it.hasNext()) {
+            Entity entity = it.next();
+            if (entity == null) { continue ; }
+            entity.physics.destroy();
+            entity.destroyed = true ;
+        }
+        ENTITIES.removeIf(f -> { return f.destroyed ;});
+        Player.PLAYERS.removeIf(f -> { return f.destroyed ; });
+        Ennemy.ENNEMIES.removeIf(f -> { return f.destroyed ; });
+    }
 }

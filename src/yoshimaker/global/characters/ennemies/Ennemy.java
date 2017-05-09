@@ -19,7 +19,7 @@ public abstract class Ennemy extends yoshimaker.global.characters.Character {
     /**
      * Liste des joueurs
      */
-    protected final static HashSet<Ennemy> ENNEMIES = new HashSet();
+    public final static HashSet<Ennemy> ENNEMIES = new HashSet();
     protected boolean killable = false;
     
     /**

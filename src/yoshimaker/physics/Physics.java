@@ -320,7 +320,15 @@ public class Physics {
      * @param gy
      */
     public static void world(float gx, float gy) {
-        if (_world instanceof World) { _world.setContactListener(null); }
+        if (_world instanceof World) { 
+            _world.setContactListener(null); 
+            Iterator<Body> it = DESTROYED.iterator();
+            while (it.hasNext()) {
+                Body b = it.next();
+                _world.destroyBody(b);
+                it.remove(); 
+            }
+        }
         Vec2 gravity = new Vec2(gx, gy);
         _world = new World(gravity, true);
         _world.setContactListener(new Collisions());

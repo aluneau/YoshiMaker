@@ -10,6 +10,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import yoshimaker.WindowGame;
 import yoshimaker.title.Button;
 
 /**
@@ -33,6 +34,7 @@ public class MenuView extends View {
         clouds_y[2] = 50; clouds_x[2] = 600;
         clouds_y[3] = 100; clouds_x[3] = 750;
         clouds_y[4] = 85; clouds_x[4] = 450;
+        WindowGame.getInstance().getCamera().focus(null);
     }
     
     @Override
@@ -77,6 +79,7 @@ public class MenuView extends View {
 
     @Override
     public void controller(Input input) {
+        input.removeAllMouseListeners();
         input.addMouseListener(buttons[0]);
         input.addMouseListener(buttons[1]);
         input.addMouseListener(buttons[2]);

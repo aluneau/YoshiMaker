@@ -15,6 +15,7 @@ import yoshimaker.global.items.Shell;
 import yoshimaker.global.items.Star;
 import yoshimaker.map.Map;
 import org.newdawn.slick.*;
+import yoshimaker.WindowGame;
 import yoshimaker.global.Entity;
 import yoshimaker.global.cases.Type;
 import yoshimaker.global.characters.ennemies.Boo;
@@ -42,6 +43,7 @@ public class TitleScreen extends View {
     private boolean test = false;
     private float test2 = 0, test3 = 0, test4 = 0;
     private Map map ;
+    private boolean _init = false;
 
     private TextField counterText;
 
@@ -57,6 +59,7 @@ public class TitleScreen extends View {
         //testEntity2 = new Yoshi2(90, 9*64);
         //new Yoshi(70, 9*64);
         Box b = new Box(3*64, 4*64);
+        Player.countStar = 3;
 
        // Goomba g = new Goomba(7*64, 7*64);
        // ParaGoomba pg = new ParaGoomba(8*64, 10*64);
@@ -75,7 +78,7 @@ public class TitleScreen extends View {
         Koopa k = new Koopa(10*64, 8*64);
         Shell s = new Shell(9*64, 8*64);
         
-        FireBall f = new FireBall(4*64, 12*64);
+        //FireBall f = new FireBall(4*64, 12*64);
 
         //Item testItem = new Item("./resources/cloud_yoshi.png");
 
@@ -116,7 +119,7 @@ public class TitleScreen extends View {
         
         Thread tm = new Thread(new Timer());
         tm.start();
-       
+       _init = true ;
         //Entity.setCamera(camera().focus(testEntity2).on(map));
 }
 
@@ -144,9 +147,14 @@ public class TitleScreen extends View {
     public void update(GameContainer container, int delta) {
         Entity.updateAll();
         Physics.update();
-        if(Player.countStar <=0){
+        if ((_init)&&(Player.countStar <=0)){
             Player.countStar = 0;
-            System.out.println("Fin du jeu");
+            Entity.DESTROY();
+            try {
+                WindowGame.getInstance().view = new WinView();
+                WindowGame.getInstance().view.init(WindowGame.getInstance().container);
+            } catch (SlickException ex) {  }
+            
         }
         /*
         */

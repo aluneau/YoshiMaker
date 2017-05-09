@@ -6,6 +6,9 @@
 package yoshimaker.global.characters.players;
 
 import org.newdawn.slick.Animation;
+import org.newdawn.slick.Color;
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 import yoshimaker.global.items.FireBall;
@@ -131,6 +134,11 @@ public class Yoshi2 extends Player {
             STATUS_RIGHT = new SpriteSheet("./assets/stopRight.png",32,32,0);
             STATUS_LEFT = new SpriteSheet("./assets/stopLeft.png",32,32,0);        
         } catch (Exception ignore) { }
+    }
+    
+    public void draw(GameContainer container, Graphics g){
+        super.draw(container, g);
+        sprite.draw(x-half_width, y-half_height, width, height, new Color(0, 0, 255, 0.8f));
     }
     
 }
