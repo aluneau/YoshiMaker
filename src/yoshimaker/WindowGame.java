@@ -8,6 +8,7 @@ import yoshimaker.maker.view.Button;
 import yoshimaker.physics.Physics;
 import yoshimaker.physics.PhysicsThread;
 import yoshimaker.views.GameViewDeluxe;
+import yoshimaker.views.MenuView;
 import yoshimaker.views.View;
 import yoshimaker.views.camera.Camera;
 
@@ -37,9 +38,9 @@ public class WindowGame extends BasicGame {
         camera = new Camera(container);
         Button.LISTENER = input ;   
 
-
-        view = new GameViewDeluxe();
-        //view = new TitleScreen();
+        //view = new MenuView();
+        //view = new GameViewDeluxe();
+        view = new TitleScreen();
         view.init(container);
 
 

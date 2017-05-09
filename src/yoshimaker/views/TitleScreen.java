@@ -19,9 +19,11 @@ import yoshimaker.global.characters.ennemies.Thwomp;
 import yoshimaker.global.characters.players.Player;
 import yoshimaker.global.characters.players.Yoshi;
 import yoshimaker.global.items.Box;
+import yoshimaker.global.items.FireBall;
 import yoshimaker.physics.Physics;
 import yoshimaker.global.items.Item;
 import yoshimaker.global.items.Shell;
+import yoshimaker.physics.Timer;
 
 /**
  *
@@ -61,13 +63,20 @@ public class TitleScreen extends View {
         testEntity = new Yoshi(64, 12*64);
 
         Box b = new Box(3*64, 4*64);
-        Goomba g = new Goomba(7*64, 12*64);
+        
+        //for (int i = 0; i < 1000; i++) {
+          //  Goomba g = new Goomba(7*64, 12*64);
+        //}
+        
+        
         ParaGoomba pg = new ParaGoomba(8*64, 10*64);
         Boo boo = new Boo(4*64, 10*64);
         Thwomp t = new Thwomp(16*64, 8*64);
 
         Koopa k = new Koopa(10*64, 8*64);
         Shell s = new Shell(9*64, 8*64);
+        
+        FireBall f = new FireBall(4*64, 12*64);
 
         //Item testItem = new Item("./resources/cloud_yoshi.png");
 
@@ -93,6 +102,10 @@ public class TitleScreen extends View {
         //map.move(100, 100);
 
         Entity.setCamera(camera().focus(testEntity).on(map));
+        
+        Thread tm = new Thread(new Timer());
+        tm.start();
+        
 }
 
     @Override
@@ -104,7 +117,7 @@ public class TitleScreen extends View {
         
         
         
-        logo.draw(30, 50, 0.35f);
+        
         //testEntity.draw();
         
         */

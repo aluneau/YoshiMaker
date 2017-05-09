@@ -23,8 +23,8 @@ public class YoshiMaker {
      * @param args the command line arguments
      */
     public static void main (String[] args) throws SlickException {
-        new AppGameContainer(new WindowGame(), 1280, 720, false).start();
         //new AppGameContainer(new WindowGame(), 1280, 720, false).start();
+        new AppGameContainer(new WindowGame(), 800, 620, false).start();
     }
 
 }
