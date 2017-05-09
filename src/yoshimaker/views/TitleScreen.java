@@ -53,6 +53,7 @@ public class TitleScreen extends View {
         Physics.world(0, 100f);
         //testEntity = new Yoshi(64, 9*64);
         testEntity2 = new Yoshi2(90, 9*64);
+        new Yoshi(70, 9*64);
         Box b = new Box(3*64, 4*64);
 
        // Goomba g = new Goomba(7*64, 7*64);
@@ -78,15 +79,13 @@ public class TitleScreen extends View {
 
         //Physics test2 = new Physics();
         //test2.define(BodyType.STATIC).at(0f, 300f).hitbox(500f, 10f).fixtures(0.5f, 0.9f, 0f).create();
-        //map = new Map("test"); 
-        //map.setCase(1, 1, Type.ICE);       
             //map.check();
             //map.saveText("test");
             
             map = new Map(30,14);
             //System.out.println(Entity.ENTITIES.size());
             
-            /* map.setCase(0, 0, Type.BRICK);
+             map.setCase(0, 0, Type.BRICK);
             map.setCase(2, 8, Type.ICE);
             map.setCase(3, 8, Type.ICE);
             map.setCase(11, 8, Type.SPRING);
@@ -95,7 +94,7 @@ public class TitleScreen extends View {
             map.setCase(8, 6, Type.BRICK);
             map.setCase(8, 7, Type.BRICK);
             map.setCase(10, 8, Type.EMPTY);
-            map.setCase(9, 8, Type.EMPTY);*/
+            map.setCase(9, 8, Type.EMPTY);
             //map.move(100, 100);
 
         

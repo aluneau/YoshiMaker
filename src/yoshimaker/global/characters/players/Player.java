@@ -96,6 +96,7 @@ public abstract class Player extends yoshimaker.global.characters.Character {
             if (input.isKeyDown(Input.KEY_D)) { player.key_d(); }
             if (input.isKeyDown(Input.KEY_Q)) { player.key_q(); }
             if (input.isKeyDown(Input.KEY_E)) { player.key_e(); }
+            if(input.isKeyDown(Input.KEY_O))  {player.key_o(); }
             if (!input.isKeyDown(Input.KEY_D) && !input.isKeyDown(Input.KEY_Q)) { player.no_key(); }
         } } catch (Exception ignore) {}
     }
@@ -131,6 +132,8 @@ public abstract class Player extends yoshimaker.global.characters.Character {
 
     public void key_i(){}
 
+    public void key_o(){}
+
     /**
      * Callback à la touche Q
      */
@@ -141,14 +144,7 @@ public abstract class Player extends yoshimaker.global.characters.Character {
      */
     public void key_d() { direction = "right"; };
     
-    public void key_e() { 
-        try {
-            if (fired >= 1) { return ; } else { ++fired; }
-            FireBall f = new FireBall(getX(), getY());
-            f.setCreator(this);
-            yoshimaker.physics.Timer.add(f, 500);
-        } catch (SlickException ex) { }
-    }
+    public void key_e() {}
     
     /**
      * Callback à la touche Espace
