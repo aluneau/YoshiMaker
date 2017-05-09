@@ -30,7 +30,7 @@ public class YoshiMaker {
     public static void main (String[] args) throws SlickException, IOException {
         //new AppGameContainer(new WindowGame(), 1280, 720, false).start();
         //new AppGameContainer(new WindowGame(), 1280, 720, false).start();
-        new AppGameContainer(new WindowGame(), 1280, 720, false).start();
+        new AppGameContainer(new WindowGame(), 800, 600, false).start();
     }
 
 }
