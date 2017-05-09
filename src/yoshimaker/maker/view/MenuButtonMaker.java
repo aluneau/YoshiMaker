@@ -30,7 +30,7 @@ public class MenuButtonMaker extends Entity   implements  MouseListener {
         button1 = new Button(container, this.positionX, y+1*yStep, 50, 50, Type.ICE, buttonImage.getSubImage(12, 4));
         button2 = new Button(container, this.positionX, y+2*yStep, 50, 50, Type.SPRING, buttonImage.getSubImage(8, 6));
         button3 = new Button(container, this.positionX, y+3*yStep, 50, 50, null, buttonImage.getSubImage(5, 0));
-        //button[4] = new Button(container, this.positionX, y+4*yStep, 50, 50, Type.EMPTY, buttonImage.getSubImage(5, 0));
+        button4 = new Button(container, this.positionX, y+4*yStep, 50, 50, 1, buttonImage.getSubImage(10, 8));
 
         LISTENER.addMouseListener(this);
        

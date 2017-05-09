@@ -49,9 +49,9 @@ public class MenuView extends View {
         buttons[0] = new Button(1, "./assets/playButton.png", "./assets/playButtonR.png");
         buttons[1] = new Button(2, "./assets/makerButton.png", "./assets/makerButtonR.png");
         buttons[2] = new Button(3, "./assets/levelsButton.png", "./assets/levelsButtonR.png");
-        music = new Music("sounds/titlescreen.ogg");
-        music.loop();
         
+        music = new Music("./sounds/titlescreen.ogg");
+        music.loop();
     }
 
     @Override

@@ -24,11 +24,20 @@ import java.util.logging.Logger;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
+import yoshimaker.global.Entity;
 import yoshimaker.global.cases.Brick;
 import yoshimaker.global.cases.Empty;
 import yoshimaker.global.cases.Ice;
 import yoshimaker.global.cases.Spring;
 import yoshimaker.global.cases.Type;
+import yoshimaker.global.characters.ennemies.Boo;
+import yoshimaker.global.characters.ennemies.Goomba;
+import yoshimaker.global.characters.ennemies.Koopa;
+import yoshimaker.global.characters.ennemies.ParaGoomba;
+import yoshimaker.global.characters.ennemies.Thwomp;
+import yoshimaker.global.characters.players.Yoshi;
+import yoshimaker.global.characters.players.Yoshi2;
+import yoshimaker.global.items.Star;
 
 /**
  *
@@ -223,6 +232,7 @@ public class Map extends Observable {
                 }
                 ligneMap(saveBlock, l++);
             }          
+            Map.CURRENT = this;
         }catch( Exception e ){
             System.out.println(e.toString());    
         }   
@@ -239,14 +249,11 @@ public class Map extends Observable {
                     if( map[j][i] == null){
                         output.write("_ ");
                     }else{
-                        System.out.println( map[j][i].type.toString() + " youuuuuuuuuuuuuuuuu");
                         String titre = inversValue(map[j][i].type.toString());
                         output.write(titre);
                         output.flush();                        
                     }                  
-                    System.out.println(" ouii x1 ");
                 }
-                System.out.println(" ouii x2 ");
                 output.newLine(); 
             }
             output.close();
@@ -268,11 +275,33 @@ public class Map extends Observable {
         return count;
     }
     
-    private void ligneMap(String[] saveBlock, int hauteur ){
+    private void ligneMap(String[] saveBlock, int hauteur ) throws SlickException{  
         for(int i = 0 ; i < saveBlock.length ; i++){
-            setCase(i,hauteur,valueBlock(saveBlock[i]));
-            //System.out.println(whatIs(0, 0));
-            //System.out.println( saveBlock[i]);
+            switch( saveBlock[i] ){
+                case "y2":
+                    Yoshi2 y2 = new Yoshi2(90, 9*64);
+                    break;
+                case "b":
+                    Boo boo = new Boo(64*i, 64*hauteur);
+                    break;
+                case "p":
+                    ParaGoomba pg = new ParaGoomba(64*i,64* hauteur);
+                    break;
+                case "k":
+                    Koopa k = new Koopa(64*i, 64*hauteur);
+                    break;
+                case "t":
+                    Thwomp t = new Thwomp(64*i, 64*hauteur);
+                    break;
+                case "g":
+                    Goomba g = new Goomba(64*i,64*hauteur);
+                    break;
+                case "s":
+                    new Star(64*i,64*hauteur);
+                    break;
+                default:    
+                    setCase(i,hauteur,valueBlock(saveBlock[i]));        
+            }
         }
     }
     
