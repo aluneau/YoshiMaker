@@ -9,6 +9,7 @@ import org.newdawn.slick.Animation;
 import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
+import yoshimaker.global.items.FireBall;
 
 /**
  *
@@ -73,7 +74,14 @@ public class Yoshi extends Player {
             sprite.setSpeed(0.01f);              
         }                  
     }
-    
+    @Override public void key_e(){
+        try {
+            if (fired >= 1) { return ; } else { ++fired; }
+            FireBall f = new FireBall(getX(), getY());
+            f.setCreator(this);
+            yoshimaker.physics.Timer.add(f, 500);
+        } catch (SlickException ex) { }
+    }
     /**
      * Callback à la touche Q
      */
