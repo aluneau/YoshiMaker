@@ -70,9 +70,7 @@ public final class GameViewDeluxe extends View {
     
     @Override
     public void render(GameContainer container, Graphics g) {
-        if (background != null) { 
-            background.draw(0, 00, 1.1f);  
-        }
+        background.draw(0, 00, 4f);  
         try {
             Door d = new Door(5*64,6*64);
         } catch (SlickException ex) {
