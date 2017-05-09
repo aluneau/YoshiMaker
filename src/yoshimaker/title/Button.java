@@ -31,12 +31,14 @@ public class Button extends Entity implements MouseListener {
     public Button(int i, String... files) throws SlickException {
         //Initialiastion
         super(files[0]);
-        this.sprite = this.iddle ;
         this.iddle = new Animation() ;
         this.iddle.addFrame(new Image(files[0]), 1000);
         this.hover = new Animation() ;
         this.hover.addFrame(new Image(files[1]), 1000);
         this.action = i ;
+        
+        this.sprite = this.iddle ;
+        this.setWidth(200).setHeight(50);
     }
     
     @Override

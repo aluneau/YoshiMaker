@@ -47,6 +47,8 @@ public class MenuView extends View {
         clouds[4] = new Image("./resources/cloud_yoshi.png");
         
         buttons[0] = new Button(1, "./assets/playButton.png", "./assets/playButtonR.png");
+        buttons[1] = new Button(2, "./assets/makerButton.png", "./assets/makerButtonR.png");
+        buttons[2] = new Button(3, "./assets/levelsButton.png", "./assets/levelsButtonR.png");
         
     }
 
@@ -60,8 +62,7 @@ public class MenuView extends View {
         
         logo.draw(container.getWidth()/2-275, 50, 0.35f);
         for (int i = 0; i < buttons.length; i++) {
-            if (buttons[i] == null) { continue ; }
-            buttons[i].setX(container.getWidth()/2).setY(350+i*100).setWidth(200).setHeight(50);
+            buttons[i].setX(container.getWidth()/2).setY(350+i*75);
             buttons[i].draw(container, g);
         }
     }
@@ -77,6 +78,8 @@ public class MenuView extends View {
     @Override
     public void controller(Input input) {
         input.addMouseListener(buttons[0]);
+        input.addMouseListener(buttons[1]);
+        input.addMouseListener(buttons[2]);
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
