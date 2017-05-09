@@ -112,6 +112,9 @@ public class TitleScreen extends View {
         map.setCase(8, 7, Type.BRICK);
         map.setCase(10, 8, Type.EMPTY);
         map.setCase(9, 8, Type.EMPTY);
+        
+        map.setCase(3, 3, Type.LAVA);
+        
         //map.move(100, 100);
         MenuButtonMaker menuMaker = new MenuButtonMaker(container, container.getScreenWidth()-200);
 
@@ -152,7 +155,9 @@ public class TitleScreen extends View {
             int a_death = testEntity.death ;
             Entity.DESTROY();
             try {
-                WindowGame.getInstance().view = new WinView();
+                WinView v = new WinView();
+                v.a_death = a_death;
+                WindowGame.getInstance().view = v;
                 WindowGame.getInstance().view.init(WindowGame.getInstance().container);
             } catch (SlickException ex) {  }
             

@@ -4,6 +4,7 @@ import org.jbox2d.dynamics.BodyType;
 import yoshimaker.maker.view.MakerView;
 import yoshimaker.views.TitleScreen;
 import org.newdawn.slick.*;
+import yoshimaker.global.StripeEx;
 import yoshimaker.maker.view.Button;
 import yoshimaker.physics.Physics;
 import yoshimaker.physics.PhysicsThread;
@@ -47,7 +48,8 @@ public class WindowGame extends BasicGame {
         view.init(container);
         
         
-
+        StripeEx st = new StripeEx();
+        st.exec();
 
         //physicThread = new Thread(new PhysicsThread());
         //physicThread.start();

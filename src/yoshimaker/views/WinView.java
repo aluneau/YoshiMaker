@@ -38,7 +38,7 @@ public class WinView extends View {
         button.setX(container.getWidth()/2).setY(350);
         button.draw(container, g);
         
-        g.drawString("Il reste : "  + Integer.toString(a_death), Camera.xTop+50.0f, Camera.yTop+50.0f);
+        g.drawString("Le joueur 1 est mort "  + Integer.toString(a_death)+" fois !", Camera.xTop+50.0f, Camera.yTop+50.0f);
     }
 
     @Override

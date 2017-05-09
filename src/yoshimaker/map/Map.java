@@ -27,6 +27,7 @@ import org.newdawn.slick.SlickException;
 import yoshimaker.global.cases.Brick;
 import yoshimaker.global.cases.Empty;
 import yoshimaker.global.cases.Ice;
+import yoshimaker.global.cases.Lava;
 import yoshimaker.global.cases.Spring;
 import yoshimaker.global.cases.Type;
 
@@ -107,6 +108,7 @@ public class Map extends Observable {
                 case BRICK: map[y][x] = new Brick(x, y);break;
                 case ICE: map[y][x] = new Ice(x, y);break;
                 case SPRING: map[y][x] = new Spring(x, y);break;
+                case LAVA: map[y][x] = new Lava(x, y);break;
                 default: map[y][x] = null;
             }
             
