@@ -46,9 +46,8 @@ public class MenuView extends View {
         clouds[3] = new Image("./resources/cloud_yoshi.png");
         clouds[4] = new Image("./resources/cloud_yoshi.png");
         
-        buttons[0] = new Button("./resources/cloud_yoshi.png");
-        buttons[0].setX(50).setY(0).setWidth(20).setHeight(20);
-
+        buttons[0] = new Button(1, "./assets/start.png", "./assets/startr.png");
+        
     }
 
     @Override
@@ -62,7 +61,8 @@ public class MenuView extends View {
         logo.draw(container.getWidth()/2-275, 50, 0.35f);
         for (int i = 0; i < buttons.length; i++) {
             if (buttons[i] == null) { continue ; }
-            buttons[i].getSprite().draw(50, i*100);
+            buttons[i].setX(container.getWidth()/2-275).setY(100).setWidth(200).setHeight(50);
+            buttons[i].draw(container, g);
         }
     }
 
