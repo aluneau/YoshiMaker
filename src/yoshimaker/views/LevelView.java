@@ -16,7 +16,7 @@ import yoshimaker.title.Button;
 public class LevelView extends View {
      private Image background;
     private Button[] buttons;
-    private Music music;
+    public static Music music;
     
     @Override
     public void init(GameContainer container) throws SlickException {

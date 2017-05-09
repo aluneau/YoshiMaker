@@ -100,18 +100,56 @@ public class Button extends Entity implements MouseListener {
                     
                 case 100:
                     try {
+
                         MenuView.music.stop();
+                        LevelView.music.stop();
                         LevelLoadedView v = new LevelLoadedView();
-                        v.level = "presentation";
+                        v.level = "level1";
                         WindowGame.getInstance().view = v;
                         WindowGame.getInstance().view.init(WindowGame.getInstance().container);
                     } catch (SlickException ex) {
                         Logger.getLogger(Button.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                    
-                    
-                    
                     break;
+                case 101:
+                    try {
+                        MenuView.music.stop();
+                        LevelView.music.stop();
+                        LevelLoadedView v = new LevelLoadedView();
+                        v.level = "level2";
+                        WindowGame.getInstance().view = v;
+                        WindowGame.getInstance().view.init(WindowGame.getInstance().container);
+                    } catch (SlickException ex) {
+                        Logger.getLogger(Button.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    break;
+                case 102:
+                    try {
+                        MenuView.music.stop();
+                        LevelView.music.stop();
+                        LevelLoadedView v = new LevelLoadedView();
+                        v.level = "level3";
+                        WindowGame.getInstance().view = v;
+                        WindowGame.getInstance().view.init(WindowGame.getInstance().container);
+                    } catch (SlickException ex) {
+                        Logger.getLogger(Button.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    break;
+                case 103:
+                    try {
+                        MenuView.music.stop();
+                        LevelView.music.stop();
+                        LevelLoadedView v = new LevelLoadedView();
+                        v.level = "level4   ";
+                        WindowGame.getInstance().view = v;
+                        WindowGame.getInstance().view.init(WindowGame.getInstance().container);
+                    } catch (SlickException ex) {
+                        Logger.getLogger(Button.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    break;    
+                    
+                    
+                   
             } 
         }
     }
