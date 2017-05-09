@@ -126,6 +126,7 @@ public class TitleScreen extends View {
         Entity.updateAll();
         Physics.update();
         if(Player.countStar <=0){
+            Player.countStar = 0;
             System.out.println("Fin du jeu");
         }
         /*
