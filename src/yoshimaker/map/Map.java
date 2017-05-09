@@ -6,10 +6,12 @@
 package yoshimaker.map;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import yoshimaker.global.cases.Case;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -57,11 +59,6 @@ public class Map extends Observable {
         Case tmp = getCase(x, y);
         return tmp == null ? Type.EMPTY : tmp.type;
     }
-
-    public Map(){
-        
-    }
-    
     
     public void setX(int x) {
         this.x = x;
@@ -116,6 +113,11 @@ public class Map extends Observable {
         } catch (Exception ignore) { }
         return this;    
     }
+     
+    public void check(){
+        System.out.println(whatIs(0, 0));
+    }
+    
     public void deleteCase(int x, int y){
         /***
         *** ALED : Ne supprime pas l'image : gros fail sur l'affichage.
@@ -129,7 +131,7 @@ public class Map extends Observable {
         } /*catch (Exception ex) { 
         }*/
     }
-    private void createMap() {
+    public void createMap() {
         map = new Case[getY()][getX()];
         for (int i = 0; i < getX(); i++) {
             for (int j = 0; j < getY(); j++) {
@@ -202,7 +204,7 @@ public class Map extends Observable {
     }
 
     public void loadText(String name){
-        String fileName = name+".txt";// fichier 
+        String fileName = name+".txt";  // fichier 
         String[] saveBlock = null;      // récuperation de la ligne 
         String ligne;
         boolean firstLine = true;
@@ -210,13 +212,12 @@ public class Map extends Observable {
             FileInputStream flux = new FileInputStream(fileName);
             InputStreamReader lecture = new InputStreamReader(flux);
             BufferedReader buff = new BufferedReader(lecture);
-            y = knowSize(lecture);
-            y = 16  ; int l = 0;
+            y = knowSize(fileName);
+            int l = 0;
             while((ligne = buff.readLine()) != null){
                 saveBlock = ligne.split(" ");
                 if(firstLine == true){
                     x = saveBlock.length;
-                    System.out.println("x:"+x+" y:"+y);
                     map = new Case[y][x];
                     firstLine = false;
                 }
@@ -227,17 +228,50 @@ public class Map extends Observable {
         }   
     }
     
-    private int knowSize(InputStreamReader nameFile){
-        LineNumberReader lnr = new LineNumberReader(nameFile);
-        return y= lnr.getLineNumber();
+    public void saveText(String name) {
+        String fileName = name+ ".txt";
+        FileWriter fw;
+        try {
+            fw = new FileWriter(fileName,true);
+            BufferedWriter output = new BufferedWriter(fw);
+            for (int j=0; j<this.y ; j++){
+                for(int i=0; i<this.x; i++){
+                    if( map[j][i] == null){
+                        output.write("_ ");
+                    }else{
+                        System.out.println( map[j][i].type.toString() + " youuuuuuuuuuuuuuuuu");
+                        String titre = inversValue(map[j][i].type.toString());
+                        output.write(titre);
+                        output.flush();                        
+                    }                  
+                    System.out.println(" ouii x1 ");
+                }
+                System.out.println(" ouii x2 ");
+                output.newLine(); 
+            }
+            output.close();
+        } catch (IOException ex) {
+            System.out.println("oups");        
+        }
+        
+    }
+    
+    
+    private int knowSize(String nameFile) throws IOException{
+        FileInputStream flux = new FileInputStream(nameFile);
+        int count = 0;
+        LineNumberReader l = new LineNumberReader(new BufferedReader(new InputStreamReader(flux)));
+        String str;
+        while ((str=l.readLine())!=null){
+            count = l.getLineNumber();
+        }
+        return count;
     }
     
     private void ligneMap(String[] saveBlock, int hauteur ){
         for(int i = 0 ; i < saveBlock.length ; i++){
-            System.out.println("i:"+i);
-            System.out.println("hauteur:"+hauteur);
             setCase(i,hauteur,valueBlock(saveBlock[i]));
-            System.out.println(whatIs(0, 0));
+            //System.out.println(whatIs(0, 0));
             //System.out.println( saveBlock[i]);
         }
     }
@@ -259,5 +293,25 @@ public class Map extends Observable {
             default:
                 return null;
         }
+    }
+    private String inversValue(String type){
+        System.out.println( "inversValue : " + type );
+        switch (type) {
+            case "BRICK": // brique
+                return "B ";
+            case "EMPTY": // vide
+                return "_ ";
+            case "ICE" :// glace
+                return "I ";
+            case "PICK": // pic
+                return "P ";
+            case "LAVA": // lave
+                return "L ";
+            case "SPRING":// ressort
+                return "S ";
+
+            default:
+                return "_ ";
+        }          
     }
 }    
