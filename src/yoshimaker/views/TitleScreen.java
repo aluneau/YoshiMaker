@@ -112,6 +112,8 @@ public class TitleScreen extends View {
             map.setCase(8, 11, Type.DOORBRICK);
             map.setCase(8, 12, Type.DOORBRICK);
             
+            map.setCase(7, 12, Type.LAVA);
+            
             new Switch(6*64, 12*64);
             //map.setCase(9, 8, Type.EMPTY);
             //map.move(100, 100);
