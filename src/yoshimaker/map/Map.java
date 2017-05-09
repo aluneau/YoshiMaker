@@ -28,6 +28,7 @@ import yoshimaker.global.Entity;
 import yoshimaker.global.cases.Brick;
 import yoshimaker.global.cases.Empty;
 import yoshimaker.global.cases.Ice;
+import yoshimaker.global.cases.Lava;
 import yoshimaker.global.cases.Spring;
 import yoshimaker.global.cases.Type;
 import yoshimaker.global.characters.ennemies.Boo;
@@ -48,7 +49,8 @@ public class Map extends Observable {
     private Case[][] map;
     private int x, y;
     public final static int WIDTH = 64, HEIGHT = 64;
-    
+    public Yoshi y1;
+    public Yoshi2 y2;
     public static Map CURRENT;
 
     public Map(int x, int y) {
@@ -115,6 +117,7 @@ public class Map extends Observable {
                 case BRICK: map[y][x] = new Brick(x, y);break;
                 case ICE: map[y][x] = new Ice(x, y);break;
                 case SPRING: map[y][x] = new Spring(x, y);break;
+                case LAVA: map[y][x] = new Lava(x, y);break;
                 default: map[y][x] = null;
             }
             

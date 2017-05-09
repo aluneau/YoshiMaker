@@ -7,6 +7,7 @@ import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.dynamics.contacts.Contact;
 import yoshimaker.global.Entity;
 import yoshimaker.global.cases.Case;
+import yoshimaker.global.cases.Lava;
 import yoshimaker.global.characters.ennemies.Ennemy;
 import yoshimaker.global.characters.ennemies.Thwomp;
 import yoshimaker.global.characters.players.Player;
@@ -78,6 +79,13 @@ public class Collisions  implements ContactListener  {
             Case c = (Case) ((a instanceof Case) ? a : b); 
             if ((c.getY() < e.getY())&&(e.spinning())) { e.direction *= -1; }
             //
+        }
+        
+        if (((a instanceof Player)&&(b instanceof Lava))||((b instanceof Player)&&(a instanceof Lava))) {
+            Player p = (Player) ((a instanceof Player) ? a : b);
+          //Note axe des y inversés
+            //System.out.println("p:"+p.getY()+" ph:"+p.getHeight()+" e:"+e.getY()+" eh:"+e.getHeight()+" ph2:"+(p.getY()+(p.getHeight()/2)));
+            p.die();
         }
         
         //Fireball
