@@ -19,6 +19,7 @@ import yoshimaker.global.characters.players.Player;
 import yoshimaker.global.characters.players.Yoshi;
 import yoshimaker.global.items.Box;
 import yoshimaker.physics.Physics;
+import yoshimaker.views.camera.Camera;
 
 /**
  *
@@ -117,7 +118,7 @@ public class TitleScreen extends View {
         background.draw(0, 00, 4f);
         Entity.drawCamera(container, g);
 
-        g.drawString("Il reste : "  + Integer.toString(Player.countStar), 50.0f, 50.0f);
+        g.drawString("Il reste : "  + Integer.toString(Player.countStar), Camera.xTop+50.0f, Camera.yTop+50.0f);
 
     }
 
