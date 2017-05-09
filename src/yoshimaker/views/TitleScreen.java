@@ -28,6 +28,7 @@ import yoshimaker.maker.view.MenuButtonMaker;
 import yoshimaker.physics.Physics;
 import yoshimaker.global.items.Item;
 import yoshimaker.global.items.Shell;
+import yoshimaker.global.items.Switch;
 import yoshimaker.physics.Timer;
 import yoshimaker.views.camera.Camera;
 
@@ -57,6 +58,8 @@ public class TitleScreen extends View {
         Physics.world(0, 100f);
         testEntity = new Yoshi(64,0);
         //testEntity2 = new Yoshi2(90, 9*64);
+        testEntity = new Yoshi(64, 9*64);
+        testEntity2 = new Yoshi2(90, 9*64);
         //Box b = new Box(3*64, 4*64);
         //testEntity2 = new Yoshi2(90, 9*64);
         //new Yoshi(70, 9*64);
@@ -68,15 +71,16 @@ public class TitleScreen extends View {
        // Boo boo = new Boo(4*64, 10*64);
        // Thwomp t = new Thwomp(16*64, 8*64);
        // ParaGoomba pg = new ParaGoomba(8*64, 10*64);
-        //new Star(75,50);
-        //new Star(110,50);
-        //new Star(20,50);
+        new Star(75,50);
+        new Star(150,50);
+        new Star(20,50);
         //Thwomp t = new Thwomp(16*64, 8*64);
 
         //Koopa k = new Koopa(10*64, 8*64);
 
         //Item testItem = new Item("./resources/cloud_yoshi.png");
         map = new Map("level2"); 
+        //map = new Map("presentation"); 
         //map.setCase(1, 1, Type.ICE);       
         //map.check();
         //map.saveText("test");
@@ -95,9 +99,10 @@ public class TitleScreen extends View {
         //test2.define(BodyType.STATIC).at(0f, 300f).hitbox(500f, 10f).fixtures(0.5f, 0.9f, 0f).create();
             //map.check();
             //map.saveText("test");
-            
+            */
             map = new Map(30,14);
             map.y1 = testEntity;
+            map.y2 = testEntity2;
 //System.out.println(Entity.ENTITIES.size());
             
             map.setCase(0, 0, Type.BRICK);
@@ -106,9 +111,13 @@ public class TitleScreen extends View {
             map.setCase(8, 4, Type.BRICK);
             map.setCase(8, 5, Type.BRICK);
             map.setCase(8, 6, Type.BRICK);
-            map.setCase(8, 7, Type.BRICK);
-            map.setCase(10, 8, Type.EMPTY);
-            map.setCase(9, 8, Type.EMPTY);*/
+            map.setCase(8, 10, Type.DOORBRICK);
+            map.setCase(8, 11, Type.DOORBRICK);
+            map.setCase(8, 12, Type.DOORBRICK);
+            
+            map.setCase(7, 12, Type.LAVA);
+            
+            new Switch(6*64, 12*64);
             //map.setCase(9, 8, Type.EMPTY);
             //map.move(100, 100);
 
@@ -124,7 +133,7 @@ public class TitleScreen extends View {
         map.setCase(10, 8, Type.EMPTY);
         map.setCase(9, 8, Type.EMPTY);*/
         //map.move(100, 100);
-        MenuButtonMaker menuMaker = new MenuButtonMaker(container, container.getScreenWidth()-200);
+        //MenuButtonMaker menuMaker = new MenuButtonMaker(container, container.getScreenWidth()-200);
 
         Entity.setCamera(camera().focus(testEntity).on(map));
         

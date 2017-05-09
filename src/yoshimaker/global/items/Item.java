@@ -28,7 +28,7 @@ public abstract class Item extends Entity {
         //Référencement
         ENTITIES.add(this);
         //Corps dynamique
-        physics.define(BodyType.DYNAMIC);
+        physics.define(BodyType.DYNAMIC).data(this);
     }
     
     public Item(Image... files) throws SlickException {
@@ -37,7 +37,7 @@ public abstract class Item extends Entity {
         //Référencement
         ENTITIES.add(this);
         //Corps dynamique
-        physics.define(BodyType.DYNAMIC);
+        physics.define(BodyType.DYNAMIC).data(this);
     }
     
     protected static SpriteSheet SPRITESHEET;

@@ -5,15 +5,19 @@ import org.jbox2d.callbacks.ContactListener;
 import org.jbox2d.collision.Manifold;
 import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.dynamics.contacts.Contact;
+import org.newdawn.slick.SlickException;
+import org.newdawn.slick.Sound;
 import yoshimaker.global.Entity;
 import yoshimaker.global.cases.Case;
 import yoshimaker.global.cases.Lava;
 import yoshimaker.global.characters.ennemies.Ennemy;
 import yoshimaker.global.characters.ennemies.Thwomp;
 import yoshimaker.global.characters.players.Player;
+import yoshimaker.global.items.Box;
 import yoshimaker.global.items.FireBall;
 import yoshimaker.global.items.Shell;
 import yoshimaker.global.items.Star;
+import yoshimaker.global.items.Switch;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -26,8 +30,16 @@ import yoshimaker.global.items.Star;
  * @author punpun
  */
 public class Collisions  implements ContactListener  {
-    
-        
+    Sound piece;
+
+    public Collisions(){
+        try {
+            piece = new Sound("sounds/piece.wav");
+        } catch (SlickException e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public void beginContact(Contact contact) {
         Entity a = (Entity) contact.getFixtureA().getBody().getUserData();
@@ -96,6 +108,21 @@ public class Collisions  implements ContactListener  {
             if (t.getCreator() != e) { e.die(); t.destroy(); }
         }
 
+        //Switch
+        if (((a instanceof Switch)&&(b instanceof yoshimaker.global.characters.Character))||((b instanceof Switch)&&(a instanceof yoshimaker.global.characters.Character))) {
+            Switch s = (Switch) ((a instanceof Switch) ? a : b);
+            yoshimaker.global.characters.Character e = (yoshimaker.global.characters.Character) ((a instanceof Switch) ? b : a);
+            //Note axe des y inversés
+            s.enable(); 
+        }
+        
+        if (((a instanceof Switch)&&(b instanceof Box))||((b instanceof Switch)&&(a instanceof Box))) {
+            Switch s = (Switch) ((a instanceof Switch) ? a : b);
+            Box e = (Box) ((a instanceof Switch) ? b : a);
+            //Note axe des y inversés
+            s.enable();
+        }
+        
         //Star
         if (((a instanceof Player)&&(b instanceof Star))||((b instanceof Player)&&(a instanceof Star))) {
             Player p = (Player) ((a instanceof Player) ? a : b);
@@ -103,6 +130,7 @@ public class Collisions  implements ContactListener  {
 
             System.out.println("Star");
             if(!e.destroyed) {
+                piece.play(1f, 0.3f);
                 e.destroy();
                 Player.countStar--;
             }
@@ -116,7 +144,20 @@ public class Collisions  implements ContactListener  {
     }
     
     @Override
-    public void endContact(Contact contact) {}
+    public void endContact(Contact contact) {
+        Entity a = (Entity) contact.getFixtureA().getBody().getUserData();
+        Entity b = (Entity) contact.getFixtureB().getBody().getUserData();
+        //System.out.println(a);
+        //System.out.println(b);
+        if ((a == null)||(b == null)) { return ; }
+        
+        if (((a instanceof Switch)&&(b instanceof yoshimaker.global.characters.Character))||((b instanceof Switch)&&(a instanceof yoshimaker.global.characters.Character))) {
+            Switch s = (Switch) ((a instanceof Switch) ? a : b);
+            yoshimaker.global.characters.Character e = (yoshimaker.global.characters.Character) ((a instanceof Switch) ? b : a);
+            //Note axe des y inversés
+            s.disable(); 
+        }
+    }
     @Override
     public void preSolve(Contact contact, Manifold oldManifold) {}
     @Override

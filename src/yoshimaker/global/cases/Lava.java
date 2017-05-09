@@ -5,7 +5,9 @@
  */
 package yoshimaker.global.cases;
 
+import org.newdawn.slick.Animation;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.SpriteSheet;
 import static yoshimaker.global.cases.Case.SPRITESHEET;
 
 /**
@@ -29,7 +31,10 @@ public class Lava extends Case {
      */
     public Lava(int x, int y) throws SlickException {
         //Initialisation
-        super(SPRITESHEET.getSprite(TILE_X, TILE_Y));
+        super();
+        this.sprite = new Animation(SPRITE_LAVA, 0, 0, 10, 0, true, 1, true);
+        sprite.setSpeed(0.01f);
+        sprite.start();
         //Coordonnées
         setX(x).setY(y).setWidth(WIDTH).setHeight(HEIGHT);
         //Définition de la physique
@@ -40,5 +45,14 @@ public class Lava extends Case {
             .create();
         update();
         type = Type.LAVA;
+    }
+    
+     protected static SpriteSheet SPRITE_LAVA;
+    
+    static {
+        //Initalisation
+        try {
+            SPRITE_LAVA = new SpriteSheet("./assets/lava.png", 90, 90, 0);
+           } catch (Exception ignore) { }
     }
 }

@@ -15,5 +15,7 @@ public enum Type {
     BRICK,
     PICK, 
     EMPTY,
+    DOORBRICK,
     SPRING; // ressort
+    
 }

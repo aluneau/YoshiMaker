@@ -6,6 +6,7 @@
 package yoshimaker.global.characters.players;
 
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.jbox2d.dynamics.BodyType;
@@ -13,6 +14,7 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import yoshimaker.global.Entity;
+import static yoshimaker.global.Entity.ENTITIES;
 import yoshimaker.global.JSPolyfill;
 import yoshimaker.global.items.FireBall;
 
@@ -90,7 +92,6 @@ public abstract class Player extends yoshimaker.global.characters.Character {
      */
     public static void keycheck(Input input) {
         try { for (Player player : PLAYERS) {
-            if(input.isKeyDown(Input.KEY_I)){ player.key_i();}
             if(input.isKeyDown(Input.KEY_K)){ player.key_k();}
             if(input.isKeyDown(Input.KEY_J)){ player.key_j();}
             if(input.isKeyDown(Input.KEY_L)){ player.key_l();}
@@ -98,6 +99,8 @@ public abstract class Player extends yoshimaker.global.characters.Character {
             if (input.isKeyDown(Input.KEY_Q)) { player.key_q(); }
             if (input.isKeyDown(Input.KEY_E)) { player.key_e(); }
             if(input.isKeyDown(Input.KEY_O))  {player.key_o(); }
+            if(input.isKeyDown(Input.KEY_A))  {player.key_a(); }
+            if(input.isKeyDown(Input.KEY_U))  {player.key_u(); }
             if (!input.isKeyDown(Input.KEY_D) && !input.isKeyDown(Input.KEY_Q)) { player.no_key(); }
         } } catch (Exception ignore) {}
     }
@@ -116,6 +119,7 @@ public abstract class Player extends yoshimaker.global.characters.Character {
      */
     public static void keydown(int key, char c) {
         for (Player player : PLAYERS) {
+            if(key==Input.KEY_I){ player.key_i();}
             if (key == Input.KEY_Z || key==Input.KEY_W) { player.key_space(); }
         }
     }
@@ -134,6 +138,24 @@ public abstract class Player extends yoshimaker.global.characters.Character {
     public void key_i(){}
 
     public void key_o(){}
+    
+    public void key_a(){
+         Iterator<Player> it = PLAYERS.iterator();
+        while (it.hasNext()) {
+            Player p = it.next();
+            if (p == null) { continue ; }
+            if (p == this) { continue ; }
+            System.out.println(Math.pow(getX() - p.getX(), 2) + Math.pow(getY() - p.getY(), 2));
+            if (Math.pow(getX() - p.getX(), 2) + Math.pow(getY() - p.getY(), 2) < Math.pow(75, 2)) {
+                System.out.println("ok");
+                p.physics.impulse((getDirection() == "left" ? -1 : 1)*20f, -50f);
+                physics.move(0, 0);
+            }
+        }
+    }
+    public void key_u(){
+        this.key_a();
+    }
 
     /**
      * Callback à la touche Q

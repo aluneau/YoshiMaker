@@ -215,7 +215,7 @@ public abstract class Entity {
     public String toString() { return "entity" ; }
     
     public void onCreate() {};
-
+    public void onUpdate() {};
     
     public static void DESTROY() {
         //HashSet<Entity> cloned = (HashSet<Entity>) ENTITIES.clone() ;
