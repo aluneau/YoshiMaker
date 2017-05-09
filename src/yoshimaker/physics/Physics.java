@@ -80,11 +80,20 @@ public class Physics {
         
     }
     
+    /**
+     * Setter objet
+     * @param d
+     * @return 
+     */
     public Physics data(Object d) {
         this.data = d;
         return this ;
     }
     
+    /**
+     * Getter objet
+     * @return 
+     */
     public Object data() {
         if (!created) { return null; }
         return body.getUserData();
@@ -121,6 +130,12 @@ public class Physics {
         return definition(type, _group);
     }
     
+    /**
+     * Raacourci de la méthode définition (2)
+     * @param type
+     * @param group
+     * @return 
+     */
     public Physics define(BodyType type, int group) {
         return definition(type, group);
     }
@@ -234,6 +249,9 @@ public class Physics {
         return this;
     }
     
+    /**
+     * Itération de création
+     */
     public void stepCreate() {
         if (created) { return ; }
         body = world().createBody(definition());
@@ -272,16 +290,32 @@ public class Physics {
         return this;
     }
     
+    /**
+     * Déplacement
+     * @param dvx
+     * @param dvy
+     * @return 
+     */
     public Physics move(int dvx, int dvy) {
         body.setLinearVelocity(new Vec2(dvx, dvy));
         return this;
     }
     
+    /**
+     * Déplacement X
+     * @param dvx
+     * @return 
+     */
     public Physics moveX(int dvx) {
         body.setLinearVelocity(new Vec2(dvx, body.getLinearVelocity().y));
         return this;
     }
     
+    /**
+     * Déplacement Y
+     * @param dvy
+     * @return 
+     */
     public Physics moveY(int dvy) {
         body.setLinearVelocity(new Vec2(body.getLinearVelocity().x, dvy));
         return this;
@@ -365,7 +399,14 @@ public class Physics {
             b.setTransform(new Vec2(p.getSpawnX(), p.getSpawnY()), b.getAngle()); }
     }
 
+    /**
+     * Locker
+     */
     private static boolean locked = false;
+    
+    /**
+     * Création de toutes les unités en attente
+     */
     public static void stepCreateAll() {
         if (locked) { return; }
         locked = true;
@@ -393,14 +434,27 @@ public class Physics {
         update(step, 6, 2);
     }
     
+    /**
+     * Pixel en mètres
+     * @param pixels
+     * @return 
+     */
     public static float toMeters(int pixels) {
         return pixels * 0.02f;
     }
     
+    /**
+     * Metres en pixels
+     * @param meters
+     * @return 
+     */
     public static int toPixels(float meters) {
         return round(meters * 50.0f);
     }
     
+    /**
+     * Destructeur
+     */
     public void destroy() {
         if (created) { 
             
@@ -413,10 +467,18 @@ public class Physics {
         }
     }
     
+    /**
+     * Body getter
+     * @return 
+     */
     public Body getBody() {
         return this.body;
     }
     
+    /**
+     * Force la position (téléportation)
+     * @return 
+     */
     public Physics forcePosition() {
         FORCED.add(body);
         return this;
