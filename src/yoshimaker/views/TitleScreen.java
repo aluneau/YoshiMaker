@@ -53,9 +53,9 @@ public class TitleScreen extends View {
     public void init(GameContainer container) throws SlickException {
         background = new Image("./resources/background_yoshi.png");
         Physics.world(0, 100f);
-        //testEntity = new Yoshi(64, 9*64);
-        testEntity2 = new Yoshi2(90, 9*64);
-        new Yoshi(70, 9*64);
+        testEntity = new Yoshi(64, 9*64);
+        //testEntity2 = new Yoshi2(90, 9*64);
+        //new Yoshi(70, 9*64);
         Box b = new Box(3*64, 4*64);
 
        // Goomba g = new Goomba(7*64, 7*64);
@@ -87,8 +87,7 @@ public class TitleScreen extends View {
             map = new Map(30,14);
             //System.out.println(Entity.ENTITIES.size());
             
-             map.setCase(0, 0, Type.BRICK);
-            map.setCase(2, 8, Type.ICE);
+            map.setCase(0, 0, Type.BRICK);
             map.setCase(3, 8, Type.ICE);
             map.setCase(11, 8, Type.SPRING);
             map.setCase(8, 4, Type.BRICK);
@@ -102,7 +101,6 @@ public class TitleScreen extends View {
         
 
         map.setCase(0, 0, Type.BRICK);
-        map.setCase(2, 8, Type.ICE);
         map.setCase(3, 8, Type.ICE);
         map.setCase(11, 8, Type.SPRING);
         map.setCase(8, 4, Type.BRICK);
@@ -119,7 +117,7 @@ public class TitleScreen extends View {
         Thread tm = new Thread(new Timer());
         tm.start();
        
-        Entity.setCamera(camera().focus(testEntity2).on(map));
+        //Entity.setCamera(camera().focus(testEntity2).on(map));
 }
 
     @Override

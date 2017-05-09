@@ -8,6 +8,7 @@ package yoshimaker.global.items;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
+import yoshimaker.global.Entity;
 import static yoshimaker.global.items.Item.SPRITESHEET;
 
 /**
@@ -36,6 +37,7 @@ public class Shell extends Item {
         TILE_Y = 0;
     private Animation inactive, active;
     protected boolean spinning = false;
+    public int direction = 1;
     /**
      * Boite
      * @param x
@@ -60,13 +62,23 @@ public class Shell extends Item {
             .create();
     }
     
-    public void spinning(boolean v) {
+    public void spinning(boolean v, int d) {
         spinning = v;
+        direction = d;
         this.sprite = spinning ? active : inactive;
     }
     
     public boolean spinning() {
         return spinning;
+    }
+    
+    @Override
+    public Entity update(){
+        super.update();
+        if (spinning()) {
+            physics.moveX(direction*10);
+        }
+        return this; 
     }
 
     @Override

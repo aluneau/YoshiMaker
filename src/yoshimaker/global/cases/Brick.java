@@ -36,7 +36,7 @@ public class Brick extends Case {
         physics
             .at(x*width, y*height)
             .hitbox(width/2, height/2)
-            .fixtures(DENSITY, FRICTION, RESTITUTION)
+            .fixtures(DENSITY, FRICTION, RESTITUTION).data(this)
             .create();
         update();
         type = Type.BRICK;
