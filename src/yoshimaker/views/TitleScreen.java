@@ -76,7 +76,7 @@ public class TitleScreen extends View {
         //Koopa k = new Koopa(10*64, 8*64);
 
         //Item testItem = new Item("./resources/cloud_yoshi.png");
-        map = new Map("presentation"); 
+        map = new Map("level2"); 
         //map.setCase(1, 1, Type.ICE);       
         //map.check();
         //map.saveText("test");
