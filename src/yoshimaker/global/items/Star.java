@@ -14,7 +14,7 @@ public class Star extends Item {
     static {
         //Initalisation
         try {
-            STAR = new SpriteSheet("./assets/nuage.png", 64, 46, 0);
+            STAR = new SpriteSheet("./assets/images/items/star.png", 64, 46, 0);
         } catch (Exception ignore) { }
     }
 
