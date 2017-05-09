@@ -5,6 +5,8 @@
  */
 package yoshimaker.title;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.jbox2d.dynamics.BodyType;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Image;
@@ -49,6 +51,11 @@ public class Button extends Entity implements MouseListener {
             switch (action) {
                 case 1:
                     WindowGame.getInstance().view = new TitleScreen();
+            {
+                    try {
+                        WindowGame.getInstance().view.init(WindowGame.getInstance().container);
+                    } catch (SlickException ex) {  }
+            }
             } 
         }
     }

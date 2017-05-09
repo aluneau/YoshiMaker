@@ -13,7 +13,7 @@ import yoshimaker.views.View;
 import yoshimaker.views.camera.Camera;
 
 public class WindowGame extends BasicGame {
-    private GameContainer container;
+    public GameContainer container;
     public View view;
     private Camera camera;
     private Thread physicThread;

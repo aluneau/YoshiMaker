@@ -46,7 +46,7 @@ public class MenuView extends View {
         clouds[3] = new Image("./resources/cloud_yoshi.png");
         clouds[4] = new Image("./resources/cloud_yoshi.png");
         
-        buttons[0] = new Button(1, "./assets/start.png", "./assets/startr.png");
+        buttons[0] = new Button(1, "./assets/playButton.png", "./assets/playButtonR.png");
         
     }
 
@@ -61,7 +61,7 @@ public class MenuView extends View {
         logo.draw(container.getWidth()/2-275, 50, 0.35f);
         for (int i = 0; i < buttons.length; i++) {
             if (buttons[i] == null) { continue ; }
-            buttons[i].setX(container.getWidth()/2-275).setY(100).setWidth(200).setHeight(50);
+            buttons[i].setX(container.getWidth()/2).setY(350+i*100).setWidth(200).setHeight(50);
             buttons[i].draw(container, g);
         }
     }
