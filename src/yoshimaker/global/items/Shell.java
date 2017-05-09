@@ -68,7 +68,7 @@ public class Shell extends Item {
     public boolean spinning() {
         return spinning;
     }
-    
+
     @Override
     public String toString() {
         return "shell";

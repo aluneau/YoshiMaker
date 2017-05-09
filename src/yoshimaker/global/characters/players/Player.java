@@ -23,6 +23,8 @@ public abstract class Player extends yoshimaker.global.characters.Character {
     public final static HashSet<Player> PLAYERS = new HashSet();
        protected boolean jumped = false ;
        protected String direction;
+
+       public static int countStar = 3;
        
     
     /**

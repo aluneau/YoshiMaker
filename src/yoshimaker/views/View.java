@@ -5,11 +5,7 @@
  */
 package yoshimaker.views;
 
-import org.newdawn.slick.BasicGame;
-import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Input;
-import org.newdawn.slick.SlickException;
+import org.newdawn.slick.*;
 import yoshimaker.WindowGame;
 import yoshimaker.views.camera.Camera;
 
@@ -18,6 +14,9 @@ import yoshimaker.views.camera.Camera;
  * @author punpun
  */
 public abstract class View  {
+
+    public static UnicodeFont fontTest = new UnicodeFont(new java.awt.Font("Arial", java.awt.Font.PLAIN, 20));
+
     /**
      * Crée les resources nécessaires à l'affichage de la vue
      * @param container

@@ -5,24 +5,20 @@
  */
 package yoshimaker.views;
 
+import org.newdawn.slick.gui.TextField;
+import yoshimaker.global.characters.ennemies.Koopa;
 import yoshimaker.global.characters.players.Yoshi2;
+import yoshimaker.global.items.Shell;
+import yoshimaker.global.items.Star;
 import yoshimaker.map.Map;
-import org.jbox2d.dynamics.BodyType;
 import org.newdawn.slick.*;
 import yoshimaker.global.Entity;
-import yoshimaker.global.cases.Brick;
 import yoshimaker.global.cases.Type;
 import yoshimaker.global.characters.ennemies.Boo;
-import yoshimaker.global.characters.ennemies.Goomba;
-import yoshimaker.global.characters.ennemies.Koopa;
-import yoshimaker.global.characters.ennemies.ParaGoomba;
-import yoshimaker.global.characters.ennemies.Thwomp;
 import yoshimaker.global.characters.players.Player;
 import yoshimaker.global.characters.players.Yoshi;
 import yoshimaker.global.items.Box;
 import yoshimaker.physics.Physics;
-import yoshimaker.global.items.Item;
-import yoshimaker.global.items.Shell;
 
 /**
  *
@@ -37,6 +33,8 @@ public class TitleScreen extends View {
     private boolean test = false;
     private float test2 = 0, test3 = 0, test4 = 0;
     private Map map ;
+
+    private TextField counterText;
 
     public TitleScreen() {
         clouds = new Image[5];
@@ -67,10 +65,15 @@ public class TitleScreen extends View {
         //Goomba g = new Goomba(7*64, 12*64);
         //ParaGoomba pg = new ParaGoomba(8*64, 10*64);
         Boo boo = new Boo(4*64, 10*64);
+        new Star(50,50);
+        new Star(50,50);
+        new Star(50,50);
+
+
         //Thwomp t = new Thwomp(16*64, 8*64);
 
-        //Koopa k = new Koopa(10*64, 8*64);
-        //Shell s = new Shell(9*64, 8*64);
+        Koopa k = new Koopa(10*64, 8*64);
+        Shell s = new Shell(9*64, 8*64);
 
         //Item testItem = new Item("./resources/cloud_yoshi.png");
 
@@ -114,14 +117,17 @@ public class TitleScreen extends View {
         background.draw(0, 00, 4f);
         Entity.drawCamera(container, g);
 
+        g.drawString("Il reste : "  + Integer.toString(Player.countStar), 50.0f, 50.0f);
+
     }
 
     @Override
     public void update(GameContainer container, int delta) {
         Entity.updateAll();
         Physics.update();
-
-        
+        if(Player.countStar <=0){
+            System.out.println("Fin du jeu");
+        }
         /*
         for (int i = 0; i < clouds.length; i++) {
             clouds_x[i] += delta*0.05;
