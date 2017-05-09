@@ -52,21 +52,20 @@ public class WinView extends View {
         button.draw(container, g);
         
         if (a_death == 0) {
-            g.drawString("Wow ! Le joueur 1 n'est pas mort une seule fois !", Camera.xTop+50.0f, Camera.yTop+90.0f);
+            g.drawString("Wow ! Le joueur 1 n'est pas mort une seule fois !", Camera.xTop+50.0f, Camera.yTop+350f+90.0f);
         } else {
-            g.drawString("Le joueur 1 est mort "+a_death+" fois !", Camera.xTop+50.0f, Camera.yTop+90.0f);
-            g.drawString("        Son compte a été débité de "+(a_death)+" $", Camera.xTop+50.0f, Camera.yTop+105.0f);
+            g.drawString("Le joueur 1 est mort "+a_death+" fois !", Camera.xTop+50.0f, Camera.yTop+350f+90.0f);
+            g.drawString("        Son compte a été débité de "+(a_death)+" $", Camera.xTop+50.0f, Camera.yTop+350f+105.0f);
             
         }
         
         if (b_death != -1) {
-            g.drawString("Wow ! Le joueur 1 n'est pas mort une seule fois !", Camera.xTop+50.0f, Camera.yTop+125.0f);
-        
+           
             if (b_death == 0) {
-                g.drawString("Wow ! Le joueur 2 n'est pas mort une seule fois !", Camera.xTop+50.0f, Camera.yTop+125.0f);
+                g.drawString("Wow ! Le joueur 2 n'est pas mort une seule fois !", Camera.xTop+50.0f, Camera.yTop+350f+125.0f);
             } else {
-                g.drawString("Le joueur 2 est mort "+b_death+" fois !", Camera.xTop+50.0f, Camera.yTop+125.0f);
-                g.drawString("        Son compte a été débité de "+(b_death)+" $", Camera.xTop+50.0f, Camera.yTop+140.0f);
+                g.drawString("Le joueur 2 est mort "+b_death+" fois !", Camera.xTop+50.0f, Camera.yTop+350f+125.0f);
+                g.drawString("        Son compte a été débité de "+(b_death)+" $", Camera.xTop+50.0f, Camera.yTop+350f+140.0f);
             }
         }
         

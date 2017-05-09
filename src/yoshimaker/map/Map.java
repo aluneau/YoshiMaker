@@ -26,6 +26,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import yoshimaker.global.Entity;
 import yoshimaker.global.cases.Brick;
+import yoshimaker.global.cases.DoorBrick;
 import yoshimaker.global.cases.Empty;
 import yoshimaker.global.cases.Ice;
 import yoshimaker.global.cases.Lava;
@@ -118,6 +119,7 @@ public class Map extends Observable {
                 case ICE: map[y][x] = new Ice(x, y);break;
                 case SPRING: map[y][x] = new Spring(x, y);break;
                 case LAVA: map[y][x] = new Lava(x, y);break;
+                case DOORBRICK: map[y][x] = new DoorBrick(x, y); break;
                 default: map[y][x] = null;
             }
             

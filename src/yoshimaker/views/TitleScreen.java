@@ -68,9 +68,9 @@ public class TitleScreen extends View {
        // Boo boo = new Boo(4*64, 10*64);
        // Thwomp t = new Thwomp(16*64, 8*64);
        // ParaGoomba pg = new ParaGoomba(8*64, 10*64);
-        //new Star(75,50);
-        //new Star(110,50);
-        //new Star(20,50);
+        new Star(75,50);
+        new Star(150,50);
+        new Star(20,50);
         //Thwomp t = new Thwomp(16*64, 8*64);
 
         //Koopa k = new Koopa(10*64, 8*64);
@@ -98,6 +98,7 @@ public class TitleScreen extends View {
             */
             map = new Map(30,14);
             map.y1 = testEntity;
+            map.y2 = testEntity2;
 //System.out.println(Entity.ENTITIES.size());
             
             map.setCase(0, 0, Type.BRICK);
@@ -106,7 +107,9 @@ public class TitleScreen extends View {
             map.setCase(8, 4, Type.BRICK);
             map.setCase(8, 5, Type.BRICK);
             map.setCase(8, 6, Type.BRICK);
-            map.setCase(8, 7, Type.BRICK);
+            map.setCase(8, 10, Type.DOORBRICK);
+            map.setCase(8, 11, Type.DOORBRICK);
+            map.setCase(8, 12, Type.DOORBRICK);
             //map.setCase(9, 8, Type.EMPTY);
             //map.move(100, 100);
 
