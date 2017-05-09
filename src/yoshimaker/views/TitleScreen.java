@@ -28,6 +28,7 @@ import yoshimaker.maker.view.MenuButtonMaker;
 import yoshimaker.physics.Physics;
 import yoshimaker.global.items.Item;
 import yoshimaker.global.items.Shell;
+import yoshimaker.global.items.Switch;
 import yoshimaker.physics.Timer;
 import yoshimaker.views.camera.Camera;
 
@@ -110,6 +111,8 @@ public class TitleScreen extends View {
             map.setCase(8, 10, Type.DOORBRICK);
             map.setCase(8, 11, Type.DOORBRICK);
             map.setCase(8, 12, Type.DOORBRICK);
+            
+            new Switch(6*64, 12*64);
             //map.setCase(9, 8, Type.EMPTY);
             //map.move(100, 100);
 

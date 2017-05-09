@@ -25,7 +25,7 @@ public class DoorBrick extends Case {
     protected static int
         TILE_X = 1,
         TILE_Y = 64;
-    public boolean opened = true ;
+    public static boolean opened = false ;
     protected Animation open, closed;
     public DoorBrick(int x, int y) throws SlickException {
         //Initialisation
@@ -34,7 +34,7 @@ public class DoorBrick extends Case {
         this.open = new Animation();
         this.open.addFrame(SPRITESHEET.getSprite(1, 64), 1000);
         this.closed = new Animation();
-        this.closed.addFrame(SPRITESHEET.getSprite(1, 64), 1000);
+        this.closed.addFrame(SPRITESHEET.getSprite(1, 64-16), 1000);
         this.sprite = closed;
         
         //Coordonnées

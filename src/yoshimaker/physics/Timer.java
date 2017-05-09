@@ -17,6 +17,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 import java.time.Instant;
+import static yoshimaker.global.Entity.ENTITIES;
 /**
  *
  * @author punpun
@@ -43,6 +44,7 @@ public class Timer implements Runnable {
             Timestamp timestamp = new Timestamp(System.currentTimeMillis());
             long time = timestamp.getTime();
             
+          
             while (true) {
 
                 Set<Entry<Long, Entity>> data = TEMPORARY.entrySet();
@@ -50,6 +52,15 @@ public class Timer implements Runnable {
                 while(it2.hasNext()){
                    Entry<Long, Entity> e = it2.next();
                    if (e.getKey() > time) { it2.remove(); e.getValue().destroy(); }
+                   
+                }
+                
+                HashSet<Entity> cloned = (HashSet<Entity>) ENTITIES.clone() ;
+                Iterator<Entity> it = cloned.iterator();
+                while (it.hasNext()) {
+                    Entity entity = it.next();
+                    if (entity == null) { continue ; }
+                    entity.onUpdate();
                 }
                 
                 

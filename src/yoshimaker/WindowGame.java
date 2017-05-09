@@ -4,6 +4,7 @@ import org.jbox2d.dynamics.BodyType;
 import yoshimaker.maker.view.MakerView;
 import yoshimaker.views.TitleScreen;
 import org.newdawn.slick.*;
+import yoshimaker.global.Entity;
 import yoshimaker.global.StripeEx;
 import yoshimaker.maker.view.Button;
 import yoshimaker.physics.Physics;
@@ -77,7 +78,7 @@ public class WindowGame extends BasicGame {
         view.controller(key, c, false) ;
         if (Input.KEY_ESCAPE == key) {
             if (WindowGame.getInstance().view instanceof MenuView) { container.exit(); return ; }
-            
+            Entity.DESTROY();
             WindowGame.getInstance().view = new MenuView();
             try {
                 MenuView.music.stop();
