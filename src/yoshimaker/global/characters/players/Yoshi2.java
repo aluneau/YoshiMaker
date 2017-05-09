@@ -29,7 +29,7 @@ public class Yoshi2 extends Player {
     private Animation stopLeft;
     private Animation stopRight;
     private Sound saut;
-
+    private Sound fireball;
 
     /**
      * Yoshi
@@ -56,6 +56,7 @@ public class Yoshi2 extends Player {
             .create();
         setSpawn((int)physics.at().x, (int)physics.at().y);
         saut = new Sound("sounds/saut.wav");
+        fireball = new Sound("sounds/fireball.wav");
 
     }
     
@@ -77,6 +78,7 @@ public class Yoshi2 extends Player {
             if (fired >= 1) { return ; } else { ++fired; }
             FireBall f = new FireBall(getX(), getY());
             f.setCreator(this);
+            fireball.play(1f, 0.6f);
             yoshimaker.physics.Timer.add(f, 500);
         } catch (SlickException ex) { }
     }

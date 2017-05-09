@@ -5,6 +5,8 @@ import org.jbox2d.callbacks.ContactListener;
 import org.jbox2d.collision.Manifold;
 import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.dynamics.contacts.Contact;
+import org.newdawn.slick.SlickException;
+import org.newdawn.slick.Sound;
 import yoshimaker.global.Entity;
 import yoshimaker.global.cases.Case;
 import yoshimaker.global.cases.Lava;
@@ -28,8 +30,16 @@ import yoshimaker.global.items.Switch;
  * @author punpun
  */
 public class Collisions  implements ContactListener  {
-    
-        
+    Sound piece;
+
+    public Collisions(){
+        try {
+            piece = new Sound("sounds/piece.wav");
+        } catch (SlickException e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public void beginContact(Contact contact) {
         Entity a = (Entity) contact.getFixtureA().getBody().getUserData();
@@ -120,6 +130,7 @@ public class Collisions  implements ContactListener  {
 
             System.out.println("Star");
             if(!e.destroyed) {
+                piece.play(1f, 0.3f);
                 e.destroy();
                 Player.countStar--;
             }
