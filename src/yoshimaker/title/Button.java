@@ -66,7 +66,7 @@ public class Button extends Entity implements MouseListener {
                 case 1:
                     WindowGame.getInstance().view = new TitleScreen();
                     try {
-                        MenuView.music.stop();
+                        //MenuView.music.stop();
                         WindowGame.getInstance().view.init(WindowGame.getInstance().container);
                     } catch (SlickException ex) {  }
                     break;
@@ -74,14 +74,14 @@ public class Button extends Entity implements MouseListener {
                 case 2:
             {
                 try {
-                    MenuView.music.stop();
+                    //MenuView.music.stop();
                     WindowGame.getInstance().view = new GameViewDeluxe();
                 } catch (SlickException ex) {
                     Logger.getLogger(Button.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
                     try {
-                        MenuView.music.stop();
+                        //MenuView.music.stop();
                         WindowGame.getInstance().view.init(WindowGame.getInstance().container);
                     } catch (SlickException ex) {  }
                     break;
