@@ -23,13 +23,10 @@ import yoshimaker.global.characters.players.Yoshi;
 import yoshimaker.global.items.Box;
 import yoshimaker.global.items.FireBall;
 import yoshimaker.physics.Physics;
-<<<<<<< HEAD
 import yoshimaker.global.items.Item;
 import yoshimaker.global.items.Shell;
 import yoshimaker.physics.Timer;
-=======
 import yoshimaker.views.camera.Camera;
->>>>>>> a8bf5c52ed69b0db0f0a57abb6ddee0639ba807d
 
 /**
  *
@@ -97,12 +94,12 @@ public class TitleScreen extends View {
 
         //Physics test2 = new Physics();
         //test2.define(BodyType.STATIC).at(0f, 300f).hitbox(500f, 10f).fixtures(0.5f, 0.9f, 0f).create();
-        map = new Map("test"); 
-        map.setCase(1, 1, Type.ICE);       
+        //map = new Map("test"); 
+        //map.setCase(1, 1, Type.ICE);       
             //map.check();
             //map.saveText("test");
             
-            //map = new Map(30,14);
+            map = new Map(30,14);
             //System.out.println(Entity.ENTITIES.size());
             
             /* map.setCase(0, 0, Type.BRICK);
@@ -119,7 +116,6 @@ public class TitleScreen extends View {
 
         
 
-<<<<<<< HEAD
         map.setCase(0, 0, Type.BRICK);
         map.setCase(2, 8, Type.ICE);
         map.setCase(3, 8, Type.ICE);
@@ -136,10 +132,8 @@ public class TitleScreen extends View {
         
         Thread tm = new Thread(new Timer());
         tm.start();
-        
-=======
+       
         Entity.setCamera(camera().focus(testEntity2).on(map));
->>>>>>> a8bf5c52ed69b0db0f0a57abb6ddee0639ba807d
 }
 
     @Override
