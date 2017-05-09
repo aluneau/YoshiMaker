@@ -28,7 +28,6 @@ public class Yoshi extends Player {
     private Animation right;
     private Animation stopLeft;
     private Animation stopRight;
-    private Sound saut;
     private Sound fireball;
     
     
@@ -114,9 +113,7 @@ public class Yoshi extends Player {
      * Callback à la touche Espace
      */
     @Override
-    public void key_space() {
-            saut.play(1f, 0.5f);
-
+    public void key_space() {;
         jump(false);
     }
     

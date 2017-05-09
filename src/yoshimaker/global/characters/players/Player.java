@@ -13,6 +13,7 @@ import org.jbox2d.dynamics.BodyType;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.Sound;
 import yoshimaker.global.Entity;
 import static yoshimaker.global.Entity.ENTITIES;
 import yoshimaker.global.JSPolyfill;
@@ -33,6 +34,8 @@ public abstract class Player extends yoshimaker.global.characters.Character {
 
        public static int countStar = 3;
        public int death = 0;
+       protected Sound saut;
+    
 
        
     
@@ -189,6 +192,8 @@ public abstract class Player extends yoshimaker.global.characters.Character {
             jumped = true ;  
             physics.moveY(-30);
             if (forced) { physics.moveY(-20); }
+            
+            saut.play(1.1f,0.4f);
         }
     }
     

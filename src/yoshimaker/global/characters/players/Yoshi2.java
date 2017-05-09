@@ -28,7 +28,7 @@ public class Yoshi2 extends Player {
     private Animation right;
     private Animation stopLeft;
     private Animation stopRight;
-    private Sound saut;
+    public Sound saut;
     private Sound fireball;
 
     /**
@@ -114,7 +114,6 @@ public class Yoshi2 extends Player {
      */
     @Override
     public void key_i() {
-        saut.play(1.1f,0.4f);
         jump(false);
     }
 
