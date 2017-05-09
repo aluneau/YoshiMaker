@@ -102,9 +102,6 @@ public class Map extends Observable {
         setCase(8, 6, Type.BRICK);
         setCase(8, 7, Type.BRICK);
         setCase(8, 7, Type.ICE);
-
-        setCase(10, 8, null);
-        setCase(9, 8, null);
     }
     
     public void readLevel(String lvlname){

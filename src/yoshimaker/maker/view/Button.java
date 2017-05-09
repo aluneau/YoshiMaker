@@ -180,10 +180,10 @@ public class Button extends Entity implements  MouseListener{
         int xMap = (xMouse+Camera.xTop+32)/64;
         int yMap = (yMouse+Camera.yTop+32)/64;
         if(selectedType != null && Map.CURRENT.getCase(xMap, yMap) != null && Map.CURRENT.getCase(xMap, yMap).type.compareTo(selectedType) == 0){
-           System.out.println("ALREADY BLOCK");         
+           //System.out.println("ALREADY BLOCK");         
             return;
         }else{
-            System.out.println(selectedType + " " + Map.CURRENT.getCase(xMap, yMap));
+            //System.out.println(selectedType + " " + Map.CURRENT.getCase(xMap, yMap));
         }
 
         if(Map.CURRENT.getCase(xMap, yMap) != null){

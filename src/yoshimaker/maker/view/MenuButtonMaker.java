@@ -14,7 +14,7 @@ import static yoshimaker.maker.view.Button.LISTENER;
 import yoshimaker.map.Map;
 
 public class MenuButtonMaker extends Entity   implements  MouseListener {
-    private Button button0, button1, button2, button3, button4;
+    private final Button button0, button1, button2, button3, button4, button5, button6;
     private GameContainer container;
     private int positionX;
     protected final static HashSet<Button> BUTTONS = new HashSet();
@@ -23,14 +23,18 @@ public class MenuButtonMaker extends Entity   implements  MouseListener {
         this.container = container;
         this.positionX = posX;
         Image buttonRessources = new Image("./assets/images/test/maker.png");
+        Image backG = new Image("./assets/images/test/menubackground.png");
+
         SpriteSheet buttonImage = new SpriteSheet(buttonRessources,48,64,1,2);
         int yStep = 70;
         int y = 100;
+        button5 = new Button(container, this.positionX-3, 0, 103, container.getHeight(), 2, backG);
         button0 = new Button(container, this.positionX, y+0*yStep, 50, 50, Type.BRICK, buttonImage.getSubImage(2, 2));
         button1 = new Button(container, this.positionX, y+1*yStep, 50, 50, Type.ICE, buttonImage.getSubImage(12, 4));
         button2 = new Button(container, this.positionX, y+2*yStep, 50, 50, Type.SPRING, buttonImage.getSubImage(8, 6));
-        button3 = new Button(container, this.positionX, y+3*yStep, 50, 50, null, buttonImage.getSubImage(5, 0));
-        button4 = new Button(container, this.positionX, y+4*yStep, 50, 50, 1, buttonImage.getSubImage(10, 8));
+        button6 = new Button(container, this.positionX, y+3*yStep, 50, 50, Type.LAVA, buttonImage.getSubImage(0, 1));
+        button3 = new Button(container, this.positionX, y+4*yStep, 50, 50, null, buttonImage.getSubImage(5, 0));
+        button4 = new Button(container, this.positionX+30, y+6*yStep, 60, 60, 1, buttonImage.getSubImage(10, 8));
 
         LISTENER.addMouseListener(this);
        
