@@ -115,7 +115,6 @@ public class Yoshi2 extends Player {
     @Override
     public void key_i() {
         saut.play(1.1f,0.4f);
-        jumped = false;
         jump(false);
     }
 

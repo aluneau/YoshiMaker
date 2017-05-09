@@ -27,7 +27,7 @@ public abstract class Player extends yoshimaker.global.characters.Character {
      * Liste des joueurs
      */
     public final static HashSet<Player> PLAYERS = new HashSet();
-       protected boolean jumped = false;
+       public boolean jumped = false;
        public int fired = 0 ;
        protected String direction;
 

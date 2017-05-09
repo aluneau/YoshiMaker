@@ -117,7 +117,6 @@ public class Yoshi extends Player {
     public void key_space() {
             saut.play(1f, 0.5f);
 
-        jumped = false;
         jump(false);
     }
     
