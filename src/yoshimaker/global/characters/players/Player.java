@@ -28,6 +28,8 @@ public abstract class Player extends yoshimaker.global.characters.Character {
        protected boolean jumped = false;
        public int fired = 0 ;
        protected String direction;
+
+       public static int countStar = 3;
        
        
     
@@ -87,6 +89,10 @@ public abstract class Player extends yoshimaker.global.characters.Character {
      */
     public static void keycheck(Input input) {
         try { for (Player player : PLAYERS) {
+            if(input.isKeyDown(Input.KEY_I)){ player.key_i();}
+            if(input.isKeyDown(Input.KEY_K)){ player.key_k();}
+            if(input.isKeyDown(Input.KEY_J)){ player.key_j();}
+            if(input.isKeyDown(Input.KEY_L)){ player.key_l();}
             if (input.isKeyDown(Input.KEY_D)) { player.key_d(); }
             if (input.isKeyDown(Input.KEY_Q)) { player.key_q(); }
             if (input.isKeyDown(Input.KEY_E)) { player.key_e(); }
@@ -108,7 +114,7 @@ public abstract class Player extends yoshimaker.global.characters.Character {
      */
     public static void keydown(int key, char c) {
         for (Player player : PLAYERS) {
-            if (key == Input.KEY_SPACE) { player.key_space(); }
+            if (key == Input.KEY_W) { player.key_space(); }
         }
     }
     
@@ -116,7 +122,15 @@ public abstract class Player extends yoshimaker.global.characters.Character {
      *  Aucune touche 
      */
     public abstract void no_key();
-    
+
+    public void key_l(){direction = "right";}
+
+    public void key_k(){}
+
+    public void key_j(){direction = "left";}
+
+    public void key_i(){}
+
     /**
      * Callback à la touche Q
      */

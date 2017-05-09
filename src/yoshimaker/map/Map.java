@@ -6,13 +6,16 @@
 package yoshimaker.map;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import yoshimaker.global.cases.Case;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.LineNumberReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.Observable;
@@ -46,17 +49,16 @@ public class Map extends Observable {
         CURRENT = this;
     }
     
+    public Map(String fileName){
+        loadText(fileName);
+    }
+    
     public Type whatIs(int x, int y) {
         x = Math.max(0, Math.min(getX()-1, Math.floorDiv(x, WIDTH)));
         y = Math.max(0, Math.min(getY()-1, Math.floorDiv(y, HEIGHT)));
         Case tmp = getCase(x, y);
         return tmp == null ? Type.EMPTY : tmp.type;
     }
-
-    public Map(){
-        
-    }
-    
     
     public void setX(int x) {
         this.x = x;
@@ -111,6 +113,11 @@ public class Map extends Observable {
         } catch (Exception ignore) { }
         return this;    
     }
+     
+    public void check(){
+        System.out.println(whatIs(0, 0));
+    }
+    
     public void deleteCase(int x, int y){
         /***
         *** ALED : Ne supprime pas l'image : gros fail sur l'affichage.
@@ -121,9 +128,10 @@ public class Map extends Observable {
                 map[y][x] = null;
                 System.out.println("Block delete");
             }
-        }
+        } /*catch (Exception ex) { 
+        }*/
     }
-    private void createMap() {
+    public void createMap() {
         map = new Case[getY()][getX()];
         for (int i = 0; i < getX(); i++) {
             for (int j = 0; j < getY(); j++) {
@@ -133,6 +141,8 @@ public class Map extends Observable {
             }
         }
     }
+    
+  
 
     public void move(int xOffset, int yOffset) {
         for (int i = 0; i < getX(); i++) {
@@ -179,7 +189,6 @@ public class Map extends Observable {
         File fichier = new File("test1.yoshiMaker");
         // Ouverture du flux fichier pour récuperer
         ObjectInputStream fluxRentrant = new ObjectInputStream(new FileInputStream(fichier));
-        System.out.println(" 2 ");
         setX(fluxRentrant.readInt());
         setY(fluxRentrant.readInt());
         for (int j = 0; j < getY(); j++) {
@@ -195,44 +204,75 @@ public class Map extends Observable {
     }
 
     public void loadText(String name){
-        String fileName = name + ".txt";// fichier 
+        String fileName = name+".txt";  // fichier 
         String[] saveBlock = null;      // récuperation de la ligne 
         String ligne;
         boolean firstLine = true;
-        
         try {
-            InputStream flux = new FileInputStream(fileName);
+            FileInputStream flux = new FileInputStream(fileName);
             InputStreamReader lecture = new InputStreamReader(flux);
             BufferedReader buff = new BufferedReader(lecture);
-            this.y = knowSize(buff);
+            y = knowSize(fileName);
+            int l = 0;
             while((ligne = buff.readLine()) != null){
                 saveBlock = ligne.split(" ");
                 if(firstLine == true){
-                    this.x = saveBlock.length;
-                    createMap();
+                    x = saveBlock.length;
+                    map = new Case[y][x];
+                    firstLine = false;
                 }
-                ligneMap(saveBlock,saveBlock.length);
+                ligneMap(saveBlock, l++);
             }          
         }catch( Exception e ){
             System.out.println(e.toString());    
         }   
     }
     
-    private int knowSize(BufferedReader nameFile){
-        int y = 0;
+    public void saveText(String name) {
+        String fileName = name+ ".txt";
+        FileWriter fw;
         try {
-            while((nameFile.readLine() !=null)){
-                
-                y ++;
+            fw = new FileWriter(fileName,true);
+            BufferedWriter output = new BufferedWriter(fw);
+            for (int j=0; j<this.y ; j++){
+                for(int i=0; i<this.x; i++){
+                    if( map[j][i] == null){
+                        output.write("_ ");
+                    }else{
+                        System.out.println( map[j][i].type.toString() + " youuuuuuuuuuuuuuuuu");
+                        String titre = inversValue(map[j][i].type.toString());
+                        output.write(titre);
+                        output.flush();                        
+                    }                  
+                    System.out.println(" ouii x1 ");
+                }
+                System.out.println(" ouii x2 ");
+                output.newLine(); 
             }
+            output.close();
         } catch (IOException ex) {
+            System.out.println("oups");        
         }
-        return y;
+        
+    }
+    
+    
+    private int knowSize(String nameFile) throws IOException{
+        FileInputStream flux = new FileInputStream(nameFile);
+        int count = 0;
+        LineNumberReader l = new LineNumberReader(new BufferedReader(new InputStreamReader(flux)));
+        String str;
+        while ((str=l.readLine())!=null){
+            count = l.getLineNumber();
+        }
+        return count;
     }
     
     private void ligneMap(String[] saveBlock, int hauteur ){
         for(int i = 0 ; i < saveBlock.length ; i++){
             setCase(i,hauteur,valueBlock(saveBlock[i]));
+            //System.out.println(whatIs(0, 0));
+            //System.out.println( saveBlock[i]);
         }
     }
     
@@ -241,7 +281,7 @@ public class Map extends Observable {
             case "B": // brique
                 return Type.BRICK;
             case "_": // vide
-                return Type.EMPTY;
+                return null;
             case "I":// glace
                 return Type.ICE;
             case "P": // pic
@@ -251,7 +291,27 @@ public class Map extends Observable {
             case "S":// ressort
                 return Type.SPRING;
             default:
-                return Type.EMPTY;
+                return null;
         }
+    }
+    private String inversValue(String type){
+        System.out.println( "inversValue : " + type );
+        switch (type) {
+            case "BRICK": // brique
+                return "B ";
+            case "EMPTY": // vide
+                return "_ ";
+            case "ICE" :// glace
+                return "I ";
+            case "PICK": // pic
+                return "P ";
+            case "LAVA": // lave
+                return "L ";
+            case "SPRING":// ressort
+                return "S ";
+
+            default:
+                return "_ ";
+        }          
     }
 }    

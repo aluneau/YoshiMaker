@@ -14,7 +14,7 @@ import static yoshimaker.maker.view.Button.LISTENER;
 import yoshimaker.map.Map;
 
 public class MenuButtonMaker extends Entity   implements  MouseListener {
-    private Button button0, button1, button2, button3;
+    private Button button0, button1, button2, button3, button4;
     private GameContainer container;
     private int positionX;
     protected final static HashSet<Button> BUTTONS = new HashSet();

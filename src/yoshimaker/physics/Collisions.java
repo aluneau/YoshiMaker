@@ -11,6 +11,7 @@ import yoshimaker.global.characters.ennemies.Thwomp;
 import yoshimaker.global.characters.players.Player;
 import yoshimaker.global.items.FireBall;
 import yoshimaker.global.items.Shell;
+import yoshimaker.global.items.Star;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -70,6 +71,23 @@ public class Collisions  implements ContactListener  {
             yoshimaker.global.characters.Character e = (yoshimaker.global.characters.Character) ((a instanceof FireBall) ? b : a);
             //Note axe des y inversés
             if (t.getCreator() != e) { e.die(); t.destroy(); }
+        }
+
+        //Star
+        if (((a instanceof Player)&&(b instanceof Star))||((b instanceof Player)&&(a instanceof Star))) {
+            Player p = (Player) ((a instanceof Player) ? a : b);
+            Star e = (Star) ((a instanceof Player) ? b : a);
+
+            System.out.println("Star");
+            if(!e.destroyed) {
+                e.destroy();
+                Player.countStar--;
+            }
+
+            System.out.println(Player.countStar);
+
+
+
         }
         
     }

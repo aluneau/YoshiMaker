@@ -38,10 +38,14 @@ public class WindowGame extends BasicGame {
         camera = new Camera(container);
         Button.LISTENER = input ;   
 
-        //view = new MenuView();
+        //view = new TitleScreen();
         //view = new GameViewDeluxe();
         view = new TitleScreen();
+       // view = new GameViewDeluxe();
+        //view = new TitleScreen();
         view.init(container);
+        
+        
 
 
         //physicThread = new Thread(new PhysicsThread());
