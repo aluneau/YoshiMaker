@@ -110,8 +110,7 @@ public class Map extends Observable {
 
      public Map setCase(int x, int y, Type type) {
         try {
-            if (map[y][x] != null) { map[y][x].destroy(); }
-            
+            if(map[y][x] instanceof Case) map[y][x].destroy();
             switch (type) {
                 case BRICK: map[y][x] = new Brick(x, y);break;
                 case ICE: map[y][x] = new Ice(x, y);break;
@@ -133,7 +132,7 @@ public class Map extends Observable {
         ***/
         if (y < getY()-1 && y > 0 && x < getX()-1 && x > 0) {
             if(map[y][x] != null && !map[y][x].equals(Type.EMPTY)){
-                /* supprimer ici */
+                if(map[y][x] instanceof Case) map[y][x].destroy();
                 map[y][x] = null;
                 System.out.println("Block delete");
             }

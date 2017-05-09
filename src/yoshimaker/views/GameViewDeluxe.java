@@ -60,10 +60,12 @@ public final class GameViewDeluxe extends View {
         Physics.world(0, 100f);
         testEntity = new Yoshi(64, 4*64);
         Box b = new Box(3*64, 4*64);
-        map = new Map(13,9);
+        map = new Map(25,13);
         map.setLevel1();
+        Entity.setCamera(camera().focus(testEntity).on(map));
+
         System.out.println(container.getScreenWidth());
-        MenuButtonMaker menuMaker = new MenuButtonMaker(container, container.getWidth()-200);
+        MenuButtonMaker menuMaker = new MenuButtonMaker(container, container.getWidth()-100);
     }
     
     @Override
