@@ -63,6 +63,7 @@ public class Goomba extends Ennemy {
             sprite.setSpeed(0.01f);    
             mouvement =-2;
         }
+        if (Map.CURRENT == null) { return this ; }
         if (Map.CURRENT.whatIs(getX()+getHeight()+75, getY()) != Type.EMPTY ){  
             sens = walkingL;
                     sprite.setSpeed(0.01f);   

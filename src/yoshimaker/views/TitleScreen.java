@@ -56,7 +56,8 @@ public class TitleScreen extends View {
         background = new Image("./resources/background_yoshi.png");
         Physics.world(0, 100f);
         testEntity = new Yoshi(64, 9*64);
-      
+      //  testEntity2 = new Yoshi2(90, 9*64);
+        //Box b = new Box(3*64, 4*64);
         //testEntity2 = new Yoshi2(90, 9*64);
         //new Yoshi(70, 9*64);
         Box b = new Box(3*64, 4*64);
@@ -66,16 +67,23 @@ public class TitleScreen extends View {
        // ParaGoomba pg = new ParaGoomba(8*64, 10*64);
        // Boo boo = new Boo(4*64, 10*64);
        // Thwomp t = new Thwomp(16*64, 8*64);
-        //Goomba g = new Goomba(7*64, 12*64);
-        //ParaGoomba pg = new ParaGoomba(8*64, 10*64);
-        Boo boo = new Boo(4*64, 10*64);
-        new Star(50,50);
-        new Star(50,50);
-        new Star(50,50);
-
-
+       // ParaGoomba pg = new ParaGoomba(8*64, 10*64);
+        //new Star(75,50);
+        //new Star(110,50);
+        //new Star(20,50);
         //Thwomp t = new Thwomp(16*64, 8*64);
 
+        //Koopa k = new Koopa(10*64, 8*64);
+
+        //Item testItem = new Item("./resources/cloud_yoshi.png");
+        map = new Map("presentation"); 
+        //map.setCase(1, 1, Type.ICE);       
+        //map.check();
+        //map.saveText("test");
+            
+           // map = new Map(30,14);            
+            /* map.setCase(0, 0, Type.BRICK);
+            map.setCase(2, 8, Type.ICE);
         Koopa k = new Koopa(10*64, 8*64);
         Shell s = new Shell(9*64, 8*64);
         
@@ -100,12 +108,13 @@ public class TitleScreen extends View {
             map.setCase(8, 6, Type.BRICK);
             map.setCase(8, 7, Type.BRICK);
             map.setCase(10, 8, Type.EMPTY);
-            map.setCase(9, 8, Type.EMPTY);
+            map.setCase(9, 8, Type.EMPTY);*/
+            //map.setCase(9, 8, Type.EMPTY);
             //map.move(100, 100);
 
         
 
-        map.setCase(0, 0, Type.BRICK);
+        /*map.setCase(0, 0, Type.BRICK);
         map.setCase(3, 8, Type.ICE);
         map.setCase(11, 8, Type.SPRING);
         map.setCase(8, 4, Type.BRICK);
@@ -113,10 +122,7 @@ public class TitleScreen extends View {
         map.setCase(8, 6, Type.BRICK);
         map.setCase(8, 7, Type.BRICK);
         map.setCase(10, 8, Type.EMPTY);
-        map.setCase(9, 8, Type.EMPTY);
-        
-        map.setCase(3, 3, Type.LAVA);
-        
+        map.setCase(9, 8, Type.EMPTY);*/
         //map.move(100, 100);
         MenuButtonMaker menuMaker = new MenuButtonMaker(container, container.getScreenWidth()-200);
 
@@ -166,8 +172,6 @@ public class TitleScreen extends View {
             } catch (SlickException ex) {  }
             
         }
-        /*
-        */
     }
 
     @Override

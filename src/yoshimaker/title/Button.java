@@ -69,32 +69,33 @@ public class Button extends Entity implements MouseListener {
                 case 1:
                     WindowGame.getInstance().view = new TitleScreen();
                     try {
-                        //MenuView.music.stop();
+                        MenuView.music.stop();
                         WindowGame.getInstance().view.init(WindowGame.getInstance().container);
                     } catch (SlickException ex) {  }
                     break;
+                    
                 //Editeur
                 case 2:
             
-                    try {
-                        //MenuView.music.stop();
+                   try {
+                        MenuView.music.stop();
                         WindowGame.getInstance().view = new GameViewDeluxe();
+                        WindowGame.getInstance().view.init(WindowGame.getInstance().container);
                     } catch (SlickException ex) {
                         Logger.getLogger(Button.class.getName()).log(Level.SEVERE, null, ex);
                     }
-            
-                    try {
-                        //MenuView.music.stop();
-                        WindowGame.getInstance().view.init(WindowGame.getInstance().container);
-                    } catch (SlickException ex) {  }
                     break;
                 //Ecran de jeu ?
                 case 3:
-                    WindowGame.getInstance().view = new LevelView();
-                    try {
-                        //MenuView.music.stop();
-                        WindowGame.getInstance().view.init(WindowGame.getInstance().container);
-                    } catch (SlickException ex) {  }
+                    
+                        try {
+                            MenuView.music.stop();
+                            WindowGame.getInstance().view = new LevelView();
+                            WindowGame.getInstance().view.init(WindowGame.getInstance().container);
+                        } catch (SlickException ex) {
+                            Logger.getLogger(Button.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    
                     break;
                     
                 case 100:
