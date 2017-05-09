@@ -5,11 +5,7 @@
  */
 package yoshimaker.views;
 
-import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
-import org.newdawn.slick.Input;
-import org.newdawn.slick.SlickException;
+import org.newdawn.slick.*;
 import yoshimaker.WindowGame;
 import yoshimaker.title.Button;
 
@@ -20,6 +16,7 @@ import yoshimaker.title.Button;
 public class LevelView extends View {
      private Image background;
     private Button[] buttons;
+    private Music music;
     
     @Override
     public void init(GameContainer container) throws SlickException {
@@ -30,6 +27,8 @@ background = new Image("./resources/background_yoshi.png");
             buttons[i] = new Button(100+i, "./assets/"+(i+1)+".png", "./assets/"+(i+1)+"R.png");
             buttons[i].setHeight(50).setWidth(50);
         }
+        music = new Music("sounds/file_select.ogg");
+        music.loop(1f, 0.6f);
         WindowGame.getInstance().getCamera().focus(null);
     }
 
