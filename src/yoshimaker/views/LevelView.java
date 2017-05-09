@@ -7,6 +7,7 @@ package yoshimaker.views;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import yoshimaker.WindowGame;
@@ -17,25 +18,30 @@ import yoshimaker.title.Button;
  * @author punpun
  */
 public class LevelView extends View {
-
+     private Image background;
     private Button[] buttons;
     
     @Override
     public void init(GameContainer container) throws SlickException {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+background = new Image("./resources/background_yoshi.png");        
+//throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         buttons = new Button[12];
         for (int i = 0; i < 12; i++) {
             buttons[i] = new Button(100+i, "./assets/"+(i+1)+".png", "./assets/"+(i+1)+"R.png");
+            buttons[i].setHeight(50).setWidth(50);
         }
         WindowGame.getInstance().getCamera().focus(null);
     }
 
     @Override
     public void render(GameContainer container, Graphics g) {
+         background.draw(0, 0, container.getWidth()/500f);
+        
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         for (int i = 0; i < 12; i++) {
-            int x = (i - ((int) i/4));
+            int x = i%4;
             buttons[i].setX(container.getWidth()/2 + ((x < 2) ? -75*(2-x) : 75*(x-2))).setY(300 + 100*((int) i/4));
+            buttons[i].draw(container, g);
         }
     }
 

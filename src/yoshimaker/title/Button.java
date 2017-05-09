@@ -19,6 +19,7 @@ import yoshimaker.global.Entity;
 import static yoshimaker.global.Entity.ENTITIES;
 import yoshimaker.maker.view.MakerView;
 import yoshimaker.views.GameViewDeluxe;
+import yoshimaker.views.LevelLoadedView;
 import yoshimaker.views.LevelView;
 import yoshimaker.views.MenuView;
 import yoshimaker.views.TitleScreen;
@@ -87,7 +88,6 @@ public class Button extends Entity implements MouseListener {
                     break;
                 //Ecran de jeu ?
                 case 3:
-                    
                         try {
                             MenuView.music.stop();
                             WindowGame.getInstance().view = new LevelView();
@@ -99,6 +99,16 @@ public class Button extends Entity implements MouseListener {
                     break;
                     
                 case 100:
+                    try {
+                        MenuView.music.stop();
+                        LevelLoadedView v = new LevelLoadedView();
+                        v.level = "presentation";
+                        WindowGame.getInstance().view = v;
+                        WindowGame.getInstance().view.init(WindowGame.getInstance().container);
+                    } catch (SlickException ex) {
+                        Logger.getLogger(Button.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    
                     
                     
                     break;

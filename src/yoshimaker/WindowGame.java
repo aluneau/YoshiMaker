@@ -76,7 +76,16 @@ public class WindowGame extends BasicGame {
     public void keyReleased(int key, char c) {
         view.controller(key, c, false) ;
         if (Input.KEY_ESCAPE == key) {
-            container.exit();
+            if (WindowGame.getInstance().view instanceof MenuView) { container.exit(); return ; }
+            
+            WindowGame.getInstance().view = new MenuView();
+            try {
+                MenuView.music.stop();
+                WindowGame.getInstance().view.init(WindowGame.getInstance().container);
+            } catch (SlickException ex) { }
+            
+            
+            //
         }
     }
 }
