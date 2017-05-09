@@ -116,7 +116,7 @@ public abstract class Player extends yoshimaker.global.characters.Character {
      */
     public static void keydown(int key, char c) {
         for (Player player : PLAYERS) {
-            if (key == Input.KEY_Z) { player.key_space(); }
+            if (key == Input.KEY_Z || key==Input.KEY_W) { player.key_space(); }
         }
     }
     
