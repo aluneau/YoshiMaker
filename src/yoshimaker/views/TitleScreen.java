@@ -73,22 +73,13 @@ public class TitleScreen extends View {
         //testEntity = new Yoshi(64, 9*64);
         testEntity2 = new Yoshi2(90, 9*64);
         Box b = new Box(3*64, 4*64);
-<<<<<<< HEAD
-        
-        //for (int i = 0; i < 1000; i++) {
-          //  Goomba g = new Goomba(7*64, 12*64);
-        //}
-        
-        
-        ParaGoomba pg = new ParaGoomba(8*64, 10*64);
-=======
+
        // Goomba g = new Goomba(7*64, 7*64);
        // ParaGoomba pg = new ParaGoomba(8*64, 10*64);
        // Boo boo = new Boo(4*64, 10*64);
        // Thwomp t = new Thwomp(16*64, 8*64);
         //Goomba g = new Goomba(7*64, 12*64);
         //ParaGoomba pg = new ParaGoomba(8*64, 10*64);
->>>>>>> a8bf5c52ed69b0db0f0a57abb6ddee0639ba807d
         Boo boo = new Boo(4*64, 10*64);
         new Star(50,50);
         new Star(50,50);
