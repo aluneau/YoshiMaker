@@ -70,7 +70,7 @@ public class FireBall extends Item {
     @Override
     public void onCreate() {
         if (creator != null) {
-            physics.impulse(((creator.getDirection() == "left") ? -1f : 1f)*25f, 10f);
+            physics.impulse(((creator.getDirection() == "left") ? -1f : 1f)*35f, 10f);
         }
         
     }

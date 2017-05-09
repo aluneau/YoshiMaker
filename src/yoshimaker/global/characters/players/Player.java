@@ -30,7 +30,8 @@ public abstract class Player extends yoshimaker.global.characters.Character {
        protected String direction;
 
        public static int countStar = 3;
-       
+       public int death = 0;
+
        
     
     /**
@@ -157,6 +158,7 @@ public abstract class Player extends yoshimaker.global.characters.Character {
     @Override
     public void die() {
         physics.forcePosition();
+        this.death++;
         update();
     }
     

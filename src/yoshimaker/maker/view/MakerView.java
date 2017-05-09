@@ -34,7 +34,9 @@ public class MakerView extends View {
         map.setCase(10, 8, Type.EMPTY);
         map.setCase(9, 8, Type.EMPTY);
         yoshi = new Yoshi(64, 4*64);
-
+        
+        Entity.setCamera(camera().focus(yoshi).on(map));
+        
     }
 
     @Override

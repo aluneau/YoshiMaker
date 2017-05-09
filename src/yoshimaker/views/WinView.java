@@ -11,7 +11,9 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import yoshimaker.WindowGame;
+import yoshimaker.global.characters.players.Player;
 import yoshimaker.title.Button;
+import yoshimaker.views.camera.Camera;
 
 /**
  *
@@ -20,6 +22,7 @@ import yoshimaker.title.Button;
 public class WinView extends View {
     private Image image;
     private Button button;
+    public int a_death;
     
     @Override
     public void init(GameContainer container) throws SlickException {
@@ -34,6 +37,8 @@ public class WinView extends View {
         image.draw(container.getWidth()/2-150, 50, 1f);
         button.setX(container.getWidth()/2).setY(350);
         button.draw(container, g);
+        
+        g.drawString("Il reste : "  + Integer.toString(a_death), Camera.xTop+50.0f, Camera.yTop+50.0f);
     }
 
     @Override

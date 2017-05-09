@@ -16,6 +16,8 @@ import org.newdawn.slick.SlickException;
 import yoshimaker.WindowGame;
 import yoshimaker.global.Entity;
 import static yoshimaker.global.Entity.ENTITIES;
+import yoshimaker.maker.view.MakerView;
+import yoshimaker.views.GameViewDeluxe;
 import yoshimaker.views.MenuView;
 import yoshimaker.views.TitleScreen;
 import yoshimaker.views.WinView;
@@ -61,6 +63,19 @@ public class Button extends Entity implements MouseListener {
                     break;
                 case 1:
                     WindowGame.getInstance().view = new TitleScreen();
+                    try {
+                        WindowGame.getInstance().view.init(WindowGame.getInstance().container);
+                    } catch (SlickException ex) {  }
+                    break;
+                    
+                case 2:
+            {
+                try {
+                    WindowGame.getInstance().view = new GameViewDeluxe();
+                } catch (SlickException ex) {
+                    Logger.getLogger(Button.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
                     try {
                         WindowGame.getInstance().view.init(WindowGame.getInstance().container);
                     } catch (SlickException ex) {  }

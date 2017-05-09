@@ -149,6 +149,7 @@ public class TitleScreen extends View {
         Physics.update();
         if ((_init)&&(Player.countStar <=0)){
             Player.countStar = 0;
+            int a_death = testEntity.death ;
             Entity.DESTROY();
             try {
                 WindowGame.getInstance().view = new WinView();

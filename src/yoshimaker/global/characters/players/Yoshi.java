@@ -32,7 +32,8 @@ public class Yoshi extends Player {
     private Animation stopLeft;
     private Animation stopRight;
     private Music saut;
-
+    
+    
     
     /**
      * Yoshi
