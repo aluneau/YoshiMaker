@@ -13,6 +13,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.LineNumberReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.Observable;
@@ -44,6 +45,10 @@ public class Map extends Observable {
         this.y = y;
         createMap();
         CURRENT = this;
+    }
+    
+    public Map(String fileName){
+        loadText(fileName);
     }
     
     public Type whatIs(int x, int y) {
@@ -80,14 +85,17 @@ public class Map extends Observable {
     
     public void setLevel1(){
         setCase(2, 8, Type.ICE);
+        setCase(2, 8, Type.EMPTY);
         setCase(3, 8, Type.ICE);
         setCase(11, 8, Type.SPRING);
         setCase(8, 4, Type.BRICK);
         setCase(8, 5, Type.BRICK);
         setCase(8, 6, Type.BRICK);
         setCase(8, 7, Type.BRICK);
-        setCase(10, 8, Type.EMPTY);
-        setCase(9, 8, Type.EMPTY);
+        setCase(8, 7, Type.ICE);
+
+        setCase(10, 8, null);
+        setCase(9, 8, null);
     }
     
     public void readLevel(String lvlname){
@@ -102,22 +110,37 @@ public class Map extends Observable {
                 case BRICK: map[y][x] = new Brick(x, y);break;
                 case ICE: map[y][x] = new Ice(x, y);break;
                 case SPRING: map[y][x] = new Spring(x, y);break;
+                default: map[y][x] = null;
             }
             
         } catch (Exception ignore) { }
         return this;    
     }
-    
+    public void deleteCase(int x, int y){
+        /***
+        *** ALED : Ne supprime pas l'image : gros fail sur l'affichage.
+        ***/
+        if (y < getY()-1 && y > 0 && x < getX()-1 && x > 0) {
+            if(map[y][x] != null && !map[y][x].equals(Type.EMPTY)){
+                /* supprimer ici */
+                map[y][x] = null;
+                System.out.println("Block delete");
+            }
+        } /*catch (Exception ex) { 
+        }*/
+    }
     private void createMap() {
         map = new Case[getY()][getX()];
         for (int i = 0; i < getX(); i++) {
             for (int j = 0; j < getY(); j++) {
                 try {
-                    if (j == getY()-1) { setCase(i, j, Type.BRICK); }
+                    if (j == getY()-1 || j == 0 || i == getX()-1 || i== 0) { setCase(i, j, Type.BRICK); }
                 } catch (Exception e) {}
             }
         }
     }
+    
+  
 
     public void move(int xOffset, int yOffset) {
         for (int i = 0; i < getX(); i++) {
@@ -164,7 +187,6 @@ public class Map extends Observable {
         File fichier = new File("test1.yoshiMaker");
         // Ouverture du flux fichier pour récuperer
         ObjectInputStream fluxRentrant = new ObjectInputStream(new FileInputStream(fichier));
-        System.out.println(" 2 ");
         setX(fluxRentrant.readInt());
         setY(fluxRentrant.readInt());
         for (int j = 0; j < getY(); j++) {
@@ -180,44 +202,43 @@ public class Map extends Observable {
     }
 
     public void loadText(String name){
-        String fileName = name + ".txt";// fichier 
+        String fileName = name+".txt";// fichier 
         String[] saveBlock = null;      // récuperation de la ligne 
         String ligne;
         boolean firstLine = true;
-        
         try {
-            InputStream flux = new FileInputStream(fileName);
+            FileInputStream flux = new FileInputStream(fileName);
             InputStreamReader lecture = new InputStreamReader(flux);
             BufferedReader buff = new BufferedReader(lecture);
-            this.y = knowSize(buff);
+            y = knowSize(lecture);
+            y = 16  ; int l = 0;
             while((ligne = buff.readLine()) != null){
                 saveBlock = ligne.split(" ");
                 if(firstLine == true){
-                    this.x = saveBlock.length;
-                    createMap();
+                    x = saveBlock.length;
+                    System.out.println("x:"+x+" y:"+y);
+                    map = new Case[y][x];
+                    firstLine = false;
                 }
-                ligneMap(saveBlock,saveBlock.length);
+                ligneMap(saveBlock, l++);
             }          
         }catch( Exception e ){
             System.out.println(e.toString());    
         }   
     }
     
-    private int knowSize(BufferedReader nameFile){
-        int y = 0;
-        try {
-            while((nameFile.readLine() !=null)){
-                
-                y ++;
-            }
-        } catch (IOException ex) {
-        }
-        return y;
+    private int knowSize(InputStreamReader nameFile){
+        LineNumberReader lnr = new LineNumberReader(nameFile);
+        return y= lnr.getLineNumber();
     }
     
     private void ligneMap(String[] saveBlock, int hauteur ){
         for(int i = 0 ; i < saveBlock.length ; i++){
+            System.out.println("i:"+i);
+            System.out.println("hauteur:"+hauteur);
             setCase(i,hauteur,valueBlock(saveBlock[i]));
+            System.out.println(whatIs(0, 0));
+            //System.out.println( saveBlock[i]);
         }
     }
     
@@ -226,7 +247,7 @@ public class Map extends Observable {
             case "B": // brique
                 return Type.BRICK;
             case "_": // vide
-                return Type.EMPTY;
+                return null;
             case "I":// glace
                 return Type.ICE;
             case "P": // pic
@@ -236,7 +257,7 @@ public class Map extends Observable {
             case "S":// ressort
                 return Type.SPRING;
             default:
-                return Type.EMPTY;
+                return null;
         }
     }
 }    

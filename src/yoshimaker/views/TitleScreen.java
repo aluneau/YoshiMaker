@@ -49,6 +49,7 @@ public class TitleScreen extends View {
         clouds_y[4] = 85; clouds_x[4] = 450;
     }
 
+
     @Override
     public void init(GameContainer container) throws SlickException {
         background = new Image("./resources/background_yoshi.png");
@@ -63,13 +64,13 @@ public class TitleScreen extends View {
         testEntity = new Yoshi(64, 12*64);
         testEntity2 = new Yoshi2(90, 12*64);
         Box b = new Box(3*64, 4*64);
-        Goomba g = new Goomba(7*64, 12*64);
-        ParaGoomba pg = new ParaGoomba(8*64, 10*64);
+        //Goomba g = new Goomba(7*64, 12*64);
+        //ParaGoomba pg = new ParaGoomba(8*64, 10*64);
         Boo boo = new Boo(4*64, 10*64);
-        Thwomp t = new Thwomp(16*64, 8*64);
+        //Thwomp t = new Thwomp(16*64, 8*64);
 
-        Koopa k = new Koopa(10*64, 8*64);
-        Shell s = new Shell(9*64, 8*64);
+        //Koopa k = new Koopa(10*64, 8*64);
+        //Shell s = new Shell(9*64, 8*64);
 
         //Item testItem = new Item("./resources/cloud_yoshi.png");
 
@@ -80,7 +81,6 @@ public class TitleScreen extends View {
 
         map = new Map(30,14);
         //System.out.println(Entity.ENTITIES.size());
-
 
         map.setCase(0, 0, Type.BRICK);
         map.setCase(2, 8, Type.ICE);
