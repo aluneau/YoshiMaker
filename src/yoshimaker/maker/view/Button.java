@@ -10,6 +10,7 @@ import org.newdawn.slick.SlickException;
 import yoshimaker.global.Entity;
 import yoshimaker.global.cases.Type;
 import yoshimaker.map.Map;
+import yoshimaker.views.camera.Camera;
 
 public class Button extends Entity implements  MouseListener{
     private Image image;
@@ -80,7 +81,7 @@ public class Button extends Entity implements  MouseListener{
     }
 
     public void draw(GameContainer container, Graphics g){
-        sprite.draw(getX(), getY(), this.getHeight(), this.getWidth());
+        sprite.draw(getX()+Camera.xTop, getY()+Camera.yTop, this.getHeight(), this.getWidth());
     }   
     
     
@@ -100,7 +101,7 @@ public class Button extends Entity implements  MouseListener{
     public void mouseClicked(int i, int i1, int i2, int i3){
         if(i == 1){ // EVENT STOP SELECTION
             if(onSelection){ 
-                System.out.println("Stop Selection : " + onSelection + " " + i);
+                //System.out.println("Stop Selection : " + onSelection + " " + i);
                 eventUnselect();
                 return;
             }else{
@@ -108,7 +109,7 @@ public class Button extends Entity implements  MouseListener{
             }
         }
         //PUT THE BLOCK SELECTED
-        if(onSelection && i == 0 && (i2/64 < Map.CURRENT.getY()-1 && i2/64 > 0 && i1/64 < Map.CURRENT.getX()-1 && i1/64 > 0)){
+        if(onSelection && i == 0 && (i2/64 < Map.CURRENT.getY()-1+Camera.yTop && i2/64 > 0 && i1/64 < Map.CURRENT.getX()+Camera.xTop && i1/64 > 0) && i1 < 1000){
             eventSetBlock(i1,i2);
             return;
         }
@@ -118,10 +119,10 @@ public class Button extends Entity implements  MouseListener{
            this.container.getInput().getMouseY() < getY() || 
            this.container.getInput().getMouseY() > getY()+this.getHeight())
         {
-            System.out.println("Pas sur un bouton : " + isOnSelection());
+            //System.out.println("Pas sur un bouton : " + isOnSelection());
             return; 
         }
-        System.out.println("Selection");
+        //System.out.println("Selection");
         //SELECTION
         eventSelect();
     }
@@ -142,8 +143,8 @@ public class Button extends Entity implements  MouseListener{
     }
     
     public static void eventSetBlock(int xMouse, int yMouse){
-        int xMap = (xMouse+32)/64;
-        int yMap = (yMouse+32)/64;
+        int xMap = (xMouse+Camera.xTop+32)/64;
+        int yMap = (yMouse+Camera.yTop+32)/64;
         if(selectedType != null && Map.CURRENT.getCase(xMap, yMap) != null && Map.CURRENT.getCase(xMap, yMap).type.compareTo(selectedType) == 0){
            System.out.println("ALREADY BLOCK");         
             return;
