@@ -341,6 +341,7 @@ public class Physics {
      * @param pi - Nb itérations pour le calcul de la position
      */
     public static void update(float step, int vi, int pi) {  
+        if (world() == null) { return; }
         world().step(step, vi, pi);
         
         Iterator<Body> it = DESTROYED.iterator();

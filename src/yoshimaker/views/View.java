@@ -53,4 +53,8 @@ public abstract class View  {
 
 
     public Camera camera() { return WindowGame.getInstance().getCamera(); }
+
+    public void destroy() {
+        
+    }
 }

@@ -134,6 +134,7 @@ public abstract class Entity {
 
     public void draw(GameContainer container, Graphics g){
         if (destroyed) { return ; }
+        if (sprite == null) { return ; }
         sprite.draw(x-half_width, y-half_height, width, height);
         
         Vec2[] vertices = physics.hitbox().getVertices();
