@@ -22,6 +22,8 @@ import yoshimaker.global.characters.players.Player;
 import yoshimaker.global.characters.players.Yoshi;
 import yoshimaker.global.items.Box;
 import yoshimaker.global.items.FireBall;
+import yoshimaker.maker.view.Button;
+import yoshimaker.maker.view.MenuButtonMaker;
 import yoshimaker.physics.Physics;
 import yoshimaker.global.items.Item;
 import yoshimaker.global.items.Shell;
@@ -126,6 +128,7 @@ public class TitleScreen extends View {
         map.setCase(10, 8, Type.EMPTY);
         map.setCase(9, 8, Type.EMPTY);
         //map.move(100, 100);
+        MenuButtonMaker menuMaker = new MenuButtonMaker(container, container.getScreenWidth()-200);
 
         Entity.setCamera(camera().focus(testEntity).on(map));
         
@@ -151,6 +154,7 @@ public class TitleScreen extends View {
         //map.draw(container, g);
         background.draw(0, 00, 4f);
         Entity.drawCamera(container, g);
+        Button.drawAll(container, g);
 
         g.drawString("Il reste : "  + Integer.toString(Player.countStar), Camera.xTop+50.0f, Camera.yTop+50.0f);
 
