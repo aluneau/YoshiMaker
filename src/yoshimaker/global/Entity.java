@@ -140,12 +140,12 @@ public abstract class Entity {
         if (sprite == null) { return ; }
         sprite.draw(x-half_width, y-half_height, width, height);
         
-        Vec2[] vertices = physics.hitbox().getVertices();
+        //Vec2[] vertices = physics.hitbox().getVertices();
         
-        int dx = (int)physics.x() -2, dy = (int)physics.y() -2;
-        for (int i = 0; i < vertices.length; i++) { 
-            g.fillOval(dx+Physics.toPixels(vertices[i].x), dy+Physics.toPixels(vertices[i].y), 4, 4);
-        }
+        //int dx = (int)physics.x() -2, dy = (int)physics.y() -2;
+        //for (int i = 0; i < vertices.length; i++) { 
+        //    g.fillOval(dx+Physics.toPixels(vertices[i].x), dy+Physics.toPixels(vertices[i].y), 4, 4);
+        //}
     }   
     
     /**
