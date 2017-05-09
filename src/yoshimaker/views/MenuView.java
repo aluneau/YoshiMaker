@@ -5,11 +5,7 @@
  */
 package yoshimaker.views;
 
-import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
-import org.newdawn.slick.Input;
-import org.newdawn.slick.SlickException;
+import org.newdawn.slick.*;
 import yoshimaker.WindowGame;
 import yoshimaker.title.Button;
 
@@ -23,6 +19,8 @@ public class MenuView extends View {
     private Image[] clouds;
     private double[] clouds_x, clouds_y;
     private Button[] buttons;
+
+    public static Music music;
     
     public MenuView() {
         clouds = new Image[5];
@@ -52,6 +50,8 @@ public class MenuView extends View {
         buttons[1] = new Button(2, "./assets/makerButton.png", "./assets/makerButtonR.png");
         buttons[2] = new Button(3, "./assets/levelsButton.png", "./assets/levelsButtonR.png");
         
+        music = new Music("./sounds/titlescreen.ogg");
+        music.loop();
     }
 
     @Override
