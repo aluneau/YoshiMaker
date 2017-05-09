@@ -70,8 +70,10 @@ public class Collisions  implements ContactListener  {
             Star e = (Star) ((a instanceof Player) ? b : a);
 
             System.out.println("Star");
-            e.destroy();
-            Player.countStar--;
+            if(!e.destroyed) {
+                e.destroy();
+                Player.countStar--;
+            }
 
             System.out.println(Player.countStar);
 
