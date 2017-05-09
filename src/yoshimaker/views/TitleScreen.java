@@ -5,6 +5,7 @@
  */
 package yoshimaker.views;
 
+import yoshimaker.global.characters.players.Yoshi2;
 import yoshimaker.map.Map;
 import org.jbox2d.dynamics.BodyType;
 import org.newdawn.slick.*;
@@ -32,6 +33,7 @@ public class TitleScreen extends View {
     private Image[] clouds;
     private double[] clouds_x, clouds_y;
     private Yoshi testEntity;
+    private Yoshi2 testEntity2;
     private boolean test = false;
     private float test2 = 0, test3 = 0, test4 = 0;
     private Map map ;
@@ -59,7 +61,7 @@ public class TitleScreen extends View {
         */
         Physics.world(0, 100f);
         testEntity = new Yoshi(64, 12*64);
-
+        testEntity2 = new Yoshi2(90, 12*64);
         Box b = new Box(3*64, 4*64);
         Goomba g = new Goomba(7*64, 12*64);
         ParaGoomba pg = new ParaGoomba(8*64, 10*64);

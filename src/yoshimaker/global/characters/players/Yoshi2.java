@@ -75,7 +75,7 @@ public class Yoshi2 extends Player {
      * Callback à la touche Q
      */
     @Override
-    public void key_q() {
+    public void key_j() {
         super.key_q();
         saveDirection = true;
         physics.moveX(-10);
@@ -88,7 +88,7 @@ public class Yoshi2 extends Player {
      * Callback à la touche D
      */
     @Override
-    public void key_d() {
+    public void key_l() {
         super.key_d();
         saveDirection = false;
         physics.moveX(+10);
@@ -102,11 +102,14 @@ public class Yoshi2 extends Player {
      * Callback à la touche Espace
      */
     @Override
-    public void key_space() {
+    public void key_i() {
         jumped = false;
         jump(false);
     }
-    
+
+    @Override
+    public void key_space() {
+    }
     
     protected static SpriteSheet SPRITESHEET;
     protected static SpriteSheet RETURNO;
