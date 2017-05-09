@@ -9,6 +9,7 @@ import yoshimaker.global.Entity;
 import yoshimaker.global.characters.ennemies.Ennemy;
 import yoshimaker.global.characters.ennemies.Thwomp;
 import yoshimaker.global.characters.players.Player;
+import yoshimaker.global.items.FireBall;
 import yoshimaker.global.items.Shell;
 import yoshimaker.global.items.Star;
 
@@ -61,7 +62,15 @@ public class Collisions  implements ContactListener  {
             Shell t = (Shell) ((a instanceof Shell) ? a : b);
             yoshimaker.global.characters.Character e = (yoshimaker.global.characters.Character) ((a instanceof Shell) ? b : a);
             //Note axe des y inversés
-            if (t.getY()+(t.getHeight()/2) < e.getY()) { e.die(); }
+            if (t.getY()+(t.getHeight()/2 ) < e.getY()) { e.die(); }
+        }
+        
+        //Fireball
+        if (((a instanceof FireBall)&&(b instanceof yoshimaker.global.characters.Character))||((b instanceof FireBall)&&(a instanceof yoshimaker.global.characters.Character))) {
+            FireBall t = (FireBall) ((a instanceof FireBall) ? a : b);
+            yoshimaker.global.characters.Character e = (yoshimaker.global.characters.Character) ((a instanceof FireBall) ? b : a);
+            //Note axe des y inversés
+            if (t.getCreator() != e) { e.die(); t.destroy(); }
         }
 
         //Star

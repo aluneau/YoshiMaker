@@ -6,11 +6,15 @@
 package yoshimaker.global.characters.players;
 
 import java.util.HashSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.jbox2d.dynamics.BodyType;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import yoshimaker.global.Entity;
+import yoshimaker.global.JSPolyfill;
+import yoshimaker.global.items.FireBall;
 
 /**
  *
@@ -21,10 +25,12 @@ public abstract class Player extends yoshimaker.global.characters.Character {
      * Liste des joueurs
      */
     public final static HashSet<Player> PLAYERS = new HashSet();
-       protected boolean jumped = false ;
+       protected boolean jumped = false;
+       public int fired = 0 ;
        protected String direction;
 
        public static int countStar = 3;
+       
        
     
     /**
@@ -89,6 +95,7 @@ public abstract class Player extends yoshimaker.global.characters.Character {
             if(input.isKeyDown(Input.KEY_L)){ player.key_l();}
             if (input.isKeyDown(Input.KEY_D)) { player.key_d(); }
             if (input.isKeyDown(Input.KEY_Q)) { player.key_q(); }
+            if (input.isKeyDown(Input.KEY_E)) { player.key_e(); }
             if (!input.isKeyDown(Input.KEY_D) && !input.isKeyDown(Input.KEY_Q)) { player.no_key(); }
         } } catch (Exception ignore) {}
     }
@@ -133,6 +140,15 @@ public abstract class Player extends yoshimaker.global.characters.Character {
      * Callback à la touche D
      */
     public void key_d() { direction = "right"; };
+    
+    public void key_e() { 
+        try {
+            if (fired >= 1) { return ; } else { ++fired; }
+            FireBall f = new FireBall(getX(), getY());
+            f.setCreator(this);
+            yoshimaker.physics.Timer.add(f, 500);
+        } catch (SlickException ex) { }
+    }
     
     /**
      * Callback à la touche Espace

@@ -1,7 +1,9 @@
 package yoshimaker.global;
 
 import java.util.HashSet;
+import java.util.Iterator;
 import org.jbox2d.common.Vec2;
+import org.jbox2d.dynamics.Body;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -9,6 +11,7 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 import yoshimaker.physics.Physics;
+import static yoshimaker.physics.Physics.world;
 import yoshimaker.views.camera.Camera;
 
 /**
@@ -146,7 +149,13 @@ public abstract class Entity {
      */
     public static void updateAll() {
         //Met à jour toutes les entités crées
-        for (Entity entity : ENTITIES) { entity.update(); }
+        HashSet<Entity> cloned = (HashSet<Entity>) ENTITIES.clone() ;
+        Iterator<Entity> it = cloned.iterator();
+        while (it.hasNext()) {
+            Entity entity = it.next();
+            if (entity == null) { continue ; }
+            entity.update();
+        }
     }
     
     /**
@@ -156,13 +165,26 @@ public abstract class Entity {
      */
     public static void drawAll(GameContainer container, Graphics g) {
         //Dessine toutes les entités
-        for (Entity entity : ENTITIES) { entity.draw(container, g); }
+        HashSet<Entity> cloned = (HashSet<Entity>) ENTITIES.clone() ;
+        Iterator<Entity> it = cloned.iterator();
+        while (it.hasNext()) {
+            Entity entity = it.next();
+            if (entity == null) { continue ; }
+            entity.draw(container, g);
+        }
     }
     
     public static void drawCamera(GameContainer container, Graphics g) {
         //Dessine toutes les entités présentes dans la caméra
         if (CAMERA == null) { return ; }
-        for (Entity entity : ENTITIES) { if (CAMERA.isVisible(entity)) { entity.draw(container, g); } }
+        
+        HashSet<Entity> cloned = (HashSet<Entity>) ENTITIES.clone() ;
+        Iterator<Entity> it = cloned.iterator();
+        while (it.hasNext()) {
+            Entity entity = it.next();
+            if (entity == null) { continue ; }
+            if (CAMERA.isVisible(entity)) { entity.draw(container, g); }
+        }
         /*
             displayed = 0;
             for (Entity entity : ENTITIES) { if (CAMERA.isVisible(entity)) { entity.draw(container, g); displayed++;} }
@@ -187,4 +209,7 @@ public abstract class Entity {
     
     @Override
     public String toString() { return "entity" ; }
+    
+    public void onCreate() {};
+
 }

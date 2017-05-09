@@ -21,7 +21,11 @@ import yoshimaker.global.characters.ennemies.Boo;
 import yoshimaker.global.characters.players.Player;
 import yoshimaker.global.characters.players.Yoshi;
 import yoshimaker.global.items.Box;
+import yoshimaker.global.items.FireBall;
 import yoshimaker.physics.Physics;
+import yoshimaker.global.items.Item;
+import yoshimaker.global.items.Shell;
+import yoshimaker.physics.Timer;
 import yoshimaker.views.camera.Camera;
 
 /**
@@ -67,6 +71,7 @@ public class TitleScreen extends View {
         testEntity2 = new Yoshi2(90, 9*64);
         new Yoshi(70, 9*64);
         Box b = new Box(3*64, 4*64);
+
        // Goomba g = new Goomba(7*64, 7*64);
        // ParaGoomba pg = new ParaGoomba(8*64, 10*64);
        // Boo boo = new Boo(4*64, 10*64);
@@ -83,13 +88,13 @@ public class TitleScreen extends View {
 
         Koopa k = new Koopa(10*64, 8*64);
         Shell s = new Shell(9*64, 8*64);
+        
+        FireBall f = new FireBall(4*64, 12*64);
 
         //Item testItem = new Item("./resources/cloud_yoshi.png");
 
         //Physics test2 = new Physics();
         //test2.define(BodyType.STATIC).at(0f, 300f).hitbox(500f, 10f).fixtures(0.5f, 0.9f, 0f).create();
-        //map = new Map("test");
-        //map.setCase(1, 1, Type.ICE);
             //map.check();
             //map.saveText("test");
             
@@ -110,6 +115,23 @@ public class TitleScreen extends View {
 
         
 
+        map.setCase(0, 0, Type.BRICK);
+        map.setCase(2, 8, Type.ICE);
+        map.setCase(3, 8, Type.ICE);
+        map.setCase(11, 8, Type.SPRING);
+        map.setCase(8, 4, Type.BRICK);
+        map.setCase(8, 5, Type.BRICK);
+        map.setCase(8, 6, Type.BRICK);
+        map.setCase(8, 7, Type.BRICK);
+        map.setCase(10, 8, Type.EMPTY);
+        map.setCase(9, 8, Type.EMPTY);
+        //map.move(100, 100);
+
+        Entity.setCamera(camera().focus(testEntity).on(map));
+        
+        Thread tm = new Thread(new Timer());
+        tm.start();
+       
         Entity.setCamera(camera().focus(testEntity2).on(map));
 }
 
@@ -122,7 +144,7 @@ public class TitleScreen extends View {
         
         
         
-        logo.draw(30, 50, 0.35f);
+        
         //testEntity.draw();
         
         */
