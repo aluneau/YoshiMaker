@@ -50,6 +50,6 @@ public class Star extends Item {
 
     @Override
     public String toString() {
-        return "shell";
+        return "star";
     }
 }

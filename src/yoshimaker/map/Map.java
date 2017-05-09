@@ -24,6 +24,7 @@ import java.util.logging.Logger;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
+import yoshimaker.global.Entity;
 import yoshimaker.global.cases.Brick;
 import yoshimaker.global.cases.Empty;
 import yoshimaker.global.cases.Ice;
@@ -34,6 +35,8 @@ import yoshimaker.global.characters.ennemies.Goomba;
 import yoshimaker.global.characters.ennemies.Koopa;
 import yoshimaker.global.characters.ennemies.ParaGoomba;
 import yoshimaker.global.characters.ennemies.Thwomp;
+import yoshimaker.global.characters.players.Yoshi;
+import yoshimaker.global.characters.players.Yoshi2;
 import yoshimaker.global.items.Star;
 
 /**
@@ -229,6 +232,7 @@ public class Map extends Observable {
                 }
                 ligneMap(saveBlock, l++);
             }          
+            Map.CURRENT = this;
         }catch( Exception e ){
             System.out.println(e.toString());    
         }   
@@ -249,9 +253,7 @@ public class Map extends Observable {
                         output.write(titre);
                         output.flush();                        
                     }                  
-                    System.out.println(" ouii x1 ");
                 }
-                System.out.println(" ouii x2 ");
                 output.newLine(); 
             }
             output.close();
@@ -273,9 +275,12 @@ public class Map extends Observable {
         return count;
     }
     
-    private void ligneMap(String[] saveBlock, int hauteur ) throws SlickException{
+    private void ligneMap(String[] saveBlock, int hauteur ) throws SlickException{  
         for(int i = 0 ; i < saveBlock.length ; i++){
             switch( saveBlock[i] ){
+                case "y2":
+                    Yoshi2 y2 = new Yoshi2(90, 9*64);
+                    break;
                 case "b":
                     Boo boo = new Boo(64*i, 64*hauteur);
                     break;
@@ -299,7 +304,6 @@ public class Map extends Observable {
             }
         }
     }
-   
     
     private Type valueBlock(String donne){
         switch (donne) {

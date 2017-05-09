@@ -21,6 +21,7 @@ import yoshimaker.map.Map;
  */
 public class Thwomp extends Ennemy {
     private int sx, sy, state = 0;
+    private Player trigger = null;
     
     public Thwomp(int x, int y) throws SlickException {
         //Initialisation
@@ -67,10 +68,14 @@ public class Thwomp extends Ennemy {
         setX((int) physics.x()).setY((int) physics.y());
         //
         if (physics.getBody() == null) { return this; }
-        if (state < 0) { state++; }
+        if (state < 0) { state++; return this ;}
         physics.move(0, 0);
+        boolean player = false;
+        if(Map.CURRENT == null) { return this ; }
             for (Player p : Player.PLAYERS) {
-                if (((Math.abs(p.getY()-getY()) < 400)&&(Math.abs(p.getX()-getX()) < 120)&&(state == 0))||(state == 1)) { 
+                if ((trigger != null )&&(p != trigger)) { continue; }
+                if (((Math.abs(p.getY()-getY()) < 400)&&(Math.abs(p.getX()-getX()) < 120)&&(state == 0))||(state == 1)) {
+                    trigger = p;
                     this.sprite =  this.falling;
                     state = 1 ;
                     if (Map.CURRENT.whatIs(getX(), getY()+getHeight()) == Type.EMPTY) {
@@ -78,11 +83,9 @@ public class Thwomp extends Ennemy {
                     } else { state = 2 ; }
                 } else { 
                     this.sprite = this.sleeping;
-                    if (Map.CURRENT == null) { return this ; }
-                    if (!((Math.abs(p.getY()-getY()) < 400)&&(Math.abs(p.getX()-getX()) < 120))) {
+                    if ((!((Math.abs(p.getY()-getY()) < 400)&&(Math.abs(p.getX()-getX()) < 120)))) {
                         state = 3;
-                    }
-                    
+                    }                  
                     if (state == 3) {
                         if (getY() > sy) { physics.move(0, -8); }
                         else { state = -5 ;}

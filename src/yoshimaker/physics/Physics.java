@@ -8,6 +8,7 @@ package yoshimaker.physics;
 import static java.lang.Math.round;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Spliterator;
 import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
@@ -238,6 +239,7 @@ public class Physics {
         body = world().createBody(definition());
         body.createFixture(fixtures());
         body.setUserData(this.data);
+        if (this.data != null) { ((Entity)this.data).onCreate(); }
         created = true ;
     }
 
@@ -318,7 +320,15 @@ public class Physics {
      * @param gy
      */
     public static void world(float gx, float gy) {
-        if (_world instanceof World) { _world.setContactListener(null); }
+        if (_world instanceof World) { 
+            _world.setContactListener(null); 
+            Iterator<Body> it = DESTROYED.iterator();
+            while (it.hasNext()) {
+                Body b = it.next();
+                _world.destroyBody(b);
+                it.remove(); 
+            }
+        }
         Vec2 gravity = new Vec2(gx, gy);
         _world = new World(gravity, true);
         _world.setContactListener(new Collisions());
@@ -339,8 +349,16 @@ public class Physics {
      * @param pi - Nb itérations pour le calcul de la position
      */
     public static void update(float step, int vi, int pi) {  
+        if (world() == null) { return; }
         world().step(step, vi, pi);
-        for (Body b : DESTROYED) { DESTROYED.remove(b); world().destroyBody(b); }
+        
+        Iterator<Body> it = DESTROYED.iterator();
+        while (it.hasNext()) {
+            Body b = it.next();
+            world().destroyBody(b);
+            it.remove(); 
+        }
+        
         stepCreateAll();
         for (Body b : FORCED) { FORCED.remove(b); 
             Player p = (Player) (b.getUserData());
@@ -385,8 +403,12 @@ public class Physics {
     
     public void destroy() {
         if (created) { 
+            
             DESTROYED.add(body);
-            body.destroyFixture(body.getFixtureList().getNext());
+            try     {
+                body.destroyFixture(body.getFixtureList().getNext());
+            } catch (Exception e) { }
+            
             created = false ;
         }
     }

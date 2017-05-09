@@ -32,43 +32,36 @@ public class MenuButtonMaker extends Entity   implements  MouseListener {
         button3 = new Button(container, this.positionX, y+3*yStep, 50, 50, null, buttonImage.getSubImage(5, 0));
         //button[4] = new Button(container, this.positionX, y+4*yStep, 50, 50, Type.EMPTY, buttonImage.getSubImage(5, 0));
 
-        //LISTENER.addMouseListener(this);
+        LISTENER.addMouseListener(this);
        
     }
 
     @Override
     public void mouseWheelMoved(int i) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public void mouseClicked(int i, int i1, int i2, int i3) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public void mousePressed(int i, int i1, int i2) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public void mouseReleased(int i, int i1, int i2) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public void mouseMoved(int i, int i1, int i2, int i3) {
-        System.out.println("YO");
     }
 
     @Override
     public void mouseDragged(int i, int i1, int i2, int i3) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public void setInput(Input input) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
@@ -78,11 +71,11 @@ public class MenuButtonMaker extends Entity   implements  MouseListener {
 
     @Override
     public void inputEnded() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public void inputStarted() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

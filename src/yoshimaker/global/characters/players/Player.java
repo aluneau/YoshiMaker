@@ -6,11 +6,15 @@
 package yoshimaker.global.characters.players;
 
 import java.util.HashSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.jbox2d.dynamics.BodyType;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import yoshimaker.global.Entity;
+import yoshimaker.global.JSPolyfill;
+import yoshimaker.global.items.FireBall;
 
 /**
  *
@@ -21,10 +25,13 @@ public abstract class Player extends yoshimaker.global.characters.Character {
      * Liste des joueurs
      */
     public final static HashSet<Player> PLAYERS = new HashSet();
-       protected boolean jumped = false ;
+       protected boolean jumped = false;
+       public int fired = 0 ;
        protected String direction;
 
        public static int countStar = 3;
+       public int death = 0;
+
        
     
     /**
@@ -89,6 +96,8 @@ public abstract class Player extends yoshimaker.global.characters.Character {
             if(input.isKeyDown(Input.KEY_L)){ player.key_l();}
             if (input.isKeyDown(Input.KEY_D)) { player.key_d(); }
             if (input.isKeyDown(Input.KEY_Q)) { player.key_q(); }
+            if (input.isKeyDown(Input.KEY_E)) { player.key_e(); }
+            if(input.isKeyDown(Input.KEY_O))  {player.key_o(); }
             if (!input.isKeyDown(Input.KEY_D) && !input.isKeyDown(Input.KEY_Q)) { player.no_key(); }
         } } catch (Exception ignore) {}
     }
@@ -124,6 +133,8 @@ public abstract class Player extends yoshimaker.global.characters.Character {
 
     public void key_i(){}
 
+    public void key_o(){}
+
     /**
      * Callback à la touche Q
      */
@@ -133,6 +144,8 @@ public abstract class Player extends yoshimaker.global.characters.Character {
      * Callback à la touche D
      */
     public void key_d() { direction = "right"; };
+    
+    public void key_e() {}
     
     /**
      * Callback à la touche Espace
@@ -145,6 +158,7 @@ public abstract class Player extends yoshimaker.global.characters.Character {
     @Override
     public void die() {
         physics.forcePosition();
+        this.death++;
         update();
     }
     
