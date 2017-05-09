@@ -28,6 +28,7 @@ import yoshimaker.global.Entity;
 import yoshimaker.global.cases.Brick;
 import yoshimaker.global.cases.Empty;
 import yoshimaker.global.cases.Ice;
+import yoshimaker.global.cases.Lava;
 import yoshimaker.global.cases.Spring;
 import yoshimaker.global.cases.Type;
 import yoshimaker.global.characters.ennemies.Boo;
@@ -48,7 +49,8 @@ public class Map extends Observable {
     private Case[][] map;
     private int x, y;
     public final static int WIDTH = 64, HEIGHT = 64;
-    
+    public Yoshi y1;
+    public Yoshi2 y2;
     public static Map CURRENT;
 
     public Map(int x, int y) {
@@ -110,12 +112,12 @@ public class Map extends Observable {
 
      public Map setCase(int x, int y, Type type) {
         try {
-            if (map[y][x] != null) { map[y][x].destroy(); }
-            
+            if(map[y][x] instanceof Case) map[y][x].destroy();
             switch (type) {
                 case BRICK: map[y][x] = new Brick(x, y);break;
                 case ICE: map[y][x] = new Ice(x, y);break;
                 case SPRING: map[y][x] = new Spring(x, y);break;
+                case LAVA: map[y][x] = new Lava(x, y);break;
                 default: map[y][x] = null;
             }
             
@@ -133,7 +135,7 @@ public class Map extends Observable {
         ***/
         if (y < getY()-1 && y > 0 && x < getX()-1 && x > 0) {
             if(map[y][x] != null && !map[y][x].equals(Type.EMPTY)){
-                /* supprimer ici */
+                if(map[y][x] instanceof Case) map[y][x].destroy();
                 map[y][x] = null;
                 System.out.println("Block delete");
             }

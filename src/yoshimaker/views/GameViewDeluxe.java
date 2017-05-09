@@ -60,15 +60,17 @@ public final class GameViewDeluxe extends View {
         Physics.world(0, 100f);
         testEntity = new Yoshi(64, 4*64);
         Box b = new Box(3*64, 4*64);
-        map = new Map(13,9);
+        map = new Map(25,13);
         map.setLevel1();
+        Entity.setCamera(camera().focus(testEntity).on(map));
+
         System.out.println(container.getScreenWidth());
-        MenuButtonMaker menuMaker = new MenuButtonMaker(container, container.getWidth()-200);
+        MenuButtonMaker menuMaker = new MenuButtonMaker(container, container.getWidth()-100);
     }
     
     @Override
     public void render(GameContainer container, Graphics g) {
-        background.draw(0, 00, 1.1f);  
+        background.draw(0, 00, 4f);  
         try {
             Door d = new Door(5*64,6*64);
         } catch (SlickException ex) {

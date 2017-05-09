@@ -4,6 +4,7 @@ import org.jbox2d.dynamics.BodyType;
 import yoshimaker.maker.view.MakerView;
 import yoshimaker.views.TitleScreen;
 import org.newdawn.slick.*;
+import yoshimaker.global.StripeEx;
 import yoshimaker.maker.view.Button;
 import yoshimaker.physics.Physics;
 import yoshimaker.physics.PhysicsThread;
@@ -46,9 +47,6 @@ public class WindowGame extends BasicGame {
         view = new MenuView();
         view.init(container);
         
-        
-
-
         //physicThread = new Thread(new PhysicsThread());
         //physicThread.start();
 
@@ -78,7 +76,16 @@ public class WindowGame extends BasicGame {
     public void keyReleased(int key, char c) {
         view.controller(key, c, false) ;
         if (Input.KEY_ESCAPE == key) {
-            container.exit();
+            if (WindowGame.getInstance().view instanceof MenuView) { container.exit(); return ; }
+            
+            WindowGame.getInstance().view = new MenuView();
+            try {
+                MenuView.music.stop();
+                WindowGame.getInstance().view.init(WindowGame.getInstance().container);
+            } catch (SlickException ex) { }
+            
+            
+            //
         }
     }
 }

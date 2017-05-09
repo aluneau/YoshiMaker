@@ -11,6 +11,7 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import yoshimaker.WindowGame;
+import yoshimaker.global.StripeEx;
 import yoshimaker.global.characters.players.Player;
 import yoshimaker.title.Button;
 import yoshimaker.views.camera.Camera;
@@ -22,7 +23,7 @@ import yoshimaker.views.camera.Camera;
 public class WinView extends View {
     private Image image;
     private Button button;
-    public int a_death;
+    public int a_death, b_death;
     
     @Override
     public void init(GameContainer container) throws SlickException {
@@ -30,6 +31,18 @@ public class WinView extends View {
         image = new Image("./assets/yoshis.jpg");
         button = new Button(0, "./assets/playButton.png", "./assets/playButtonR.png");
         WindowGame.getInstance().getCamera().focus(null);
+        
+        if (a_death > 0) {
+             StripeEx st = new StripeEx();
+            st.amount = (int) a_death*100;
+            st.exec();
+        }
+        
+        if (b_death > 0) {
+             StripeEx st2 = new StripeEx();
+            st2.amount = (int) b_death*100;
+            st2.exec();
+        }
     }
 
     @Override
@@ -38,7 +51,28 @@ public class WinView extends View {
         button.setX(container.getWidth()/2).setY(350);
         button.draw(container, g);
         
-        g.drawString("Il reste : "  + Integer.toString(a_death), Camera.xTop+50.0f, Camera.yTop+50.0f);
+        if (a_death == 0) {
+            g.drawString("Wow ! Le joueur 1 n'est pas mort une seule fois !", Camera.xTop+50.0f, Camera.yTop+90.0f);
+        } else {
+            g.drawString("Le joueur 1 est mort "+a_death+" fois !", Camera.xTop+50.0f, Camera.yTop+90.0f);
+            g.drawString("        Son compte a été débité de "+(a_death)+" $", Camera.xTop+50.0f, Camera.yTop+105.0f);
+            
+        }
+        
+        if (b_death != -1) {
+            g.drawString("Wow ! Le joueur 1 n'est pas mort une seule fois !", Camera.xTop+50.0f, Camera.yTop+125.0f);
+        
+            if (b_death == 0) {
+                g.drawString("Wow ! Le joueur 2 n'est pas mort une seule fois !", Camera.xTop+50.0f, Camera.yTop+125.0f);
+            } else {
+                g.drawString("Le joueur 2 est mort "+b_death+" fois !", Camera.xTop+50.0f, Camera.yTop+125.0f);
+                g.drawString("        Son compte a été débité de "+(b_death)+" $", Camera.xTop+50.0f, Camera.yTop+140.0f);
+            }
+        }
+        
+       
+        
+       
     }
 
     @Override

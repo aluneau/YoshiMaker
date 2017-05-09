@@ -97,7 +97,8 @@ public class TitleScreen extends View {
             //map.saveText("test");
             
             map = new Map(30,14);
-            //System.out.println(Entity.ENTITIES.size());
+            map.y1 = testEntity;
+//System.out.println(Entity.ENTITIES.size());
             
             map.setCase(0, 0, Type.BRICK);
             map.setCase(3, 8, Type.ICE);
@@ -159,10 +160,14 @@ public class TitleScreen extends View {
         Physics.update();
         if ((_init)&&(Player.countStar <=0)){
             Player.countStar = 0;
-            int a_death = testEntity.death ;
+            int a_death = Map.CURRENT.y1.death ;
+            int b_death = Map.CURRENT.y2 == null ? -1 : Map.CURRENT.y2.death ;
             Entity.DESTROY();
             try {
-                WindowGame.getInstance().view = new WinView();
+                WinView v = new WinView();
+                v.a_death = a_death;
+                v.b_death = b_death;
+                WindowGame.getInstance().view = v;
                 WindowGame.getInstance().view.init(WindowGame.getInstance().container);
             } catch (SlickException ex) {  }
             
