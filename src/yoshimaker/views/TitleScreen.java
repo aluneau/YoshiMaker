@@ -56,12 +56,14 @@ public class TitleScreen extends View {
     public void init(GameContainer container) throws SlickException {
         background = new Image("./resources/background_yoshi.png");
         Physics.world(0, 100f);
+        testEntity = new Yoshi(64,0);
+        //testEntity2 = new Yoshi2(90, 9*64);
         testEntity = new Yoshi(64, 9*64);
         testEntity2 = new Yoshi2(90, 9*64);
         //Box b = new Box(3*64, 4*64);
         //testEntity2 = new Yoshi2(90, 9*64);
         //new Yoshi(70, 9*64);
-        Box b = new Box(3*64, 4*64);
+        //Box b = new Box(3*64, 4*64);
         Player.countStar = 3;
 
        // Goomba g = new Goomba(7*64, 7*64);
@@ -77,6 +79,7 @@ public class TitleScreen extends View {
         //Koopa k = new Koopa(10*64, 8*64);
 
         //Item testItem = new Item("./resources/cloud_yoshi.png");
+        map = new Map("level2"); 
         //map = new Map("presentation"); 
         //map.setCase(1, 1, Type.ICE);       
         //map.check();

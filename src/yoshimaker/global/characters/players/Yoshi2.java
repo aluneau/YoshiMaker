@@ -1,4 +1,4 @@
-/*
+    /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -130,16 +130,15 @@ public class Yoshi2 extends Player {
     static {
         //Initalisation
         try {
-            SPRITESHEET = new SpriteSheet("./assets/right.png", 32, 32,0);
-            RETURNO = new SpriteSheet("./assets/left.png", 32, 32,0);
-            STATUS_RIGHT = new SpriteSheet("./assets/stopRight.png",32,32,0);
-            STATUS_LEFT = new SpriteSheet("./assets/stopLeft.png",32,32,0);        
+            SPRITESHEET = new SpriteSheet("./assets/right2.png", 32, 32,0);
+            RETURNO = new SpriteSheet("./assets/left2.png", 32, 32,0);
+            STATUS_RIGHT = new SpriteSheet("./assets/stopRight2.png",32,32,0);
+            STATUS_LEFT = new SpriteSheet("./assets/stopLeft2.png",32,32,0);        
         } catch (Exception ignore) { }
     }
     
     public void draw(GameContainer container, Graphics g){
         super.draw(container, g);
-        sprite.draw(x-half_width, y-half_height, width, height, new Color(0, 0, 255, 0.8f));
     }
     
 }
