@@ -78,7 +78,7 @@ public class Thwomp extends Ennemy {
                     } else { state = 2 ; }
                 } else { 
                     this.sprite = this.sleeping;
-                    
+                    if (Map.CURRENT == null) { return this ; }
                     if (!((Math.abs(p.getY()-getY()) < 400)&&(Math.abs(p.getX()-getX()) < 120))) {
                         state = 3;
                     }

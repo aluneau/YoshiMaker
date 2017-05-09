@@ -29,6 +29,12 @@ import yoshimaker.global.cases.Empty;
 import yoshimaker.global.cases.Ice;
 import yoshimaker.global.cases.Spring;
 import yoshimaker.global.cases.Type;
+import yoshimaker.global.characters.ennemies.Boo;
+import yoshimaker.global.characters.ennemies.Goomba;
+import yoshimaker.global.characters.ennemies.Koopa;
+import yoshimaker.global.characters.ennemies.ParaGoomba;
+import yoshimaker.global.characters.ennemies.Thwomp;
+import yoshimaker.global.items.Star;
 
 /**
  *
@@ -239,7 +245,6 @@ public class Map extends Observable {
                     if( map[j][i] == null){
                         output.write("_ ");
                     }else{
-                        System.out.println( map[j][i].type.toString() + " youuuuuuuuuuuuuuuuu");
                         String titre = inversValue(map[j][i].type.toString());
                         output.write(titre);
                         output.flush();                        
@@ -268,13 +273,33 @@ public class Map extends Observable {
         return count;
     }
     
-    private void ligneMap(String[] saveBlock, int hauteur ){
+    private void ligneMap(String[] saveBlock, int hauteur ) throws SlickException{
         for(int i = 0 ; i < saveBlock.length ; i++){
-            setCase(i,hauteur,valueBlock(saveBlock[i]));
-            //System.out.println(whatIs(0, 0));
-            //System.out.println( saveBlock[i]);
+            switch( saveBlock[i] ){
+                case "b":
+                    Boo boo = new Boo(64*i, 64*hauteur);
+                    break;
+                case "p":
+                    ParaGoomba pg = new ParaGoomba(64*i,64* hauteur);
+                    break;
+                case "k":
+                    Koopa k = new Koopa(64*i, 64*hauteur);
+                    break;
+                case "t":
+                    Thwomp t = new Thwomp(64*i, 64*hauteur);
+                    break;
+                case "g":
+                    Goomba g = new Goomba(64*i,64*hauteur);
+                    break;
+                case "s":
+                    new Star(64*i,64*hauteur);
+                    break;
+                default:    
+                    setCase(i,hauteur,valueBlock(saveBlock[i]));        
+            }
         }
     }
+   
     
     private Type valueBlock(String donne){
         switch (donne) {
