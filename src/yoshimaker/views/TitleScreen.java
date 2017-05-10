@@ -19,6 +19,9 @@ import yoshimaker.WindowGame;
 import yoshimaker.global.Entity;
 import yoshimaker.global.cases.Type;
 import yoshimaker.global.characters.ennemies.Boo;
+import yoshimaker.global.characters.ennemies.Goomba;
+import yoshimaker.global.characters.ennemies.ParaGoomba;
+import yoshimaker.global.characters.ennemies.Thwomp;
 import yoshimaker.global.characters.players.Player;
 import yoshimaker.global.characters.players.Yoshi;
 import yoshimaker.global.items.Box;
@@ -56,31 +59,17 @@ public class TitleScreen extends View {
     public void init(GameContainer container) throws SlickException {
         background = new Image("./resources/background_yoshi.png");
         Physics.world(0, 100f);
-        testEntity = new Yoshi(64,0);
-        //testEntity2 = new Yoshi2(90, 9*64);
-        testEntity = new Yoshi(64, 9*64);
-        //testEntity2 = new Yoshi2(90, 9*64);
+        testEntity = new Yoshi(128, 12*64);
+        testEntity2 = new Yoshi2(128+64, 12*64);
         //Box b = new Box(3*64, 4*64);
         //testEntity2 = new Yoshi2(90, 9*64);
         //new Yoshi(70, 9*64);
-        //Box b = new Box(3*64, 4*64);
+        Box b = new Box(3*64, 4*64);
         Player.countStar = 3;
 
-       // Goomba g = new Goomba(7*64, 7*64);
-       // ParaGoomba pg = new ParaGoomba(8*64, 10*64);
-       // Boo boo = new Boo(4*64, 10*64);
-       // Thwomp t = new Thwomp(16*64, 8*64);
-       // ParaGoomba pg = new ParaGoomba(8*64, 10*64);
-        new Star(75,50);
-        new Star(150,50);
-        new Star(20,50);
-        //Thwomp t = new Thwomp(16*64, 8*64);
-
-        //Koopa k = new Koopa(10*64, 8*64);
+      
 
         //Item testItem = new Item("./resources/cloud_yoshi.png");
-        map = new Map("level2");
-        map.y1 = testEntity;
         //map = new Map("presentation"); 
         //map.setCase(1, 1, Type.ICE);       
         //map.check();
@@ -88,14 +77,12 @@ public class TitleScreen extends View {
             
            // map = new Map(30,14);            
             /* map.setCase(0, 0, Type.BRICK);
-            map.setCase(2, 8, Type.ICE);
+            
         Koopa k = new Koopa(10*64, 8*64);
         Shell s = new Shell(9*64, 8*64);
         
         //FireBall f = new FireBall(4*64, 12*64);
-
         //Item testItem = new Item("./resources/cloud_yoshi.png");
-
         //Physics test2 = new Physics();
         //test2.define(BodyType.STATIC).at(0f, 300f).hitbox(500f, 10f).fixtures(0.5f, 0.9f, 0f).create();
             //map.check();
@@ -106,19 +93,53 @@ public class TitleScreen extends View {
             map.y2 = testEntity2;
 //System.out.println(Entity.ENTITIES.size());
             
-            map.setCase(0, 0, Type.BRICK);
-            map.setCase(3, 8, Type.ICE);
-            map.setCase(11, 8, Type.SPRING);
-            map.setCase(8, 4, Type.BRICK);
-            map.setCase(8, 5, Type.BRICK);
-            map.setCase(8, 6, Type.BRICK);
-            map.setCase(8, 10, Type.DOORBRICK);
-            map.setCase(8, 11, Type.DOORBRICK);
-            map.setCase(8, 12, Type.DOORBRICK);
+            //map.setCase(0, 0, Type.BRICK);
+            //map.setCase(3, 8, Type.ICE);
             
-            map.setCase(7, 12, Type.LAVA);
+            map.setCase(1, 9, Type.BRICK);
+            map.setCase(2, 9, Type.BRICK);
+            map.setCase(3, 9, Type.BRICK);
+            map.setCase(4, 9, Type.BRICK);
+            new Switch(1*64, 8*64);
             
-            new Switch(6*64, 12*64);
+            
+            map.setCase(7, 6, Type.ICE);
+            map.setCase(8, 7, Type.ICE);
+            map.setCase(9, 7, Type.ICE);
+            map.setCase(10, 7, Type.ICE);
+            
+            map.setCase(11, 7, Type.BRICK);
+            map.setCase(11, 8, Type.BRICK);
+            map.setCase(11, 9, Type.BRICK);
+            map.setCase(11, 10, Type.DOORBRICK);
+            map.setCase(11, 11, Type.DOORBRICK);
+            map.setCase(11, 12, Type.DOORBRICK);
+            
+            
+            map.setCase(12, 12, Type.BRICK);
+            
+            
+            map.setCase(14, 9, Type.SPRING);
+            map.setCase(15, 10, Type.BRICK);
+            map.setCase(16, 10, Type.BRICK);
+            map.setCase(17, 10, Type.BRICK);
+            map.setCase(18, 9, Type.LAVA);
+            
+            Goomba g = new Goomba(17*64, 8*64);
+            ParaGoomba pg = new ParaGoomba(10*64, 10*64);
+            Boo boo = new Boo(20*64, 10*64);
+            Thwomp t = new Thwomp(20*64, 8*64);
+            // ParaGoomba pg = new ParaGoomba(8*64, 10*64);
+             new Star(8*64, 6*64);
+             new Star(700,50);
+             new Star(1000,50);
+             //Thwomp t = new Thwomp(16*64, 8*64);
+
+            Koopa k = new Koopa(16*64, 11*64);
+            
+            
+            
+            
             //map.setCase(9, 8, Type.EMPTY);
             //map.move(100, 100);
 
