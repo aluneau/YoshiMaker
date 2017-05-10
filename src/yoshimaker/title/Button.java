@@ -100,7 +100,9 @@ public class Button extends Entity implements MouseListener {
                     
                 case 100:
                     try {
+
                         MenuView.music.stop();
+                        LevelView.music.stop();
                         LevelLoadedView v = new LevelLoadedView();
                         v.level = "level1";
                         WindowGame.getInstance().view = v;
@@ -112,6 +114,7 @@ public class Button extends Entity implements MouseListener {
                 case 101:
                     try {
                         MenuView.music.stop();
+                        LevelView.music.stop();
                         LevelLoadedView v = new LevelLoadedView();
                         v.level = "level2";
                         WindowGame.getInstance().view = v;
@@ -123,6 +126,7 @@ public class Button extends Entity implements MouseListener {
                 case 102:
                     try {
                         MenuView.music.stop();
+                        LevelView.music.stop();
                         LevelLoadedView v = new LevelLoadedView();
                         v.level = "level3";
                         WindowGame.getInstance().view = v;
@@ -134,6 +138,7 @@ public class Button extends Entity implements MouseListener {
                 case 103:
                     try {
                         MenuView.music.stop();
+                        LevelView.music.stop();
                         LevelLoadedView v = new LevelLoadedView();
                         v.level = "level4   ";
                         WindowGame.getInstance().view = v;

@@ -3,6 +3,7 @@ package yoshimaker.physics;
 import org.jbox2d.callbacks.ContactImpulse;
 import org.jbox2d.callbacks.ContactListener;
 import org.jbox2d.collision.Manifold;
+import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.dynamics.contacts.Contact;
 import org.newdawn.slick.SlickException;
@@ -46,6 +47,19 @@ public class Collisions  implements ContactListener  {
         Entity b = (Entity) contact.getFixtureB().getBody().getUserData();
         //System.out.println(a);
         //System.out.println(b);
+        
+        if ((a instanceof Player)||(b instanceof Player)) {
+            Vec2 p1 = contact.getFixtureA().getBody().getPosition();
+            Vec2 p2 = contact.getFixtureB().getBody().getPosition();
+                
+            if (a instanceof Player) {
+                if (p2.y > p1.y) { ((Player) a).jumped = false; }
+            } else {
+                if (p1.y > p2.y) { ((Player) b).jumped = false; }
+            }
+            
+        }
+        
         if ((a == null)||(b == null)) { return ; }
         
         if (((a instanceof Thwomp)&&(b instanceof yoshimaker.global.characters.Character))||((b instanceof Thwomp)&&(a instanceof yoshimaker.global.characters.Character))) {

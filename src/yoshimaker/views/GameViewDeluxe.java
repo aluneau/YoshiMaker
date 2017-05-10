@@ -63,6 +63,7 @@ public final class GameViewDeluxe extends View {
         map = new Map(25,13);
         map.setLevel1();
         Entity.setCamera(camera().focus(testEntity).on(map));
+        //Door d = new Door(5*64,6*64);
 
         System.out.println(container.getScreenWidth());
         MenuButtonMaker menuMaker = new MenuButtonMaker(container, container.getWidth()-100);
@@ -71,11 +72,6 @@ public final class GameViewDeluxe extends View {
     @Override
     public void render(GameContainer container, Graphics g) {
         background.draw(0, 00, 4f);  
-        try {
-            Door d = new Door(5*64,6*64);
-        } catch (SlickException ex) {
-            Logger.getLogger(GameViewDeluxe.class.getName()).log(Level.SEVERE, null, ex);
-        }
 
         //imageTest.draw(200, 00, 0.4f);        
         Entity.drawAll(container, g);
