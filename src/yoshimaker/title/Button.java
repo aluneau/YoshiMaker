@@ -140,7 +140,7 @@ public class Button extends Entity implements MouseListener {
                         MenuView.music.stop();
                         LevelView.music.stop();
                         LevelLoadedView v = new LevelLoadedView();
-                        v.level = "level4";
+                        v.level = "level5";
                         WindowGame.getInstance().view = v;
                         WindowGame.getInstance().view.init(WindowGame.getInstance().container);
                     } catch (SlickException ex) {

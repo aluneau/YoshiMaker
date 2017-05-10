@@ -39,7 +39,9 @@ import yoshimaker.global.characters.ennemies.ParaGoomba;
 import yoshimaker.global.characters.ennemies.Thwomp;
 import yoshimaker.global.characters.players.Yoshi;
 import yoshimaker.global.characters.players.Yoshi2;
+import yoshimaker.global.items.Box;
 import yoshimaker.global.items.Star;
+import yoshimaker.global.items.Switch;
 
 /**
  *
@@ -278,11 +280,13 @@ public class Map extends Observable {
         for(int i = 0 ; i < saveBlock.length ; i++){
             switch( saveBlock[i] ){
                 case "y2":
-                    y2 = new Yoshi2(90, 9*64);
+                    y2 = new Yoshi2(i*64, hauteur*64);
                     break;
                 case "b":
                     Boo boo = new Boo(64*i, 64*hauteur);
                     break;
+                case "z":
+                    Box b = new Box(64*i,64*hauteur);
                 case "p":
                     ParaGoomba pg = new ParaGoomba(64*i,64* hauteur);
                     break;
@@ -294,6 +298,9 @@ public class Map extends Observable {
                     break;                    
                 case "g":
                     Goomba g = new Goomba(64*i,64*hauteur);
+                    break;
+                case "d":
+                    Switch sw = new Switch(64*i,64*hauteur);
                     break;
                 case "s":
                     new Star(64*i,64*hauteur);
