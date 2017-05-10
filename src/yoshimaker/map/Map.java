@@ -278,7 +278,7 @@ public class Map extends Observable {
         for(int i = 0 ; i < saveBlock.length ; i++){
             switch( saveBlock[i] ){
                 case "y2":
-                    Yoshi2 y2 = new Yoshi2(90, 9*64);
+                    y2 = new Yoshi2(90, 9*64);
                     break;
                 case "b":
                     Boo boo = new Boo(64*i, 64*hauteur);

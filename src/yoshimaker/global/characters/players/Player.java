@@ -192,7 +192,7 @@ public abstract class Player extends yoshimaker.global.characters.Character {
             jumped = true ;  
             physics.moveY(-30);
             if (forced) { physics.moveY(-20); }
-            
+            if (saut != null)
             saut.play(1.1f,0.4f);
         }
     }
