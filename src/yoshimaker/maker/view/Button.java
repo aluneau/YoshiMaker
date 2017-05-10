@@ -167,7 +167,7 @@ public class Button extends Entity implements  MouseListener{
     }
     
     public static void saveMap(){
-        Map.CURRENT.saveText("test");
+        Map.CURRENT.saveText("level12");
         System.out.println("save");
         try {
             Entity.DESTROY();
