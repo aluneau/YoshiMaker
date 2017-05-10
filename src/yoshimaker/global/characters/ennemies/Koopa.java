@@ -95,13 +95,13 @@ public class Koopa extends Ennemy {
         
         if (Map.CURRENT == null) { return this ; }
             if (Map.CURRENT.whatIs(getX()+getWidth()+100, getY()) != Type.EMPTY  ){  
-                System.out.println(" left ");
+                //System.out.println(" left ");
                 sens = walkingL;
                 sprite.setSpeed(0.01f);   
                 mouvement = -3;            
             }      
             if(Map.CURRENT.whatIs(getX()+getWidth()-100, getY()) != Type.EMPTY ) { 
-                System.out.println(" right ");
+                //System.out.println(" right ");
                 sens = walkingR;
                 sprite.setSpeed(0.01f);   
                 mouvement = 3;
