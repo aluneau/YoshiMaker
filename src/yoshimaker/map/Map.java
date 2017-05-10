@@ -263,10 +263,8 @@ public class Map extends Observable {
             output.close();
         } catch (IOException ex) {
             System.out.println("oups");        
-        }
-        
+        }       
     }
-    
     
     private int knowSize(String nameFile) throws IOException{
         FileInputStream flux = new FileInputStream(nameFile);
@@ -296,7 +294,7 @@ public class Map extends Observable {
                     break;
                 case "t":
                     Thwomp t = new Thwomp(64*i, 64*hauteur);
-                    break;
+                    break;                    
                 case "g":
                     Goomba g = new Goomba(64*i,64*hauteur);
                     break;
@@ -315,6 +313,8 @@ public class Map extends Observable {
                 return Type.BRICK;
             case "_": // vide
                 return null;
+            case "D":
+                return Type.DOORBRICK;
             case "I":// glace
                 return Type.ICE;
             case "P": // pic
@@ -334,6 +334,8 @@ public class Map extends Observable {
                 return "B ";
             case "EMPTY": // vide
                 return "_ ";
+            case "DOORBRICK":
+                return "D";
             case "ICE" :// glace
                 return "I ";
             case "PICK": // pic
@@ -342,7 +344,6 @@ public class Map extends Observable {
                 return "L ";
             case "SPRING":// ressort
                 return "S ";
-
             default:
                 return "_ ";
         }          
